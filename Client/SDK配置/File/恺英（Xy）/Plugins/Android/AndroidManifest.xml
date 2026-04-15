@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.unity3d.player" xmlns:tools="http://schemas.android.com/tools" android:installLocation="preferExternal" android:versionCode="1" android:versionName="1.0">
+	<supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="true" />
+	<application android:name="com.datianshi.xysdk.InitSdk" 
+				 android:allowBackup="false" 
+				 android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" 
+				 android:label="@string/app_name" 
+				 android:debuggable="false" 
+				 android:hardwareAccelerated="true" 
+				 android:usesCleartextTraffic="true" 
+				 android:requestLegacyExternalStorage="true" 
+				 tools:replace="android:label,android:theme,android:allowBackup">
+
+		<activity android:name="com.datianshi.xysdk.Splash" 
+				  android:screenOrientation="landscape" 
+				  android:launchMode="singleTop" 
+				  android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density" android:hardwareAccelerated="false">
+			<!-- <activity android:name="com.unity3d.player.UnityPlayerActivity" android:screenOrientation="landscape" android:launchMode="singleTop" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density" android:hardwareAccelerated="false"> -->
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+				<category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+			</intent-filter>
+			<meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+			<meta-data android:name="android.notch_support" android:value="true" />
+		</activity>
+		
+		<activity
+		   android:name="com.datianshi.xysdk.MainActivity"
+		   android:configChanges="keyboardHidden|orientation|screenSize"
+		   android:screenOrientation="sensorLandscape"></activity>
+		
+		<!--===================================- firebase推送服务 start===================================-->
+		<meta-data android:name="XOPENSDK_APPKEY" android:value="10000" />
+		<meta-data android:name="AID" android:value="1" />
+		<meta-data android:name="XY_LOCK" android:value="xylock" />
+		<!--文件权限问题-->
+		<!--TODO authorities ${applicationId}应该使用App自身包名-->
+		<provider android:name="android.support.v4.content.FileProvider" android:authorities="com.datianshi.xysdk.fileprovider" android:exported="false" android:grantUriPermissions="true">
+			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/xyyou_file_paths" />
+		</provider>
+	</application>
+	<!--===================================- 权限 ===================================-->
+	<!-- 手机震动 -->
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<!-- 网络通信-->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<!-- 获取网络状态 -->
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<!-- 以下为BuglySDK需要添加 -->
+	<!-- 获取设备信息 -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<!-- 获取MAC地址-->
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<!-- 获取logcat日志 -->
+	<uses-permission android:name="android.permission.READ_LOGS" />
+	<!--Android 8.0 -->
+	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+	<!--===================================- MZYW权限 ===================================-->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+</manifest>
