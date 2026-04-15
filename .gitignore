@@ -224,6 +224,13 @@
 # Office and ad hoc local references
 *.docx
 /*.log
+desktop.ini
+*.psd
+*.unitypackage
+*.renderTexture
+
+# Raw design/source files and local import packages that should not bloat Git
+/Client/Unity/Assets/Res/SceneGround/_newscene/
 
 # Proto compiler binaries and local codegen helpers
 /Client/Proto/protoc
