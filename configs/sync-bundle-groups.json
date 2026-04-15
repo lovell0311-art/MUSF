@@ -1,0 +1,55 @@
+{
+  "SchemaVersion": 1,
+  "Description": "Seed bundle groups for sync-hotfix-to-devices when runtime bundle chains are broader than manifest-only dependency closure.",
+  "BundleGroups": {
+    "chooserole.unity3d": {
+      "Owner": "choose-role",
+      "WhyNeeded": "Keep choose-role scene, choose-role UI, and runtime-shared material/shader bundles in one sync family because manifest-only closure does not fully capture the runtime lazy-load chain for choose-role visuals.",
+      "FailureIfMissing": "Device hotfix rollout can load chooserole from the stable hotfix directory while shared material or shader bundles still fall back to base.apk, leaving choose-role background or foot-ground visuals inconsistent.",
+      "Members": [
+        "chooserole.unity3d",
+        "uichooserole.unity3d",
+        "ui_common_btnss.unity3d",
+        "ui_common_textss.unity3d",
+        "common_matss.unity3d",
+        "suit_shaderss.unity3d"
+      ],
+      "Evidence": [
+        {
+          "Type": "runtime-log",
+          "Path": "F:\\MUSF\\reports\\releases\\chooserole-runtime-logcat-20260415-1221.txt",
+          "Note": "Shows chooserole, common_matss, and suit_shaderss loading from the stable 星辰战纪 hotfix directory."
+        },
+        {
+          "Type": "sync-report",
+          "Path": "F:\\MUSF\\reports\\releases\\sync-hotfix-to-devices-20260415-150851.json",
+          "Note": "Shows chooserole single-file sync expanding through bundle-group and manifest closure."
+        }
+      ]
+    },
+    "uichooserole.unity3d": {
+      "Owner": "choose-role",
+      "WhyNeeded": "Ensure choose-role UI sync also carries shared UI text/button bundles and the runtime-shared material/shader chain that becomes active after choose-role scene entry.",
+      "FailureIfMissing": "Choose-role UI can load from hotfix while downstream shared UI or visual dependency bundles still come from base.apk, making the scene and UI stack diverge during the same flow.",
+      "Members": [
+        "uichooserole.unity3d",
+        "ui_common_btnss.unity3d",
+        "ui_common_textss.unity3d",
+        "common_matss.unity3d",
+        "suit_shaderss.unity3d"
+      ],
+      "Evidence": [
+        {
+          "Type": "runtime-log",
+          "Path": "F:\\MUSF\\reports\\releases\\chooserole-runtime-logcat-20260415-1221.txt",
+          "Note": "Shows uichooserole loading from the stable 星辰战纪 hotfix directory during choose-role entry."
+        },
+        {
+          "Type": "sync-report",
+          "Path": "F:\\MUSF\\reports\\releases\\sync-hotfix-to-devices-20260415-150851.json",
+          "Note": "Shows uichooserole being expanded by bundle-group and manifest closure from a chooserole sync request."
+        }
+      ]
+    }
+  }
+}
