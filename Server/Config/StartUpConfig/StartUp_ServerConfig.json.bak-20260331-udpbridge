@@ -1,0 +1,992 @@
+[
+  {
+    "AppId": 1,
+    "ZoneId": 0,
+    "AppType": "Manager",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20001"
+    },
+    "OuterConfig": {
+      "Address": "10.10.10.192:10001",
+      "Address2": "10.10.10.192:10002"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 2,
+    "ZoneId": 0,
+    "AppType": "Realm",
+    "InnerConfig": {
+      "Address": "127.0.0.1:10005"
+    },
+    "OuterConfig": {
+      "Address": "0.0.0.0:10002",
+      "Address2": "10.10.10.192:10002"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Gate3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 3,
+    "ZoneId": 0,
+    "AppType": "Location",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20003"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "[1,2]",
+    "Remark": "",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 8,
+    "ZoneId": 0,
+    "AppType": "Map",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20008"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 9,
+    "ZoneId": 0,
+    "AppType": "Map",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20009"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 10,
+    "ZoneId": 0,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20010"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game1",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 11,
+    "ZoneId": 0,
+    "AppType": "Match",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20011"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game1",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 21,
+    "ZoneId": 0,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20021"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game1",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 25,
+    "ZoneId": 0,
+    "AppType": "LoginCenter",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20026"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game1",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 98,
+    "ZoneId": 0,
+    "AppType": "Robot",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20027"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 99,
+    "ZoneId": 0,
+    "AppType": "GM",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20028"
+    },
+    "OuterConfig": {
+      "HttpConfig": "{\"Url\":\"http://127.0.0.1:65001/\"}"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Gate3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 100,
+    "ZoneId": 0,
+    "AppType": "UpdateDB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:65000"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 101,
+    "ZoneId": 0,
+    "AppType": "UpdateDB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:65001"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 20004,
+    "ZoneId": 0,
+    "AppType": "Gate",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20004"
+    },
+    "OuterConfig": {
+      "Address": "0.0.0.0:10004",
+      "Address2": "10.10.10.192:10004"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Gate3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 20005,
+    "ZoneId": 0,
+    "AppType": "Gate",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20005"
+    },
+    "OuterConfig": {
+      "Address": "0.0.0.0:10005",
+      "Address2": "10.10.10.192:10005"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Gate3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 20006,
+    "ZoneId": 0,
+    "AppType": "Gate",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20006"
+    },
+    "OuterConfig": {
+      "Address": "0.0.0.0:10006",
+      "Address2": "10.10.10.192:10006"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Gate3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 20007,
+    "ZoneId": 0,
+    "AppType": "Gate",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20007"
+    },
+    "OuterConfig": {
+      "Address": "0.0.0.0:10007",
+      "Address2": "10.10.10.192:10007"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Gate3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 20008,
+    "ZoneId": 0,
+    "AppType": "Gate",
+    "InnerConfig": {
+      "Address": "127.0.0.1:20008"
+    },
+    "OuterConfig": {
+      "Address": "0.0.0.0:10008",
+      "Address2": "10.10.10.192:10008"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Gate3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 20009,
+    "ZoneId": 0,
+    "AppType": "Gate",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30004"
+    },
+    "OuterConfig": {
+      "Address": "127.0.0.1:10009",
+      "Address2": "127.0.0.1:10009"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Gate3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 20010,
+    "ZoneId": 0,
+    "AppType": "Gate",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30005"
+    },
+    "OuterConfig": {
+      "Address": "127.0.0.1:10010",
+      "Address2": "127.0.0.1:10010"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Gate3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 20011,
+    "ZoneId": 0,
+    "AppType": "Gate",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30006"
+    },
+    "OuterConfig": {
+      "Address": "127.0.0.1:10011",
+      "Address2": "127.0.0.1:10011"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Gate3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 20012,
+    "ZoneId": 0,
+    "AppType": "Gate",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30007"
+    },
+    "OuterConfig": {
+      "Address": "127.0.0.1:10012",
+      "Address2": "127.0.0.1:10012"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Gate3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 20013,
+    "ZoneId": 0,
+    "AppType": "Gate",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30008"
+    },
+    "OuterConfig": {
+      "Address": "127.0.0.1:10013",
+      "Address2": "127.0.0.1:10013"
+    },
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Gate3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 278,
+    "ZoneId": 1,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30278"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game1",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 279,
+    "ZoneId": 1,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30279"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game1",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 280,
+    "ZoneId": 1,
+    "AppType": "MGMT",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30280"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "[65537]",
+    "Remark": "Game1",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 257,
+    "ZoneId": 1,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30257"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"65537\":[65537]}",
+    "Remark": "Game1",
+    "IsPVP": 0,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 258,
+    "ZoneId": 1,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30258"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"65538\":[65538]}",
+    "Remark": "Game1",
+    "IsPVP": 0,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 259,
+    "ZoneId": 1,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30259"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"65539\":[65539]}",
+    "Remark": "Game1",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 260,
+    "ZoneId": 1,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30260"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"65540\":[65540]}",
+    "Remark": "Game1",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 261,
+    "ZoneId": 1,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30261"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"65541\":[65541]}",
+    "Remark": "Game1",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 262,
+    "ZoneId": 1,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30262"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"65542\":[65542]}",
+    "Remark": "Game1",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 534,
+    "ZoneId": 2,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30534"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game2",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 535,
+    "ZoneId": 2,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30535"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game2",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 536,
+    "ZoneId": 2,
+    "AppType": "MGMT",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30536"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "[131073]",
+    "Remark": "Game2",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 513,
+    "ZoneId": 2,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30513"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"131073\":[131073]}",
+    "Remark": "Game2",
+    "IsPVP": 0,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 514,
+    "ZoneId": 2,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30514"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"131074\":[131074]}",
+    "Remark": "Game2",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 515,
+    "ZoneId": 2,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30515"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"131075\":[131075]}",
+    "Remark": "Game2",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 550,
+    "ZoneId": 3,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30634"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 551,
+    "ZoneId": 3,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30635"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 552,
+    "ZoneId": 3,
+    "AppType": "MGMT",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30636"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "[196609]",
+    "Remark": "Game3",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 553,
+    "ZoneId": 3,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30613"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"196609\":[196609]}",
+    "Remark": "Game3",
+    "IsPVP": 0,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 554,
+    "ZoneId": 3,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30614"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"196610\":[196610]}",
+    "Remark": "Game3",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 555,
+    "ZoneId": 3,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30615"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"196611\":[196611]}",
+    "Remark": "Game3",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 556,
+    "ZoneId": 4,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30734"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game4",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 557,
+    "ZoneId": 4,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30735"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game4",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 558,
+    "ZoneId": 4,
+    "AppType": "MGMT",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30736"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "[262145]",
+    "Remark": "Game4",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 559,
+    "ZoneId": 4,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30713"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"262145\":[262145]}",
+    "Remark": "Game4",
+    "IsPVP": 0,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 560,
+    "ZoneId": 4,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30714"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"262146\":[262146]}",
+    "Remark": "Game4",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 561,
+    "ZoneId": 4,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30715"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"262147\":[262147]}",
+    "Remark": "Game4",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 565,
+    "ZoneId": 5,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30834"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game5",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 566,
+    "ZoneId": 5,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30835"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game5",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 567,
+    "ZoneId": 5,
+    "AppType": "MGMT",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30836"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "[327681]",
+    "Remark": "Game5",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 568,
+    "ZoneId": 5,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30813"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"327681\":[327681]}",
+    "Remark": "Game5",
+    "IsPVP": 0,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 569,
+    "ZoneId": 5,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30814"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"327682\":[327682]}",
+    "Remark": "Game5",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 570,
+    "ZoneId": 5,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30815"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"327683\":[327683]}",
+    "Remark": "Game5",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 575,
+    "ZoneId": 6,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30934"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game6",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 576,
+    "ZoneId": 6,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30935"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game6",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 577,
+    "ZoneId": 6,
+    "AppType": "MGMT",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30936"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "[393217]",
+    "Remark": "Game6",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 578,
+    "ZoneId": 6,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30913"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"393217\":[393217]}",
+    "Remark": "Game6",
+    "IsPVP": 0,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 579,
+    "ZoneId": 6,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30914"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"393218\":[393218]}",
+    "Remark": "Game6",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 580,
+    "ZoneId": 6,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:30915"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"393219\":[393219]}",
+    "Remark": "Game6",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 585,
+    "ZoneId": 7,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:34034"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game6",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 586,
+    "ZoneId": 7,
+    "AppType": "DB",
+    "InnerConfig": {
+      "Address": "127.0.0.1:34035"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "",
+    "Remark": "Game6",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 587,
+    "ZoneId": 7,
+    "AppType": "MGMT",
+    "InnerConfig": {
+      "Address": "127.0.0.1:34036"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "[458753]",
+    "Remark": "Game6",
+    "IsPVP": 0,
+    "IsVIP": 0
+  },
+  {
+    "AppId": 588,
+    "ZoneId": 7,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:34013"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"458753\":[458753]}",
+    "Remark": "Game6",
+    "IsPVP": 0,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 589,
+    "ZoneId": 7,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:34014"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"458754\":[458754]}",
+    "Remark": "Game6",
+    "IsPVP": 1,
+    "IsVIP": 1
+  },
+  {
+    "AppId": 590,
+    "ZoneId": 7,
+    "AppType": "Game",
+    "InnerConfig": {
+      "Address": "127.0.0.1:34015"
+    },
+    "OuterConfig": {},
+    "PointLog": 1,
+    "RunParameter": "{\"458755\":[458755]}",
+    "Remark": "Game6",
+    "IsPVP": 1,
+    "IsVIP": 1
+  }
+]

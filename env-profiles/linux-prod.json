@@ -1,0 +1,39 @@
+{
+  "profileName": "linux-prod",
+  "description": "Linux candidate profile used by the modernization branch only. Do not switch production scripts to this profile until Linux validation is complete.",
+  "serverIp": "__SET_ME__",
+  "externalUrl": "http://__SET_ME__",
+  "mongo": {
+    "host": "127.0.0.1",
+    "port": 58030,
+    "url": "mongodb://127.0.0.1:58030"
+  },
+  "ports": {
+    "realm": 10002,
+    "gateBase": 10004,
+    "gates": [
+      10004,
+      10005,
+      10006,
+      10007,
+      10008
+    ],
+    "fileserver": 8080,
+    "gmNode": 5000,
+    "gmApi": 65001,
+    "nginx": 6013
+  },
+  "client": {
+    "defaultAccount": "blaike",
+    "defaultPassword": "123456",
+    "loginAddress": "__SET_ME__:10002",
+    "assetBundleBaseUrl": "http://__SET_ME__:8080/update/2.0TestGame/",
+    "streamingAssetsVersionUrl": "http://__SET_ME__:8080/Android/StreamingAssets/Version.txt",
+    "packageName": "com.quanzhilieshou.bytedance.gamecenter"
+  },
+  "gm": {
+    "webUrl": "http://127.0.0.1:6013",
+    "nodeUrl": "http://127.0.0.1:5000",
+    "apiUrl": "http://127.0.0.1:65001"
+  }
+}

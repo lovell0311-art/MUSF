@@ -1,0 +1,122 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using CustomFrameWork;
+using CustomFrameWork.Component;
+using ETModel;
+using UnityEngine;
+
+namespace ETHotfix
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    [PropertyNumerialAttribute(BindId = (int)E_GameProperty.LucklyAttackRate)]
+    public partial class C_PropertyNumerial_LucklyAttackRate : C_PropertyNumerial
+    {
+        public override int Run(GamePlayer b_Component, bool b_HasTemporary = true)
+        {
+            int mResult = 0;
+
+            if (b_HasTemporary)
+            {
+                if (b_Component.HealthStatsDic.TryGetValue(E_BattleSkillStats.FaShenFuTi23, out var mTempBuffer))
+                {
+                    if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.Skill_FaShenFuTiMaster30, out var mMasteryValue))
+                    {
+                        mResult += mMasteryValue;
+                    }
+                }
+                if (b_Component.HealthStatsDic.TryGetValue(E_BattleSkillStats.ZhiMingShengYin410, out mTempBuffer))
+                {
+                    if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.Skill_ZhiMingShengYinStrengthen3_434, out var mMasteryValue))
+                    {
+                        mResult += mMasteryValue;
+                    }
+                }
+            }
+            if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.BeCommon3031, out var mMasteryValue1))
+            {
+                mResult += mMasteryValue1 * 100;
+            }
+            if (ConstServer.PlayerMaster || (b_Component.Data.Level >= 400 && b_Component.Data.OccupationLevel >= 3))
+            {
+                switch ((E_GameOccupation)b_Component.Data.PlayerTypeId)
+                {
+                    case E_GameOccupation.None:
+                        break;
+                    case E_GameOccupation.Spell:
+                        {
+                            if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.IncreaseXingYunYiJiRate62, out var mMasteryValue))
+                            {
+                                mResult += mMasteryValue;
+                            }
+                        }
+                        break;
+                    case E_GameOccupation.Swordsman:
+                        {
+                            if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.IncreaseXingYunYiJiRate161, out var mMasteryValue))
+                            {
+                                mResult += mMasteryValue;
+                            }
+                        }
+                        break;
+                    case E_GameOccupation.Archer:
+                        {
+                            if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.IncreaseXingYunYiJiRate267, out var mMasteryValue))
+                            {
+                                mResult += mMasteryValue;
+                            }
+                        }
+                        break;
+                    case E_GameOccupation.Spellsword:
+                        {
+                            if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.IncreaseXingYunYiJiRate369, out var mMasteryValue))
+                            {
+                                mResult += mMasteryValue;
+                            }
+                        }
+                        break;
+                    case E_GameOccupation.Holyteacher:
+                        {
+                            if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.IncreaseXingYunYiJiRate463, out var mMasteryValue))
+                            {
+                                mResult += mMasteryValue;
+                            }
+                        }
+                        break;
+                    case E_GameOccupation.SummonWarlock:
+                        {
+                            if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.IncreaseXingYunYiJiRate557, out var mMasteryValue))
+                            {
+                                mResult += mMasteryValue;
+                            }
+                        }
+                        break;
+                    case E_GameOccupation.Combat:
+                        {
+                            if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.MasterAttribute653, out var mMasteryValue))
+                            {
+                                mResult += mMasteryValue;
+                            }
+                        }
+                        break;
+                    case E_GameOccupation.GrowLancer:
+                        {
+                            if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.MasterAttribute959, out var mMasteryValue))
+                            {
+                                mResult += mMasteryValue;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return mResult;
+        }
+    }
+}

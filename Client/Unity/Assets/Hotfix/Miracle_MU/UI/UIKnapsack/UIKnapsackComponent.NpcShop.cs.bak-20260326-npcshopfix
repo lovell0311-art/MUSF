@@ -1,0 +1,99 @@
+using System.Collections.Generic;
+using UnityEngine;
+using ETModel;
+using UnityEngine.UI;
+
+namespace ETHotfix
+{
+    public enum E_BuyType 
+    {
+        Remote = 0,//远程购买
+        Normal = 1,//默认购买
+    }
+
+    /// <summary>
+    /// NPC 商城
+    /// </summary>
+    public partial class UIKnapsackComponent
+    {
+        private GameObject NpcShopContent;
+
+        private KnapsackGrid[][] NpcShopGrids;
+        public const int LENGTH_NpcShop_X = 8;
+        public const int LENGTH_NpcShop_Y = 12;
+
+        public long CurNpcUUid;
+        public E_BuyType buyType=E_BuyType.Normal;
+
+        public Button RepairBtn;//维修按钮
+        public Text icontxt;//金币
+        private void Init_Shop()
+        {
+            NpcShopContent = NpcShop.GetReferenceCollector().GetGameObject("Grids");
+
+            NpcShopGrids = new KnapsackGrid[LENGTH_NpcShop_X][];
+            for (int i = 0; i < NpcShopGrids.Length; i++)
+            {
+                NpcShopGrids[i] = new KnapsackGrid[LENGTH_NpcShop_Y];
+            }
+            //初始化格子
+            CreatGrid(LENGTH_NpcShop_X, LENGTH_NpcShop_Y, NpcShopContent.transform, E_Grid_Type.Shop, ref NpcShopGrids);
+            RepairBtn = NpcShop.GetReferenceCollector().GetButton("RepairBtn");//维修按钮
+            RepairBtn.gameObject.SetActive(false);
+            RepairBtn.onClick.AddSingleListener(() => 
+            {
+            var npc = UnitEntityComponent.Instance.Get<NPCEntity>(CurNpcUUid);
+             RepairEquips(CurNpcUUid, npc.CurrentNodePos.x,npc.CurrentNodePos.z);
+            });
+            //金币
+            icontxt = NpcShop.GetReferenceCollector().GetText("icon");
+            icontxt.text = roleEntity.Property.GetProperValue(E_GameProperty.GoldCoin).ToString();
+            Game.EventCenter.EventListenner<long>(EventTypeId.GLOD_CHANGE, ChangeGlogIcon);
+        }
+
+        public void ChangeGlogIcon(long icon)
+        {
+            icontxt.text = icon.ToString();
+        }
+        /// <summary>
+        /// 初始化商店的物品
+        /// </summary>
+        /// <param name="itemDic">商店物品字典</param>
+        /// <param name="npcUid">商店NPC的UUID</param>
+        public void Init_ShopEquip(Dictionary<long,KnapsackDataItem> itemDic,long npcUid,E_BuyType buyType)
+        {
+            CurNpcUUid = npcUid;
+            this.buyType = buyType;
+            foreach (var item in itemDic.Values)
+            {
+                AddItem(item,type:E_Grid_Type.Shop);
+            }
+        }
+
+        /// <summary>
+        /// 清理NPC商店
+        /// </summary>
+        public void CleanNpcShop()
+        {
+            GetKnapsackGrid(ref grids, ref LENGTH_X, ref LENGTH_Y, E_Grid_Type.Shop);
+            for (int i = 0; i < LENGTH_NpcShop_Y; i++)
+            {
+                for (int j = 0; j < LENGTH_NpcShop_X; j++)
+                {
+                    KnapsackGrid grid = grids[j][i];
+                    if (grid.IsOccupy)
+                    {
+                        grid.Data.ItemData.Dispose();
+                        RemoveItem(grid.Data, true);
+                        
+                    }
+                }
+
+            }
+            //清理NPC
+            UnitEntityComponent.Instance.Get<NPCEntity>(CurNpcUUid)?.ClearNpcShop();
+
+            Game.EventCenter.RemoveEvent<long>(EventTypeId.GLOD_CHANGE, ChangeGlogIcon);
+        }
+    }
+}

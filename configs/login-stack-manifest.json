@@ -1,0 +1,247 @@
+{
+  "SchemaVersion": 1,
+  "Description": "Stable login-stack baseline and canary smoke configuration for guarded hotfix publishing.",
+  "UiBaselineName": "破军之刃",
+  "RejectedUiFamilies": [
+    "命运王座",
+    "mingyun",
+    "mingyunwangzuo"
+  ],
+  "StableBaselineSourceDir": "F:\\MUSF\\baseline\\login-stack\\StreamingAssets",
+  "ChooseroleVariantRegistryPath": "F:\\MUSF\\configs\\chooserole-variants.json",
+  "LiveTargetDir": "F:\\MUSF\\Server\\Release\\Android\\StreamingAssets",
+  "Canary": {
+    "Device": "127.0.0.1:16384",
+    "PackageName": "com.quanzhilieshou.bytedance.gamecenter",
+    "LocalStateDir": "F:\\MUSF\\canary-state\\login-stack",
+    "KeepAndPushFiles": [
+      "LocalJsonData_UserAccount.json",
+      "LocalJsonData_LastRoleInfo.json"
+    ],
+    "ClearOrMoveFiles": [],
+    "AppLaunchTimeoutSeconds": 90,
+    "ScreenshotPollSeconds": 5
+  },
+  "ForbiddenMarkers": {
+    "Literal": [
+      "DiagnosticOpenUISkill",
+      "TempKnapsackVerify"
+    ],
+    "Regex": [
+      "diagnostic-[A-Za-z0-9_-]+"
+    ]
+  },
+  "VisualSmoke": {
+    "ReferenceScreenshotPath": "F:\\MUSF\\reports\\references\\pojun-role-select-baseline.png",
+    "ReferenceWidth": 1920,
+    "ReferenceHeight": 1080,
+    "RequiredTemplateHits": 2,
+    "TemplateSets": [
+      {
+        "Name": "pojun_role_select",
+        "RequiredTemplateHits": 2,
+        "MustPassTemplates": [
+          "start_button",
+          "spotlight"
+        ],
+        "Templates": [
+          {
+            "Name": "start_button",
+            "X": 1618,
+            "Y": 900,
+            "Width": 230,
+            "Height": 140,
+            "DarkRatioMax": 0.7,
+            "GoldRatioMin": 0.01
+          },
+          {
+            "Name": "spotlight",
+            "X": 760,
+            "Y": 160,
+            "Width": 420,
+            "Height": 480,
+            "DarkRatioMax": 0.25,
+            "GoldRatioMin": 0.008
+          },
+          {
+            "Name": "create_button",
+            "X": 40,
+            "Y": 900,
+            "Width": 260,
+            "Height": 140,
+            "DarkRatioMax": 0.9,
+            "GoldRatioMin": 0.0005
+          }
+        ]
+      }
+    ]
+  },
+  "ProtectedFiles": [
+    {
+      "Name": "code.unity3d",
+      "Size": 891798,
+      "MD5": "ab3ca0d72ce674c79a770b30b8cb0014",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "code.unity3d.manifest",
+      "Size": 652,
+      "MD5": "f3381cf1961fd69b57712fe49ec593e0",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "config.unity3d",
+      "Size": 244442,
+      "MD5": "d7bdc274881c8c80185daf60b5f0add6",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "config.unity3d.manifest",
+      "Size": 654,
+      "MD5": "03cacf63f3d7ccf50ca2ad7dea31fba2",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "chooserole.unity3d",
+      "Size": 3794158,
+      "MD5": "54fd9c089a87cffc02fd7b6f94bbf690",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "chooserole.unity3d.manifest",
+      "Size": 1132,
+      "MD5": "8ffae2d141ab87507f577fd3acfc8b5e",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "uichooserole.unity3d",
+      "Size": 4800,
+      "MD5": "cfe2c697a335bae7b49933405e9f6950",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "uichooserole.unity3d.manifest",
+      "Size": 1852,
+      "MD5": "3662aaa87bb5b0bde2e240e5ebd0599f",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "rolehalf.unity3d",
+      "Size": 785820,
+      "MD5": "ef59ba7808c8d712e087c4684d51cb19",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "rolehalf.unity3d.manifest",
+      "Size": 764,
+      "MD5": "7db6a4eeade660152295407f9ecbdc95",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "init_login.unity3d",
+      "Size": 513373,
+      "MD5": "583ae8ba9c50aab63363ace601dd876d",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "init_login.unity3d.manifest",
+      "Size": 1217,
+      "MD5": "0fd5d2d3729138b661ff2ee8f393c698",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "uilogin.unity3d",
+      "Size": 39394,
+      "MD5": "05e18bec87935bf385d8b29469bf4e51",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "uilogin.unity3d.manifest",
+      "Size": 3076,
+      "MD5": "d9b65a82bec01ecc691b6a294d09e17e",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "uilogin_xysdk.unity3d",
+      "Size": 25882,
+      "MD5": "69a5a0cab96e0bae9ff2019211ab2265",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "uilogin_xysdk.unity3d.manifest",
+      "Size": 2524,
+      "MD5": "b18eb54ce9ac2c06234633f6410a8c13",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "ui_logins.unity3d",
+      "Size": 29010,
+      "MD5": "f6e7226daf1f9f7f40668f9421e053f3",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "ui_logins.unity3d.manifest",
+      "Size": 677,
+      "MD5": "7f8f415bd87d75a6eb2e9e81b891e567",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "ui_useragreement.unity3d",
+      "Size": 6605,
+      "MD5": "1f8a9182e63b78bccdb9aa63e0c6852a",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "ui_useragreement.unity3d.manifest",
+      "Size": 2064,
+      "MD5": "3f9bb4db3f6bc35c1f4599521d05596a",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "uiannouncement.unity3d",
+      "Size": 150864,
+      "MD5": "82cb38e893c1faa1ba24c3e707a7950f",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "uiannouncement.unity3d.manifest",
+      "Size": 2064,
+      "MD5": "858f71edc6c2903de97666680c8b322e",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "uihint.unity3d",
+      "Size": 4071,
+      "MD5": "cdcd560dd0ea9f459fcb34b71158f2b8",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "uihint.unity3d.manifest",
+      "Size": 1633,
+      "MD5": "61c69024bc71d291e8472df2a3a913f0",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "uiconfirm.unity3d",
+      "Size": 13761,
+      "MD5": "d7106d321b9a7d8efa17126619dcbbf4",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "uiconfirm.unity3d.manifest",
+      "Size": 2625,
+      "MD5": "7e2515c69dba6bf309416064c2a84649",
+      "GuardMode": "BlockRoutine"
+    },
+    {
+      "Name": "Version.txt",
+      "Size": 710324,
+      "MD5": "725a355a233023ad93191dbc84c25137",
+      "GuardMode": "MetadataOnly"
+    }
+  ],
+  "MirrorTargetDirs": [
+    "F:\\MUSF\\Release_Test\\Android\\StreamingAssets",
+    "F:\\MUSF\\Server\\Release\\update\\2.0TestGame\\Android\\StreamingAssets"
+  ]
+}

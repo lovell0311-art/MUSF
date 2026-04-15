@@ -1,0 +1,659 @@
+[
+  {
+    "Id": 10001,
+    "Method": "GuoShiSynthesis",
+    "NeedItems": "{\"280006\":1,\"280001\":1}",
+    "NeedGold": 3000000,
+    "BaseSuccessRate": 90,
+    "MaxSuccessRate": 90,
+    "Info": "一般合成-洗点果实合成"
+  },
+  {
+    "Id": 10002,
+    "Method": "TouMingPiFengSynthesis",
+    "NeedItems": "{\"320004\":1,\"320005\":1,\"280001\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 80,
+    "MaxSuccessRate": 80,
+    "Info": "一般合成-透明披风"
+  },
+  {
+    "Id": 10003,
+    "Method": "EmoGuangChangSynthesis",
+    "NeedItems": "{\"320098\":1,\"320097\":1,\"280001\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 80,
+    "MaxSuccessRate": 80,
+    "Info": "一般合成-恶魔广场通行证"
+  },
+  {
+    "Id": 10004,
+    "Method": "GenerationWingSynthesis",
+    "NeedItems": "{\"280001\":1}",
+    "NeedGold": 1000000,
+    "BaseSuccessRate": 0,
+    "MaxSuccessRate": 100,
+    "Info": "翅膀披风-一代翅膀合成"
+  },
+  {
+    "Id": 10005,
+    "Method": "SecondWingSynthesis",
+    "NeedItems": "{\"320297\":1,\"280001\":1}",
+    "NeedGold": 5000000,
+    "BaseSuccessRate": 0,
+    "MaxSuccessRate": 90,
+    "Info": "翅膀披风-二代翅膀合成"
+  },
+  {
+    "Id": 10006,
+    "Method": "SecondPiFengSynthesis",
+    "NeedItems": "{\"320298\":1,\"280001\":1}",
+    "NeedGold": 5000000,
+    "BaseSuccessRate": 0,
+    "MaxSuccessRate": 90,
+    "Info": "翅膀披风-二代披风合成"
+  },
+  {
+    "Id": 10007,
+    "Method": "HunDunWingSynthesis",
+    "NeedItems": "{\"320200\":1,\"280006\":1,\"280001\":1}",
+    "NeedGold": 100000,
+    "BaseSuccessRate": 0,
+    "MaxSuccessRate": 70,
+    "Info": "翅膀披风-混沌之翼合成"
+  },
+  {
+    "Id": 10008,
+    "Method": "ShengMingWingSynthesis",
+    "NeedItems": "{\"320285\":1,\"280006\":1,\"280001\":1}",
+    "NeedGold": 100000,
+    "BaseSuccessRate": 0,
+    "MaxSuccessRate": 70,
+    "Info": "翅膀披风-生命之翼合成"
+  },
+  {
+    "Id": 10009,
+    "Method": "MoLiWingSynthesis",
+    "NeedItems": "{\"320201\":1,\"280006\":1,\"280001\":1}",
+    "NeedGold": 100000,
+    "BaseSuccessRate": 0,
+    "MaxSuccessRate": 70,
+    "Info": "翅膀披风-魔力之翼合成"
+  },
+  {
+    "Id": 10010,
+    "Method": "SiWangPiFengSynthesis",
+    "NeedItems": "{\"320199\":1,\"280006\":1,\"280001\":1}",
+    "NeedGold": 100000,
+    "BaseSuccessRate": 0,
+    "MaxSuccessRate": 70,
+    "Info": "翅膀披风-死亡披风合成"
+  },
+  {
+    "Id": 10011,
+    "Method": "ShengYingZhiYuSynthesis",
+    "NeedItems": "{\"280006\":1,\"280004\":10,\"280001\":1}",
+    "NeedGold": 200000,
+    "BaseSuccessRate": 0,
+    "MaxSuccessRate": 70,
+    "Info": "翅膀披风-神鹰之羽合成"
+  },
+  {
+    "Id": 10012,
+    "Method": "ThirdWingSynthesis",
+    "NeedItems": "{\"320019\":1,\"280003\":30,\"280004\":30,\"280006\":30,\"280001\":30}",
+    "NeedGold": 200000,
+    "BaseSuccessRate": 5,
+    "MaxSuccessRate": 60,
+    "Info": "翅膀披风-三代翅膀/披风合成"
+  },
+  {
+    "Id": 10013,
+    "Method": "JiaLuDaZhiYuSynthesis",
+    "NeedItems": "{\"280003\":30,\"280004\":30,\"280006\":30,\"280001\":30}",
+    "NeedGold": 200000,
+    "BaseSuccessRate": 0,
+    "MaxSuccessRate": 60,
+    "Info": "翅膀披风-加鲁达之羽合成"
+  },
+  {
+    "Id": 10014,
+    "Method": "FourthWingSynthesis",
+    "NeedItems": "{\"320300\":1,\"320301\":1,\"320299\":50,\"280003\":30,\"280004\":30,\"280006\":30,\"280001\":30}",
+    "NeedGold": 10000000,
+    "BaseSuccessRate": 5,
+    "MaxSuccessRate": 40,
+    "Info": "翅膀披风-四代翅膀/披风合成"
+  },
+  {
+    "Id": 10015,
+    "Method": "ZhengFuZheWingSynthesis",
+    "NeedItems": "{\"320284\":1,\"280003\":10,\"280004\":10,\"280005\":10,\"280001\":1}",
+    "NeedGold": 10000000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "翅膀披风-征服者的翅膀"
+  },
+  {
+    "Id": 10016,
+    "Method": "SuiJiaoPianSynthesis",
+    "NeedItems": "{\"320006\":3,\"320007\":3,\"280001\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "坐骑护卫-碎角片合成"
+  },
+  {
+    "Id": 10017,
+    "Method": "ZheDuanDeJiaoSynthesis",
+    "NeedItems": "{\"320008\":10,\"320009\":5,\"280001\":3}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "坐骑护卫-折断的角合成"
+  },
+  {
+    "Id": 10018,
+    "Method": "YanLangShouJiaoSynthesis",
+    "NeedItems": "{\"320010\":1,\"280005\":3,\"280001\":3}",
+    "NeedGold": 10000000,
+    "BaseSuccessRate": 40,
+    "MaxSuccessRate": 100,
+    "Info": "坐骑护卫-炎狼兽之角合成"
+  },
+  {
+    "Id": 10019,
+    "Method": "YanLangShouPoHuaiSynthesis",
+    "NeedItems": "{\"260008\":1,\"280005\":5,\"280001\":5}",
+    "NeedGold": 20000000,
+    "BaseSuccessRate": 30,
+    "MaxSuccessRate": 79,
+    "Info": "坐骑护卫-炎狼兽之角+破坏合成"
+  },
+  {
+    "Id": 10020,
+    "Method": "YanLangShouShouHuSynthesis",
+    "NeedItems": "{\"260008\":1,\"280005\":5,\"280001\":8}",
+    "NeedGold": 30000000,
+    "BaseSuccessRate": 30,
+    "MaxSuccessRate": 79,
+    "Info": "坐骑护卫-炎狼兽之角+守护合成"
+  },
+  {
+    "Id": 10021,
+    "Method": "HeiWangMaSynthesis",
+    "NeedItems": "{\"320310\":1,\"280003\":5,\"280004\":5,\"280006\":1,\"280001\":1}",
+    "NeedGold": 5000000,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 100,
+    "Info": "坐骑护卫-黑王马合成"
+  },
+  {
+    "Id": 10022,
+    "Method": "TianYingSynthesis",
+    "NeedItems": "{\"320311\":1,\"280003\":2,\"280004\":2,\"280006\":1,\"280001\":1}",
+    "NeedGold": 1000000,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 60,
+    "Info": "坐骑护卫-天鹰合成"
+  },
+  {
+    "Id": 10024,
+    "Method": "LongHunShengJiSynthesis",
+    "NeedItems": "{\"260007\":1,\"320313\":1,\"280003\":20,\"280004\":20,\"280006\":1,\"280001\":1}",
+    "NeedGold": 1000000,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 100,
+    "Info": "坐骑护卫-龙魂（冰晶）/圣迹龙魂（赤耀）合成"
+  },
+  {
+    "Id": 10025,
+    "Method": "MayaWeaponSynthesis",
+    "NeedItems": "{\"280001\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 0,
+    "MaxSuccessRate": 100,
+    "Info": "其他装备-玛雅武器合成"
+  },
+  {
+    "Id": 10026,
+    "Method": "ArchangelHammerSynthesis",
+    "NeedItems": "{\"320262\":10,\"280003\":10,\"280004\":10,\"280006\":1,\"280007\":1,\"280001\":1}",
+    "NeedGold": 10000000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "其他装备-大天使的铁锤合成"
+  },
+  {
+    "Id": 10027,
+    "Method": "BlessingSwordSynthesis",
+    "NeedItems": "{\"320314\":1,\"280003\":30,\"280004\":30,\"280005\":30,\"280001\":1,\"10018\":1,\"10018\":1}",
+    "NeedGold": 100000000,
+    "BaseSuccessRate": 40,
+    "MaxSuccessRate": 50,
+    "Info": "其他装备-祝福大天使之剑合成"
+  },
+  {
+    "Id": 10028,
+    "Method": "BlessingScepterSynthesis",
+    "NeedItems": "{\"320314\":1,\"280003\":30,\"280004\":30,\"280005\":30,\"280001\":1,\"100005\":1,\"100005\":1}",
+    "NeedGold": 100000000,
+    "BaseSuccessRate": 40,
+    "MaxSuccessRate": 50,
+    "Info": "其他装备-祝福大天使绝对权杖合成"
+  },
+  {
+    "Id": 10029,
+    "Method": "BlessingCrossbowSynthesis",
+    "NeedItems": "{\"320314\":1,\"280003\":30,\"280004\":30,\"280005\":30,\"280001\":1,\"50008\":1,\"50008\":1}",
+    "NeedGold": 100000000,
+    "BaseSuccessRate": 40,
+    "MaxSuccessRate": 50,
+    "Info": "其他装备-祝福大天使之弩合成"
+  },
+  {
+    "Id": 10030,
+    "Method": "BlessingStaffSynthesis",
+    "NeedItems": "{\"320314\":1,\"280003\":30,\"280004\":30,\"280005\":30,\"280001\":1,\"80010\":1,\"80010\":1}",
+    "NeedGold": 100000000,
+    "BaseSuccessRate": 40,
+    "MaxSuccessRate": 50,
+    "Info": "其他装备-祝福大天使之杖合成"
+  },
+  {
+    "Id": 10031,
+    "Method": "BlessingWandSynthesis",
+    "NeedItems": "{\"320314\":1,\"280003\":30,\"280004\":30,\"280005\":30,\"280001\":1,\"80032\":1,\"80032\":1}",
+    "NeedGold": 100000000,
+    "BaseSuccessRate": 40,
+    "MaxSuccessRate": 50,
+    "Info": "其他装备-祝福大天使绝对魔杖合成"
+  },
+  {
+    "Id": 10032,
+    "Method": "EquipmentStrengthenSynthesis10",
+    "NeedItems": "{\"280001\":1,\"280003\":1,\"280004\":1}",
+    "NeedGold": 2000000,
+    "BaseSuccessRate": 55,
+    "MaxSuccessRate": 70,
+    "Info": "装备强化 +9~+10"
+  },
+  {
+    "Id": 10033,
+    "Method": "EquipmentStrengthenSynthesis11",
+    "NeedItems": "{\"280001\":1,\"280003\":2,\"280004\":2}",
+    "NeedGold": 4000000,
+    "BaseSuccessRate": 50,
+    "MaxSuccessRate": 65,
+    "Info": "装备强化 +10~+11"
+  },
+  {
+    "Id": 10034,
+    "Method": "EquipmentStrengthenSynthesis12",
+    "NeedItems": "{\"280001\":1,\"280003\":3,\"280004\":3}",
+    "NeedGold": 6000000,
+    "BaseSuccessRate": 45,
+    "MaxSuccessRate": 60,
+    "Info": "装备强化 +11~+12"
+  },
+  {
+    "Id": 10035,
+    "Method": "EquipmentStrengthenSynthesis13",
+    "NeedItems": "{\"280001\":1,\"280003\":4,\"280004\":4}",
+    "NeedGold": 8000000,
+    "BaseSuccessRate": 40,
+    "MaxSuccessRate": 55,
+    "Info": "装备强化 +12~+13"
+  },
+  {
+    "Id": 10036,
+    "Method": "EquipmentStrengthenSynthesis14",
+    "NeedItems": "{\"280001\":1,\"280003\":5,\"280004\":5}",
+    "NeedGold": 10000000,
+    "BaseSuccessRate": 35,
+    "MaxSuccessRate": 50,
+    "Info": "装备强化 +13~+14"
+  },
+  {
+    "Id": 10037,
+    "Method": "EquipmentStrengthenSynthesis15",
+    "NeedItems": "{\"280001\":1,\"280003\":6,\"280004\":6}",
+    "NeedGold": 12000000,
+    "BaseSuccessRate": 30,
+    "MaxSuccessRate": 45,
+    "Info": "装备强化 +14~+15"
+  },
+  {
+    "Id": 10045,
+    "Method": "RegenGemstones",
+    "NeedItems": "{\"280002\":1}",
+    "NeedGold": 50000,
+    "BaseSuccessRate": 80,
+    "MaxSuccessRate": 80,
+    "Info": "再生宝石-再生宝石"
+  },
+  {
+    "Id": 10046,
+    "Method": "PEvolutionGem",
+    "NeedItems": "",
+    "NeedGold": 150000,
+    "BaseSuccessRate": 20,
+    "MaxSuccessRate": 20,
+    "Info": "再生宝石-初级进化宝石"
+  },
+  {
+    "Id": 10047,
+    "Method": "AEvolutionGem",
+    "NeedItems": "",
+    "NeedGold": 150000,
+    "BaseSuccessRate": 50,
+    "MaxSuccessRate": 50,
+    "Info": "再生宝石-高级进化宝石"
+  },
+  {
+    "Id": 10048,
+    "Method": "LMagicStone",
+    "NeedItems": "",
+    "NeedGold": 50000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "生成魔晶石-低级魔晶石"
+  },
+  {
+    "Id": 10049,
+    "Method": "IMagicStone",
+    "NeedItems": "",
+    "NeedGold": 50000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "生成魔晶石-中级魔晶石"
+  },
+  {
+    "Id": 10050,
+    "Method": "AMagicStone",
+    "NeedItems": "",
+    "NeedGold": 50000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "生成魔晶石-高级魔晶石"
+  },
+  {
+    "Id": 10051,
+    "Method": "EquipmentGemstones",
+    "NeedItems": "",
+    "NeedGold": 500000,
+    "BaseSuccessRate": 30,
+    "MaxSuccessRate": 30,
+    "Info": "一般道具-卓越装备兑换宝石"
+  },
+  {
+    "Id": 10052,
+    "Method": "Attributefruit",
+    "NeedItems": "{\"280006\":1,\"280001\":1}",
+    "NeedGold": 5000000,
+    "BaseSuccessRate": 40,
+    "MaxSuccessRate": 40,
+    "Info": "再生宝石-属性果实合成"
+  },
+  {
+    "Id": 10055,
+    "Method": "EquipmentStrengthenSynthesis1",
+    "NeedItems": "{\"280004\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 60,
+    "Info": "装备强化 +0~+1(灵魂宝石)"
+  },
+  {
+    "Id": 10056,
+    "Method": "EquipmentStrengthenSynthesis2",
+    "NeedItems": "{\"280004\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 60,
+    "Info": "装备强化 +1~+2(灵魂宝石)"
+  },
+  {
+    "Id": 10057,
+    "Method": "EquipmentStrengthenSynthesis3",
+    "NeedItems": "{\"280004\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 60,
+    "Info": "装备强化 +2~+3(灵魂宝石)"
+  },
+  {
+    "Id": 10058,
+    "Method": "EquipmentStrengthenSynthesis4",
+    "NeedItems": "{\"280004\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 60,
+    "Info": "装备强化 +3~+4(灵魂宝石)"
+  },
+  {
+    "Id": 10059,
+    "Method": "EquipmentStrengthenSynthesis5",
+    "NeedItems": "{\"280004\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 60,
+    "Info": "装备强化 +4~+5(灵魂宝石)"
+  },
+  {
+    "Id": 10060,
+    "Method": "EquipmentStrengthenSynthesis6",
+    "NeedItems": "{\"280004\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 60,
+    "Info": "装备强化 +5~+6(灵魂宝石)"
+  },
+  {
+    "Id": 10061,
+    "Method": "EquipmentStrengthenSynthesis7",
+    "NeedItems": "{\"280004\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 60,
+    "Info": "装备强化 +6~+7(灵魂宝石)"
+  },
+  {
+    "Id": 10062,
+    "Method": "EquipmentStrengthenSynthesis8",
+    "NeedItems": "{\"280004\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 60,
+    "Info": "装备强化 +7~+8(灵魂宝石)"
+  },
+  {
+    "Id": 10063,
+    "Method": "EquipmentStrengthenSynthesis9",
+    "NeedItems": "{\"280004\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 60,
+    "Info": "装备强化 +8~+9(灵魂宝石)"
+  },
+  {
+    "Id": 10064,
+    "Method": "EquipmentStrengthenSynthesis1_1",
+    "NeedItems": "{\"280003\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "装备强化 +0~+1(祝福宝石)"
+  },
+  {
+    "Id": 10065,
+    "Method": "EquipmentStrengthenSynthesis2_2",
+    "NeedItems": "{\"280003\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "装备强化 +1~+2(祝福宝石)"
+  },
+  {
+    "Id": 10066,
+    "Method": "EquipmentStrengthenSynthesis3_3",
+    "NeedItems": "{\"280003\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "装备强化 +2~+3(祝福宝石)"
+  },
+  {
+    "Id": 10067,
+    "Method": "EquipmentStrengthenSynthesis4_4",
+    "NeedItems": "{\"280003\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "装备强化 +3~+4(祝福宝石)"
+  },
+  {
+    "Id": 10068,
+    "Method": "EquipmentStrengthenSynthesis5_5",
+    "NeedItems": "{\"280003\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "装备强化 +4~+5(祝福宝石)"
+  },
+  {
+    "Id": 10069,
+    "Method": "EquipmentStrengthenSynthesis6_6",
+    "NeedItems": "{\"280003\":1}",
+    "NeedGold": 0,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "装备强化 +5~+6(祝福宝石)"
+  },
+  {
+    "Id": 10072,
+    "Method": "GoldChestSynthesis",
+    "NeedItems": "{\"320407\":5}",
+    "NeedGold": 200000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "一般道具-白银兑换黄金宝箱"
+  },
+  {
+    "Id": 10073,
+    "Method": "RemoveRegeneration",
+    "NeedItems": "",
+    "NeedGold": 5000000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "再生宝石-除去再生属性"
+  },
+  {
+    "Id": 10074,
+    "Method": "GhostWarhorseSynthesis",
+    "NeedItems": "{\"320312\":1,\"320315\":10,\"280003\":30,\"260022\":1,\"280006\":5}",
+    "NeedGold": 1000000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "坐骑护卫-幽灵战马合成"
+  },
+  {
+    "Id": 10075,
+    "Method": "DragonSoulSynthesis",
+    "NeedItems": "{\"260007\":1,\"320313\":1,\"280003\":20,\"280004\":20,\"280006\":1,\"280001\":1,\"320315\":10}",
+    "NeedGold": 200000000,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 60,
+    "Info": "坐骑护卫-龙魂(冰晶)"
+  },
+  {
+    "Id": 10076,
+    "Method": "MarkDragonSoulSynthesis",
+    "NeedItems": "{\"260021\":1,\"320313\":1,\"280003\":20,\"280004\":20,\"280006\":1,\"280001\":1,\"320315\":10}",
+    "NeedGold": 200000000,
+    "BaseSuccessRate": 60,
+    "MaxSuccessRate": 60,
+    "Info": "坐骑护卫-圣迹龙魂(赤耀)"
+  },
+  {
+    "Id": 10077,
+    "Method": "PhantomFWolfBSynthesis",
+    "NeedItems": "{\"260009\":1,\"260010\":1}",
+    "NeedGold": 1000000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "坐骑护卫-炎狼兽+幻影"
+  },
+  {
+    "Id": 10078,
+    "Method": "FlamingHorseSynthesis",
+    "NeedItems": "{\"260022\":1,\"320312\":1,\"320315\":10,\"280003\":30,\"280001\":30}",
+    "NeedGold": 100000000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "坐骑护卫-烈火战马"
+  },
+  {
+    "Id": 10079,
+    "Method": "ExcellentExchangeCoin",
+    "NeedItems": "",
+    "NeedGold": 500000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "卓越装备兑换U币"
+  },
+  {
+    "Id": 10085,
+    "Method": "DiamondChestSynthesis",
+    "NeedItems": "{\"320408\":5}",
+    "NeedGold": 500000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "一般道具-黄金兑换钻石宝箱"
+  },
+  {
+    "Id": 10086,
+    "Method": "AddLuckyAttributes",
+    "NeedItems": "{\"280021\":1}",
+    "NeedGold": 500000,
+    "BaseSuccessRate": 100,
+    "MaxSuccessRate": 100,
+    "Info": "一般道具-增加幸运属性条数"
+  },
+  {
+    "Id": 10087,
+    "Method": "KirinSynthesis",
+    "NeedItems": "{\"320010\":1,\"260008\":1,\"280004\":3,\"280006\":2}",
+    "NeedGold": 10000000,
+    "BaseSuccessRate": 50,
+    "MaxSuccessRate": 80,
+    "Info": "坐骑合成-飞行火麒麟"
+  },
+  {
+    "Id": 10096,
+    "Method": "ArchangelSynthesisNecklace",
+    "NeedItems": "{\"320449\":1,\"320458\":20,\"280004\":50,\"280003\":80}",
+    "NeedGold": 10000000,
+    "BaseSuccessRate": 40,
+    "MaxSuccessRate": 45,
+    "Info": "大天使项链合成"
+  },
+  {
+    "Id": 10097,
+    "Method": "ArchangelSynthesisRing",
+    "NeedItems": "{\"320449\":1,\"320459\":20,\"280004\":50,\"280003\":80}",
+    "NeedGold": 10000000,
+    "BaseSuccessRate": 40,
+    "MaxSuccessRate": 45,
+    "Info": "大天使戒指合成"
+  },
+  {
+    "Id": 10099,
+    "Method": "ArchangelSynthesisFlag",
+    "NeedItems": "{\"320449\":1,\"320461\":20,\"280004\":50,\"280003\":80}",
+    "NeedGold": 10000000,
+    "BaseSuccessRate": 40,
+    "MaxSuccessRate": 45,
+    "Info": "大天使旗帜合成"
+  }
+]

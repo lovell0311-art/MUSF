@@ -1,0 +1,176 @@
+{
+  "SchemaVersion": 1,
+  "Description": "Registered chooserole.unity3d variants. Raw bundle swapping is forbidden unless a variant is explicitly marked Allowed.",
+  "BundleName": "chooserole.unity3d",
+  "ManifestName": "chooserole.unity3d.manifest",
+  "CurrentProjectScene": {
+    "Path": "F:\\MUSF\\Client\\Unity\\Assets\\Scenes\\GameMap\\ChooseRole.unity",
+    "MD5": "cadc23a9606a90e5c8adaf4856f3724d"
+  },
+  "ReferenceScenes": [
+    {
+      "Id": "icebaseline_scene",
+      "Path": "F:\\MUSF\\backups\\choose-role-icebaseline-20260414-182106\\ChooseRole.unity",
+      "MD5": "0f10c1578b684c8f2c8df4adb738e1d4",
+      "Notes": "Contains ChooseRoleGrassOverlay and is the structural reference for the foot-ground layer."
+    },
+    {
+      "Id": "restore_tool_scene",
+      "Path": "E:\\MUNEW\\Client\\Unity\\Assets\\Scenes\\GameMap\\ChooseRole.unity",
+      "MD5": "63a37160bb5dcf6029518b642500a9da",
+      "Notes": "Legacy restore source that still matches the pre-repair drifted scene. Keep blocked as a restore input."
+    }
+  ],
+  "RequiredSceneMarkers": [
+    "ChooseRoleGrassOverlay"
+  ],
+  "Variants": [
+    {
+      "Id": "live_login_stack_54fd9c08",
+      "Label": "Current login-stack live variant",
+      "PublishPolicy": "Blocked",
+      "Status": "legacy-live",
+      "Bundle": {
+        "Size": 3794158,
+        "MD5": "54fd9c089a87cffc02fd7b6f94bbf690"
+      },
+      "Manifest": {
+        "Size": 1132,
+        "MD5": "8ffae2d141ab87507f577fd3acfc8b5e"
+      },
+      "Notes": "Current live/login-stack chooserole bundle. Built from the drifted project scene that is missing ChooseRoleGrassOverlay. Do not republish as a fix baseline."
+    },
+    {
+      "Id": "icebaseline_reference_2200e14b",
+      "Label": "Icebaseline structural reference",
+      "PublishPolicy": "ReferenceOnly",
+      "Status": "reference-only",
+      "Bundle": {
+        "Size": 1352176,
+        "MD5": "2200e14b735fb18cbf1a58db5f360cdb"
+      },
+      "Manifest": {
+        "Size": 1170,
+        "MD5": "ac231b874a6096b03dbb92f744acaa26"
+      },
+      "Notes": "Reference-only bundle produced from the backup scene that contains ChooseRoleGrassOverlay. Use this to recover missing scene objects into source, then rebuild. Do not publish by raw bundle copy."
+    },
+    {
+      "Id": "misnamed_apk_baseline_2d347b80",
+      "Label": "Misnamed apk-baseline backup",
+      "PublishPolicy": "Blocked",
+      "Status": "misnamed-backup",
+      "Bundle": {
+        "Size": 23919632,
+        "MD5": "2d347b801d6f8281ca4c096cfcab97fe"
+      },
+      "Manifest": {
+        "Size": 1132,
+        "MD5": "5235c16ede8b3081867f353860ec1dfc"
+      },
+      "Notes": "Historically labeled as apk-baseline in backups, but it is not the valid role-select baseline."
+    },
+    {
+      "Id": "ground_material_probe_6f63a6c3",
+      "Label": "Ground material probe variant",
+      "PublishPolicy": "Blocked",
+      "Status": "diagnostic-only",
+      "Bundle": {
+        "Size": 23960557,
+        "MD5": "6f63a6c3a977689411b7d34b46d7ca23"
+      },
+      "Manifest": {
+        "Size": 1131,
+        "MD5": "28f8fee22251c19d349741a250acab4a"
+      },
+      "Notes": "Diagnostic material probe build. Never use as a release or hotfix source."
+    },
+    {
+      "Id": "switch_to_pjzr_5f692a30",
+      "Label": "Switch-to-pjzr intermediate variant",
+      "PublishPolicy": "Blocked",
+      "Status": "intermediate",
+      "Bundle": {
+        "Size": 24138609,
+        "MD5": "5f692a304d09251f54fac83219f741ff"
+      },
+      "Manifest": null,
+      "Notes": "Intermediate conversion artifact without a paired manifest. Never publish."
+    },
+    {
+      "Id": "pjzr_apk_raw_af888050",
+      "Label": "Legacy raw replacement snapshot",
+      "PublishPolicy": "Blocked",
+      "Status": "legacy-raw-replacement",
+      "Bundle": {
+        "Size": 24551040,
+        "MD5": "af888050ba1dcbe91ba3de68a4d6a822"
+      },
+      "Manifest": {
+        "Size": 1169,
+        "MD5": "7f35179143fb41d28b3c55febcdb139c"
+      },
+      "Notes": "Historical raw replacement bundle that was copied into chooserole during prior recovery attempts. Not a controlled rebuild output and must remain blocked."
+    },
+    {
+      "Id": "source_rebuild_candidate_68eafd3c",
+      "Label": "Controlled source rebuild candidate",
+      "PublishPolicy": "Allowed",
+      "Status": "runtime-load-verified",
+      "Bundle": {
+        "Size": 24139444,
+        "MD5": "68eafd3c5c4408223b80f80f22ce42d0"
+      },
+      "Manifest": {
+        "Size": 1170,
+        "MD5": "655c97d2cd5ff3aed429868cf3a63f08"
+      },
+      "Notes": "Built on 2026-04-15 from F:\\MUSF\\Client\\Unity\\Assets\\Scenes\\GameMap\\ChooseRole.unity after restoring ChooseRoleGrassOverlay. Promoted to Allowed on 2026-04-15 after runtime verification on device 127.0.0.1:16384 confirmed the app loaded chooserole.unity3d from /storage/emulated/0/Android/data/com.quanzhilieshou.bytedance.gamecenter/files/Android/星辰战纪 with the matching 68eafd3c/655c97d2 hashes and no new fatal exception during choose-role load."
+    },
+    {
+      "Id": "baseline_restore_eeb7f79a",
+      "Label": "Baseline restore intermediate",
+      "PublishPolicy": "Blocked",
+      "Status": "intermediate",
+      "Bundle": {
+        "Size": 1776597,
+        "MD5": "eeb7f79aa6ff1970e2536dd318db9965"
+      },
+      "Manifest": {
+        "Size": 1131,
+        "MD5": "d4a1163ec2a14eb1b55acc941019c480"
+      },
+      "Notes": "Early baseline-restore experiment. Not approved for publish."
+    },
+    {
+      "Id": "currentcore_login_23fd299b",
+      "Label": "Currentcore baseline-login variant",
+      "PublishPolicy": "Blocked",
+      "Status": "legacy-login",
+      "Bundle": {
+        "Size": 1334909,
+        "MD5": "23fd299b1d4096edfddd73488cf142ef"
+      },
+      "Manifest": {
+        "Size": 1198,
+        "MD5": "3f1525320b45a8184a52c0816f36c015"
+      },
+      "Notes": "Legacy login-era chooserole build. Do not reuse."
+    },
+    {
+      "Id": "mumu_update_e2be0bea",
+      "Label": "MuMu update snapshot variant",
+      "PublishPolicy": "Blocked",
+      "Status": "snapshot",
+      "Bundle": {
+        "Size": 1775845,
+        "MD5": "e2be0beac4be909ae3cfff5d8410434d"
+      },
+      "Manifest": {
+        "Size": 1132,
+        "MD5": "b5e2f58b3c2ae3103f94bab8be23a345"
+      },
+      "Notes": "Snapshot from an emulator update workflow. Not a controlled baseline."
+    }
+  ]
+}

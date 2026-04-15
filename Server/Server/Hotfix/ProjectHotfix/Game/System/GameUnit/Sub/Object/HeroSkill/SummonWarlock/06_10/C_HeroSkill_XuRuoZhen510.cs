@@ -1,0 +1,572 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using CustomFrameWork;
+using ETModel;
+using UnityEngine;
+
+namespace ETHotfix
+{
+    /// <summary>
+    /// 虚弱阵
+    /// </summary>
+    [HeroSkillAttribute(BindId = (int)E_HeroSkillId.XuRuoZhen510)]
+    public partial class C_HeroSkill_XuRuoZhen510 : C_HeroSkillSource
+    {
+        public override void AfterAwake()
+        { // 只调用一次  
+            IsDataHasError = false;
+            DataUpdate();
+        }
+        public override void DataUpdate()
+        {  //数据变化 更新变更数据 
+            if (IsDataHasError) return;
+            IsDataHasError = true;
+
+            if (!(Config is Skill_SummonWarlockConfig mConfig))
+            {
+                return;
+            }
+
+            MP = mConfig.ConsumeDic[1];
+            if (mConfig.ConsumeDic.TryGetValue(2, out var mAG))
+            {
+                AG = mAG;
+            }
+
+
+            CoolTime = mConfig.CoolTime;
+
+            //
+
+
+            NextAttackTime = 0;
+            IsDataHasError = false;
+        }
+    }
+
+    /// <summary>
+    /// 虚弱阵
+    /// </summary>
+    public partial class C_HeroSkill_XuRuoZhen510
+    {
+        public bool TryUseByUseStandard(CombatSource b_Attacker, IActorResponse b_Response)
+        {
+            if (!(Config is Skill_SummonWarlockConfig mConfig))
+            {
+                b_Response.Error = Root.MainFactory.GetCustomComponent<LanguageComponent>().GetMessageId(425);
+                //b_Response.Message = Root.MainFactory.GetCustomComponent<LanguageComponent>().GetMessage("技能配置数据异常!");
+                return false;
+            }
+
+            var mGamePlayer = b_Attacker as GamePlayer;
+            if (mGamePlayer != null)
+            {
+                var mKeys = mConfig.UseStandardDic.Keys.ToArray();
+                for (int i = 0, len = mKeys.Length; i < len; i++)
+                {
+                    int key = mKeys[i];
+                    int value = mConfig.UseStandardDic[key];
+
+                    switch (key)
+                    {
+                        case 1:
+                            {  // 等级
+                                if (mGamePlayer.Data.Level < value)
+                                {
+                                    b_Response.Error = Root.MainFactory.GetCustomComponent<LanguageComponent>().GetMessageId(408);
+                                    return false;
+                                }
+                            }
+                            break;
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                            {
+                                var mPropertyValue = mGamePlayer.GetNumerial((E_GameProperty)(key - 1));
+                                if (mPropertyValue < value)
+                                {
+                                    b_Response.Error = Root.MainFactory.GetCustomComponent<LanguageComponent>().GetMessageId(409);
+                                    return false;
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return true;
+        }
+        public override CombatSource FindTarget(CombatSource b_Attacker, long b_BeAttackerId, C_FindTheWay2D b_Cell, BattleComponent b_BattleComponent, IActorResponse b_Response)
+        {
+            return b_Attacker;
+        }
+        public override bool TryUse(CombatSource b_Attacker, CombatSource b_BeAttacker, C_FindTheWay2D b_Cell, BattleComponent b_BattleComponent, IActorResponse b_Response)
+        {
+            if (!(Config is Skill_SummonWarlockConfig mConfig))
+            {
+                b_Response.Error = Root.MainFactory.GetCustomComponent<LanguageComponent>().GetMessageId(425);
+                //b_Response.Message = Root.MainFactory.GetCustomComponent<LanguageComponent>().GetMessage("技能配置数据异常!");
+                return false;
+            }
+            if (b_Attacker.UnitData.Mp < MP || b_Attacker.UnitData.AG < AG)
+            {
+                b_Response.Error = Root.MainFactory.GetCustomComponent<LanguageComponent>().GetMessageId(410);
+                return false;
+            }
+
+            return TryUseByUseStandard(b_Attacker, b_Response);
+        }
+        public override bool UseSkill(CombatSource b_Attacker, CombatSource b_BeAttacker, BattleComponent b_BattleComponent)
+        {
+            if (!(Config is Skill_SummonWarlockConfig mConfig))
+            {
+                return false;
+            }
+            //BattleComponent.Log($"使用技能 <<{mConfig.Name}>> 使用者为:{b_Attacker.InstanceId}", false);
+
+            CombatSource mBeAttacker = b_BeAttacker;
+
+            GamePlayer mGamePlayer = b_Attacker as GamePlayer;
+            int mDamageWait = b_Attacker.GetSkillDamageWait(mConfig.DamageWait, mConfig.DamageWait2);
+            int mAttackTime = (int)(b_Attacker.GetAttackSpeed(true, (E_GameOccupation)mGamePlayer.Data.PlayerTypeId, mConfig.MinActionTime, mConfig.MaxActionTime));
+
+            G2C_AttackStart_notice mAttackStartNotice = new G2C_AttackStart_notice();
+            mAttackStartNotice.AttackSource = b_Attacker.InstanceId;
+            mAttackStartNotice.AttackTarget = mBeAttacker.InstanceId;
+            mAttackStartNotice.AttackType = Id;
+            mAttackStartNotice.Ticks = mGamePlayer.Player.ClientTime.ClientTime + mAttackTime;
+            mAttackStartNotice.MpValue = b_Attacker.UnitData.Mp - (int)(this.MP * (100 - b_Attacker.GetNumerialFunc(E_GameProperty.MpConsumeRate_Reduce)) / 100f);
+            mAttackStartNotice.AG = b_Attacker.UnitData.AG - this.AG;
+            b_BattleComponent.Parent.SendNotice(mBeAttacker, mAttackStartNotice);
+
+            b_Attacker.IsAttacking = true;
+            b_Attacker.NextAttackTime = mAttackStartNotice.Ticks;
+
+            Action<long, long, long> mSyncAction = (b_CombatRoundId, b_AttackerId, b_BeAttackerId) =>
+            {
+                //if (b_Attacker.CombatRoundId != b_CombatRoundId) return;
+
+                if (b_Attacker.InstanceId != b_AttackerId || b_Attacker.IsDeath || b_Attacker.IsDisposeable || b_Attacker.UnitData.Index != b_BattleComponent.Parent.MapId)
+                {
+                    G2C_AttackResult_notice mAttackResultNotice = new G2C_AttackResult_notice();
+                    mAttackResultNotice.HurtValueType = 6;
+                    mAttackResultNotice.AttackTarget = mBeAttacker.InstanceId;
+                    b_BattleComponent.Parent.SendNotice(mBeAttacker, mAttackResultNotice);
+                    return;
+                }
+                if (mBeAttacker.InstanceId != b_BeAttackerId || mBeAttacker.IsDeath || mBeAttacker.IsDisposeable || mBeAttacker.UnitData.Index != b_BattleComponent.Parent.MapId)
+                {
+                    G2C_AttackResult_notice mAttackResultNotice = new G2C_AttackResult_notice();
+                    mAttackResultNotice.HurtValueType = 6;
+                    mAttackResultNotice.AttackTarget = mBeAttacker.InstanceId;
+                    b_BattleComponent.Parent.SendNotice(mBeAttacker, mAttackResultNotice);
+                    return;
+                }
+
+
+                int mMinAtteck = mConfig.OtherDataDic[1] + b_Attacker.GetNumerialFunc(E_GameProperty.MinDamnationAtteck);
+                int mMaxAtteck = (int)(mConfig.OtherDataDic[1] * 1.5f) + b_Attacker.GetNumerialFunc(E_GameProperty.MaxDamnationAtteck);
+                var mAppendValue = b_Attacker.GetNumerialFunc(E_GameProperty.Property_Willpower) / mConfig.OtherDataDic[10];
+                var mAddScale = mConfig.OtherDataDic[11];
+                var mMagicRate_Increase = b_Attacker.GetNumerialFunc(E_GameProperty.DamnationRate_Increase);
+                int GetHurtValue(E_GameProperty b_SpecialAttack)
+                {
+                    int mVirtualHurtValue;
+
+                    if (b_SpecialAttack == E_GameProperty.LucklyAttackRate)
+                    {
+                        mVirtualHurtValue = mMaxAtteck + b_Attacker.GetNumerialFunc(E_GameProperty.EmbedLuckyStrokeAttack) + b_Attacker.GetNumerialFunc(E_GameProperty.EmbedSkillAttack);
+                    }
+                    else
+                    {
+                        mVirtualHurtValue = Help_RandomHelper.Range(mMinAtteck, mMaxAtteck) + b_Attacker.GetNumerialFunc(E_GameProperty.EmbedSkillAttack);
+                        if (b_SpecialAttack == E_GameProperty.ExcellentAttackRate)
+                            mVirtualHurtValue += b_Attacker.GetNumerialFunc(E_GameProperty.EmbedGreatShotAttack);
+                    }
+
+                    // 魔杖魔力提升百分比
+                    int mMaxMagicAtteckIncrease = (int)(mMaxAtteck * mMagicRate_Increase * 0.01f);
+                    mVirtualHurtValue += mMaxMagicAtteckIncrease;
+
+                    // 总伤害 = 魔法伤害 + 魔力伤害 + 魔杖魔力提升百分比
+                    int mHurtValue = mVirtualHurtValue + mAppendValue;
+                    if (mAddScale != 100)
+                        mHurtValue = (int)(mHurtValue * mAddScale * 0.01f);
+
+                    return mHurtValue;
+                }
+
+
+                int mHitValue = 0;
+                int mPersistentTime = 0;
+                int mWillpower = b_Attacker.GetNumerialFunc(E_GameProperty.Property_Willpower);
+                if (mWillpower > 4000) mWillpower = 4000;
+
+                int mHitRate = 0;
+                var mSpecialAttack = b_Attacker.AttackSpecial();
+                var mHurtValue = GetHurtValue(mSpecialAttack);
+                int mDamnationHurtValue = mHurtValue;
+
+                void CaculationHitRate(CombatSource b_CurrentTemp)
+                {
+                    switch (b_CurrentTemp.Identity)
+                    {
+                        case E_Identity.Hero:
+                            {
+                                mHitRate = 17 + mWillpower / 50 + mDamnationHurtValue / 6;
+                            }
+                            break;
+                        case E_Identity.Enemy:
+                            {
+                                mHitRate = 32 + mWillpower / 50 + mDamnationHurtValue / 6;
+                            }
+                            break;
+                        case E_Identity.Npc:
+                            break;
+                        case E_Identity.Pet:
+                            {
+                                mHitRate = 32 + mWillpower / 50 + mDamnationHurtValue / 6;
+                            }
+                            break;
+                        case E_Identity.Summoned:
+                            {
+                                mHitRate = 32 + mWillpower / 50 + mDamnationHurtValue / 6;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    mHitRate *= 10;
+                    if (mHitRate < 50) mHitRate = 50;
+                    if (mHitRate >= 990) mHitRate = 990;
+                }
+
+                void Caculation(CombatSource b_CurrentTemp)
+                {
+                    switch (b_CurrentTemp.Identity)
+                    {
+                        case E_Identity.Hero:
+                            {
+                                mHitValue = 3 + mWillpower / 93;
+                                int mLevel = (b_Attacker as GamePlayer).Data.Level - (b_CurrentTemp as GamePlayer).Data.Level;
+                                mPersistentTime = 5 + mWillpower / 300 - mLevel / 150;
+                            }
+                            break;
+                        case E_Identity.Enemy:
+                            {
+                                mHitValue = 4 + mWillpower / 58;
+                                int mLevel = (b_CurrentTemp as Enemy).Config.Lvl;
+                                mPersistentTime = 4 + mWillpower / 100 - mLevel / 20;
+                            }
+                            break;
+                        case E_Identity.Npc:
+                            break;
+                        case E_Identity.Pet:
+                            {
+                                mHitValue = 4 + mWillpower / 58;
+                                int mLevel = (b_CurrentTemp as Pets).dBPetsData.PetsLevel;
+                                mPersistentTime = 4 + mWillpower / 100 - mLevel / 20;
+                            }
+                            break;
+                        case E_Identity.Summoned:
+                            {
+                                mHitValue = 4 + mWillpower / 58;
+                                int mLevel = (b_CurrentTemp as Summoned).Config.Lvl;
+                                mPersistentTime = 4 + mWillpower / 100 - mLevel / 20;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+
+                    mPersistentTime *= 1000;
+                    if (mHitValue > 100) mHitValue = 100;
+
+                    if (b_Attacker.BattleMasteryDic.ContainsKey(E_BattleMasteryState.Skill_XuRuoZhen_Strengthen535))
+                    {
+                        int mMasteryValue = b_Attacker.BattleMasteryDic[E_BattleMasteryState.Skill_XuRuoZhen_Strengthen535];
+                        mHitValue += mMasteryValue;
+
+                        var mMasterSkilllevel = (int)E_BattleMaster_Id.Skill_XuRuoZhen_Strengthen535;
+                        if (b_Attacker.MasterGroup.TryGetValue(mMasterSkilllevel, out var mMasterSkill))
+                        {
+                            mPersistentTime += mMasterSkill.Data.SkillId[mMasterSkilllevel] * 3000;
+                        }
+                    }
+                    if (b_Attacker.BattleMasteryDic.ContainsKey(E_BattleMasteryState.Skill_XuRuoZhen_Master538))
+                    {
+                        int mMasteryValue = b_Attacker.BattleMasteryDic[E_BattleMasteryState.Skill_XuRuoZhen_Master538];
+                        mHitValue += mMasteryValue;
+                    }
+
+                    if (mPersistentTime > 1000)
+                    {
+                        Func<CombatSource.BattleSyncTimerTask> mCreateFunc = () =>
+                        {
+                            var mBattleSyncTimer = CustomFrameWork.Root.CreateBuilder.GetInstance<CombatSource.BattleSyncTimerTask>();
+                            mBattleSyncTimer.TaskType = CombatSource.E_SyncTimerTaskType.DeathRemoveTask;
+                            mBattleSyncTimer.CombatRoundId = IdGeneraterNew.Instance.GenerateId();
+                            mBattleSyncTimer.SyncWaitTime = mPersistentTime;
+                            mBattleSyncTimer.NextWaitTime = b_BattleComponent.CurrentTimeTick + mBattleSyncTimer.SyncWaitTime;
+
+                            mBattleSyncTimer.DisposeAction = (b_CombatSource, b_BattleComponent, b_TimerTask) =>
+                            {
+                                if (b_CombatSource.IsDisposeable) return;
+
+                                b_CombatSource.RemoveHealthState(E_BattleSkillStats.XuRuoZhen510, b_BattleComponent);
+                                b_CombatSource.UpdateHealthState();
+                            };
+                            mBattleSyncTimer.SyncAction = (b_CombatSource, b_BattleComponent, b_TimerTask, b_TimeTick) =>
+                            {
+                                if (b_CombatSource.IsDisposeable) return CombatSource.E_SyncTimerTaskResult.Dispose;
+
+                                if (b_CombatSource.HealthStatsDic.TryGetValue(E_BattleSkillStats.XuRuoZhen510, out var hp_Curse) == false)
+                                {
+                                    return CombatSource.E_SyncTimerTaskResult.Dispose;
+                                }
+
+                                if (b_TimerTask.NextWaitTime == hp_Curse.ContinueTimeMax)
+                                {
+                                    return CombatSource.E_SyncTimerTaskResult.Dispose;
+                                }
+                                if (b_TimeTick > hp_Curse.ContinueTimeMax)
+                                {
+                                    return CombatSource.E_SyncTimerTaskResult.Dispose;
+                                }
+                                else
+                                {
+                                    b_TimerTask.NextWaitTime = hp_Curse.ContinueTimeMax;
+
+                                    b_CombatSource.AddTask(b_TimerTask);
+                                }
+                                return CombatSource.E_SyncTimerTaskResult.NextRound;
+                            };
+
+                            return mBattleSyncTimer;
+                        };
+
+                        b_CurrentTemp.AddHealthState(E_BattleSkillStats.XuRuoZhen510, mHitValue, mPersistentTime, 0, mCreateFunc, b_BattleComponent);
+                        b_CurrentTemp.UpdateHealthState();
+                        b_CurrentTemp.ChangeNumerialType(E_GameProperty.MinAtteck);
+                        b_CurrentTemp.ChangeNumerialType(E_GameProperty.MaxAtteck);
+                        b_CurrentTemp.ChangeNumerialType(E_GameProperty.MinMagicAtteck);
+                        b_CurrentTemp.ChangeNumerialType(E_GameProperty.MaxMagicAtteck);
+                        b_CurrentTemp.ChangeNumerialType(E_GameProperty.MinDamnationAtteck);
+                        b_CurrentTemp.ChangeNumerialType(E_GameProperty.MaxDamnationAtteck);
+                    }
+                }
+
+                {
+                    int mTargetX = b_Attacker.UnitData.X;
+                    int mTargetY = b_Attacker.UnitData.Y;
+                    Vector2 mCenterPos = b_BattleComponent.Parent.GetFindTheWay2D(b_Attacker).Vector2Pos;
+                    Dictionary<long, C_FindTheWay2D> mMapFieldDic = new Dictionary<long, C_FindTheWay2D>();
+                    var mRadius = mConfig.OtherDataDic[2];
+                    var mRadiusMax = mRadius * 2;
+                    // 目标范围
+                    (int X, int Y) mStartPos = (mTargetX - mRadius, mTargetY - mRadius);
+
+                    var mRadiusLen = mRadius * 10 + 5;
+                    for (int i = 0; i <= mRadiusMax; i++)
+                    {
+                        for (int j = 0; j <= mRadiusMax; j++)
+                        {
+                            var mCurrentTemp = b_BattleComponent.Parent.GetFindTheWay2D(mStartPos.X + i, mStartPos.Y + j);
+                            if (mCurrentTemp == null) continue;
+                            if (mCurrentTemp.HasUnit() == false) continue;
+
+                            if (10 * Vector2.Distance(mCenterPos, mCurrentTemp.Vector2Pos) <= mRadiusLen)
+                            {
+                                if (mMapFieldDic.ContainsKey(mCurrentTemp.Id) == false)
+                                {
+                                    mMapFieldDic[mCurrentTemp.Id] = mCurrentTemp;
+                                }
+                            }
+                        }
+                    }
+
+                    Action<long, long, long> mSyncActionChild = (b_CombatRoundId, b_AttackerId, b_BeAttackerId) =>
+                    {
+                        if (b_Attacker.InstanceId != b_AttackerId || b_Attacker.IsDeath || b_Attacker.IsDisposeable || b_Attacker.UnitData.Index != b_BattleComponent.Parent.MapId)
+                        {
+                            return;
+                        }
+
+                        var mCurrnetPKModel = b_Attacker.PKModel();
+                        bool mIsHasTeam = false;
+                        Dictionary<long, Player> mDic = null;
+                        if (mCurrnetPKModel == E_PKModel.Friend)
+                        {
+                            var mTeamComponent = (b_Attacker as GamePlayer).Player.GetCustomComponent<TeamComponent>();
+                            if (mTeamComponent != null)
+                            {
+                                TeamManageComponent mTeamManageComponent = Root.MainFactory.GetCustomComponent<TeamManageComponent>();
+                                mDic = mTeamManageComponent.GetAllByTeamID(mTeamComponent.TeamID);
+                                mIsHasTeam = mDic != null && mDic.ContainsKey(b_Attacker.InstanceId);
+                            }
+                        }
+                        var mAttackerFanJiIdlist = b_Attacker.GetFanJiIdlist();
+
+
+
+                        var mMapFieldlist = mMapFieldDic.Values.ToArray();
+                        for (int i = 0, len = mMapFieldlist.Length; i < len; i++)
+                        {
+                            var mMapField = mMapFieldlist[i];
+
+                            if (mMapField.FieldEnemyDic.Count > 0)
+                            {
+                                var mFieldEnemylist = mMapField.FieldEnemyDic.Values.ToArray();
+                                for (int j = 0, jlen = mFieldEnemylist.Length; j < jlen; j++)
+                                {
+                                    var mCurrentTemp = mFieldEnemylist[j];
+                                    if (mCurrentTemp.IsDeath || mCurrentTemp.IsDisposeable) continue;
+
+                                    //if (Vector2.Distance(mSelfPos, new Vector2(mCurrentTemp.UnitData.X, mCurrentTemp.UnitData.Y)) < mRadius)
+                                    {
+                                        // 是否命中
+                                        bool IsHit = true;
+                                        int mRandomValue = Help_RandomHelper.Range(0, 1000);
+                                        CaculationHitRate(mCurrentTemp);
+                                        if (mRandomValue > mHitRate) IsHit = false;
+                                        if (IsHit)
+                                        {
+                                            Caculation(mCurrentTemp);
+                                        }
+                                        else
+                                        {
+                                            G2C_AttackResult_notice mAttackResultNotice = new G2C_AttackResult_notice();
+                                            mAttackResultNotice.AttackTarget = mCurrentTemp.InstanceId;
+                                            mAttackResultNotice.HurtValueType = 1;
+                                            b_BattleComponent.Parent.SendNotice(mCurrentTemp, mAttackResultNotice);
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (mMapField.FieldPlayerDic.Count > 0)
+                            {
+                                var mFieldPlayerlist = mMapField.FieldPlayerDic.Values.ToArray();
+                                for (int j = 0, jlen = mFieldPlayerlist.Length; j < jlen; j++)
+                                {
+                                    var mCurrentTemp = mFieldPlayerlist[j];
+
+                                    if (mCurrentTemp.IsDeath || mCurrentTemp.IsDisposeable) continue;
+                                    if (mCurrentTemp.InstanceId == b_Attacker.InstanceId) continue;
+
+                                    var mTryUseResult = b_Attacker.TryUseByPlayerKilling(mCurrentTemp, mAttackerFanJiIdlist, mCurrnetPKModel, mIsHasTeam, mDic);
+                                    if (mTryUseResult == false) continue;
+
+                                    //if (Vector2.Distance(mSelfPos, new Vector2(mCurrentTemp.UnitData.X, mCurrentTemp.UnitData.Y)) < mRadius)
+                                    {
+                                        // 是否命中
+                                        bool IsHit = true;
+                                        int mRandomValue = Help_RandomHelper.Range(0, 1000);
+                                        CaculationHitRate(mCurrentTemp);
+                                        if (mRandomValue > mHitRate) IsHit = false;
+                                        if (IsHit)
+                                        {
+                                            Caculation(mCurrentTemp);
+                                        }
+                                        else
+                                        {
+                                            G2C_AttackResult_notice mAttackResultNotice = new G2C_AttackResult_notice();
+                                            mAttackResultNotice.AttackTarget = mCurrentTemp.Player.GameUserId;
+                                            mAttackResultNotice.HurtValueType = 1;
+                                            b_BattleComponent.Parent.SendNotice(mCurrentTemp, mAttackResultNotice);
+                                        }
+                                    }
+                                }
+                            }
+                            if (false && mMapField.FieldPetsDic.Count > 0)
+                            {
+                                var mFieldPetslist = mMapField.FieldPetsDic.Values.ToArray();
+                                for (int j = 0, jlen = mFieldPetslist.Length; j < jlen; j++)
+                                {
+                                    var mCurrentTemp = mFieldPetslist[j];
+                                    if (mCurrentTemp.IsDeath || mCurrentTemp.IsDisposeable || mCurrentTemp.GamePlayer.IsDisposeable) continue;
+                                    if (mCurrentTemp.GamePlayer.InstanceId == b_Attacker.InstanceId) continue;
+
+                                    var mTryUseResult = b_Attacker.TryUseByPlayerKilling(mCurrentTemp, mAttackerFanJiIdlist, mCurrnetPKModel, mIsHasTeam, mDic);
+                                    if (mTryUseResult == false) continue;
+
+                                    //if (Vector2.Distance(mSelfPos, new Vector2(mCurrentTemp.UnitData.X, mCurrentTemp.UnitData.Y)) < mRadius)
+                                    {
+                                        // 是否命中
+                                        bool IsHit = true;
+                                        int mRandomValue = Help_RandomHelper.Range(0, 1000);
+                                        CaculationHitRate(mCurrentTemp);
+                                        if (mRandomValue > mHitRate) IsHit = false;
+                                        if (IsHit)
+                                        {
+                                            Caculation(mCurrentTemp);
+                                        }
+                                        else
+                                        {
+                                            G2C_AttackResult_notice mAttackResultNotice = new G2C_AttackResult_notice();
+                                            mAttackResultNotice.AttackTarget = mCurrentTemp.InstanceId;
+                                            mAttackResultNotice.HurtValueType = 1;
+                                            b_BattleComponent.Parent.SendNotice(mCurrentTemp, mAttackResultNotice);
+                                        }
+                                    }
+                                }
+                            }
+                            if (mMapField.FieldSummonedDic.Count > 0)
+                            {
+                                var mFieldSummonedlist = mMapField.FieldSummonedDic.Values.ToArray();
+                                for (int j = 0, jlen = mFieldSummonedlist.Length; j < jlen; j++)
+                                {
+                                    var mCurrentTemp = mFieldSummonedlist[j];
+                                    if (mCurrentTemp.IsDeath || mCurrentTemp.IsDisposeable || mCurrentTemp.GamePlayer.IsDisposeable) continue;
+                                    if (mCurrentTemp.GamePlayer.InstanceId == b_Attacker.InstanceId) continue;
+
+                                    var mTryUseResult = b_Attacker.TryUseByPlayerKilling(mCurrentTemp, mAttackerFanJiIdlist, mCurrnetPKModel, mIsHasTeam, mDic);
+                                    if (mTryUseResult == false) continue;
+
+                                    //if (Vector2.Distance(mSelfPos, new Vector2(mCurrentTemp.UnitData.X, mCurrentTemp.UnitData.Y)) < mRadius)
+                                    {
+                                        // 是否命中
+                                        bool IsHit = true;
+                                        int mRandomValue = Help_RandomHelper.Range(0, 1000);
+                                        CaculationHitRate(mCurrentTemp);
+                                        if (mRandomValue > mHitRate) IsHit = false;
+                                        if (IsHit)
+                                        {
+                                            Caculation(mCurrentTemp);
+                                        }
+                                        else
+                                        {
+                                            G2C_AttackResult_notice mAttackResultNotice = new G2C_AttackResult_notice();
+                                            mAttackResultNotice.AttackTarget = mCurrentTemp.InstanceId;
+                                            mAttackResultNotice.HurtValueType = 1;
+                                            b_BattleComponent.Parent.SendNotice(mCurrentTemp, mAttackResultNotice);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    };
+                    mSyncActionChild.Invoke(0, b_AttackerId, b_BeAttackerId);
+
+                    for (int i = 1; i < 30; i++)
+                    {
+                        b_BattleComponent.WaitSync(1000 * i, b_AttackerId, b_BeAttackerId, mSyncActionChild);
+                    }
+                }
+
+                //b_Attacker.CombatRoundId = b_BattleComponent.WaitSync(mAttackTime, b_Attacker.InstanceId, mBeAttacker.InstanceId, (b_CombatRoundId, b_AttackerId, b_BeAttackerId) => { if (b_Attacker.CombatRoundId == b_CombatRoundId) b_Attacker.IsAttacking = false; }, () => { b_Attacker.CombatRoundId = 0; });
+            };
+            b_Attacker.CombatRoundId = 0;
+            b_BattleComponent.WaitSync(mDamageWait, b_Attacker.InstanceId, mBeAttacker.InstanceId, mSyncAction);
+            b_Attacker.CombatRoundId = b_BattleComponent.WaitSync(mAttackTime, b_Attacker.InstanceId, mBeAttacker.InstanceId, (b_CombatRoundId, b_AttackerId, b_BeAttackerId) => { if (b_Attacker.CombatRoundId == b_CombatRoundId) b_Attacker.IsAttacking = false; }, () => { b_Attacker.CombatRoundId = 0; });
+            return true;
+        }
+    }
+}

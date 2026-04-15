@@ -1,0 +1,70 @@
+namespace ETModel
+{
+	public static partial class InnerOpcode
+	{
+		 public const ushort DBSaveRequest = 1001;
+		 public const ushort DBSaveBatchResponse = 1002;
+		 public const ushort DBSaveBatchRequest = 1003;
+		 public const ushort DBSaveResponse = 1004;
+		 public const ushort DBQueryRequest = 1005;
+		 public const ushort DBQueryResponse = 1006;
+		 public const ushort DBQueryBatchRequest = 1007;
+		 public const ushort DBQueryBatchResponse = 1008;
+		 public const ushort DBQueryJsonRequest = 1009;
+		 public const ushort DBQueryJsonResponse = 1010;
+		 public const ushort DBUpdateOneRequest = 1011;
+		 public const ushort DBUpdateOneResponse = 1012;
+		 public const ushort DBAggregateRequest = 1013;
+		 public const ushort DBAggregateResponse = 1014;
+		 public const ushort ObjectAddRequest = 1015;
+		 public const ushort ObjectAddResponse = 1016;
+		 public const ushort ObjectRemoveRequest = 1017;
+		 public const ushort ObjectRemoveResponse = 1018;
+		 public const ushort ObjectLockRequest = 1019;
+		 public const ushort ObjectLockResponse = 1020;
+		 public const ushort ObjectUnLockRequest = 1021;
+		 public const ushort ObjectUnLockResponse = 1022;
+		 public const ushort ObjectGetRequest = 1023;
+		 public const ushort ObjectGetResponse = 1024;
+		 public const ushort R2G_GetLoginKey = 1025;
+		 public const ushort G2R_GetLoginKey = 1026;
+		 public const ushort G2M_CreateUnit = 1027;
+		 public const ushort M2G_CreateUnit = 1028;
+		 public const ushort G2M_SessionDisconnect = 1029;
+		 public const ushort DBGetCountRequest = 1030;
+		 public const ushort DBGetCountResponse = 1031;
+		 public const ushort DBIncRequest = 1032;
+		 public const ushort DBIncResponse = 1033;
+		 public const ushort G2M_GetGameAreaInfoMessage = 1034;
+		 public const ushort M2G_GetGameAreaInfoMessage = 1035;
+		 public const ushort G2C_GameAreaInfoMessage2 = 1036;
+		 public const ushort G2M_GetGameAreaLineInfoMessage = 1037;
+		 public const ushort M2G_GetGameAreaLineInfoMessage = 1038;
+		 public const ushort G2M_EnterGameGetAreaLineInfoMessage = 1039;
+		 public const ushort M2G_EnterGameGetAreaLineInfoMessage = 1040;
+		 public const ushort G2Game_EnterGameAreaMessage = 1041;
+		 public const ushort Game2G_EnterGameAreaMessage = 1042;
+		 public const ushort S2Gate_DisconnectGateUser = 1043;
+		 public const ushort Gate2S_DisconnectGateUser = 1044;
+		 public const ushort S2Game_RequestExitGame = 1045;
+		 public const ushort Game2S_RequestExitGame = 1046;
+		 public const ushort Realm2LoginCenter_LoginAccount = 1047;
+		 public const ushort LoginCenter2Realm_LoginAccount = 1048;
+		 public const ushort Gate2LoginCenter_AddRecordAndLogin = 1049;
+		 public const ushort LoginCenter2Gate_AddRecordAndLogin = 1050;
+		 public const ushort Gate2LoginCenter_SetLoginRecord = 1051;
+		 public const ushort LoginCenter2Gate_SetLoginRecord = 1052;
+		 public const ushort LoginCenter2Gate_RemoveLoginRecord = 1053;
+		 public const ushort Gate2LoginCenter_RemoveLoginRecord = 1054;
+		 public const ushort S2LoginCenter_GetLoginRecord = 1055;
+		 public const ushort LoginCenter2S_GetLoginRecord = 1056;
+		 public const ushort GM2Game_SendMail = 1057;
+		 public const ushort Game2GM_SendMail = 1058;
+		 public const ushort GM2Game_GetGameServerStatus = 1059;
+		 public const ushort Game2GM_GetGameServerStatus = 1060;
+		 public const ushort GM2S_RunCode = 1061;
+		 public const ushort S2GM_RunCode = 1062;
+		 public const ushort GM2Game_UpdateAccountIdentity = 1063;
+		 public const ushort Game2GM_UpdateAccountIdentity = 1064;
+	}
+}

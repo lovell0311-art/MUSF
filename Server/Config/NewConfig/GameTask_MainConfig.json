@@ -1,0 +1,7476 @@
+[
+  {
+    "Id": 100000,
+    "TaskName": "寻找幻影导师领取祝福",
+    "TaskActionType": 106,
+    "TaskDes": "领取精灵的祝福",
+    "MapId": 100,
+    "AutoPathPos": [
+      186,
+      243
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 500,
+    "RewardItems": "宝箱*1(任务物品，可交易，价值100金币)",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      0
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100001,
+    "TaskName": "完成一次加点",
+    "TaskActionType": 101,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 500,
+    "RewardCoin": 2500,
+    "RewardItems": "钢铁之盾(必带技能，任务物品)",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100000
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100002,
+    "TaskName": "丢弃物品",
+    "TaskActionType": 100,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 200,
+    "RewardCoin": 1000,
+    "RewardItems": "短斧",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100001
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100003,
+    "TaskName": "配置装备",
+    "TaskActionType": 102,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 600,
+    "RewardCoin": 3000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100002
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100004,
+    "TaskName": "击杀怪物-蜘蛛",
+    "TaskActionType": 1,
+    "TaskDes": "蜘蛛(3)",
+    "MapId": 100,
+    "AutoPathPos": [
+      199,
+      270
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "蜘蛛",
+    "TaskTargetId": [
+      3
+    ],
+    "TaskTargetCount": [
+      3
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 300,
+    "RewardCoin": 1500,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100003
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100006,
+    "TaskName": "提升等级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      2
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 400,
+    "RewardCoin": 2000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100004
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100007,
+    "TaskName": "击杀怪物-幼龙",
+    "TaskActionType": 1,
+    "TaskDes": "幼龙(3)",
+    "MapId": 100,
+    "AutoPathPos": [
+      199,
+      270
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "幼龙",
+    "TaskTargetId": [
+      5
+    ],
+    "TaskTargetCount": [
+      3
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 800,
+    "RewardCoin": 4000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100006
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100008,
+    "TaskName": "消灭勇者大陆牛怪",
+    "TaskActionType": 1,
+    "TaskDes": "牛怪(5)",
+    "MapId": 100,
+    "AutoPathPos": [
+      201,
+      128
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "牛怪",
+    "TaskTargetId": [
+      7
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 500,
+    "RewardCoin": 3000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100007
+    ],
+    "ReqLevelMin": 2,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100009,
+    "TaskName": "消灭勇者大陆猎犬怪",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物:猎犬怪(7)",
+    "MapId": 100,
+    "AutoPathPos": [
+      180,
+      115
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "猎犬怪",
+    "TaskTargetId": [
+      9
+    ],
+    "TaskTargetCount": [
+      7
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1200,
+    "RewardCoin": 7000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100008
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100010,
+    "TaskName": "前往勇者大陆装备商人",
+    "TaskActionType": 3,
+    "TaskDes": "铁匠",
+    "MapId": 100,
+    "AutoPathPos": [
+      171,
+      171
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      108
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "小型红药*20，小型蓝药*20",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100009
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100011,
+    "TaskName": "收集勇者大陆苹果",
+    "TaskActionType": 4,
+    "TaskDes": "需要道具:苹果(5)",
+    "MapId": 100,
+    "AutoPathPos": [
+      199,
+      270
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "苹果",
+    "TaskTargetId": [
+      310045
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1000,
+    "RewardCoin": 200,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100010
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100012,
+    "TaskName": "消灭勇者大陆蛮牛怪",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物:蛮牛怪(7)",
+    "MapId": 100,
+    "AutoPathPos": [
+      279,
+      239
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "蛮牛怪",
+    "TaskTargetId": [
+      11
+    ],
+    "TaskTargetCount": [
+      7
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1500,
+    "RewardCoin": 6000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100011
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100013,
+    "TaskName": "消灭勇者大陆猎犬怪",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物:猎犬怪10)",
+    "MapId": 100,
+    "AutoPathPos": [
+      180,
+      115
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "猎犬怪",
+    "TaskTargetId": [
+      9
+    ],
+    "TaskTargetCount": [
+      10
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2000,
+    "RewardCoin": 8000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100012
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100014,
+    "TaskName": "消灭勇者大陆蛮牛怪",
+    "TaskActionType": 1,
+    "TaskDes": "蛮牛怪(10)",
+    "MapId": 100,
+    "AutoPathPos": [
+      279,
+      239
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "蛮牛怪",
+    "TaskTargetId": [
+      11
+    ],
+    "TaskTargetCount": [
+      10
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2200,
+    "RewardCoin": 10000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100013
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100015,
+    "TaskName": "消灭勇者大陆黑巫师",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物:黑巫师(10)",
+    "MapId": 100,
+    "AutoPathPos": [
+      88,
+      194
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "黑巫师",
+    "TaskTargetId": [
+      13
+    ],
+    "TaskTargetCount": [
+      10
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2500,
+    "RewardCoin": 15000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100014
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100016,
+    "TaskName": "地图传送",
+    "TaskActionType": 104,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 900,
+    "RewardCoin": 4500,
+    "RewardItems": "小型红药*20，小型蓝药*20",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100015
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": 0,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 100100,
+    "TaskName": "寻找幻影导师领取祝福",
+    "TaskActionType": 106,
+    "TaskDes": "领取精灵的祝福",
+    "MapId": 200,
+    "AutoPathPos": [
+      210,
+      255
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 500,
+    "RewardItems": "宝箱*1(任务物品，可交易，价值100金币)",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      0
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100101,
+    "TaskName": "完成一次加点",
+    "TaskActionType": 101,
+    "TaskDes": "",
+    "MapId": 200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 500,
+    "RewardCoin": 2500,
+    "RewardItems": "短弓(必带技能，任务物品)",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100100
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100102,
+    "TaskName": "丢弃物品",
+    "TaskActionType": 100,
+    "TaskDes": "",
+    "MapId": 200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 200,
+    "RewardCoin": 1000,
+    "RewardItems": "短斧",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100101
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100103,
+    "TaskName": "配置装备",
+    "TaskActionType": 102,
+    "TaskDes": "",
+    "MapId": 200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 600,
+    "RewardCoin": 3000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100102
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100104,
+    "TaskName": "击杀怪物-蜘蛛",
+    "TaskActionType": 1,
+    "TaskDes": "蜘蛛(3)",
+    "MapId": 200,
+    "AutoPathPos": [
+      198,
+      245
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "蜘蛛",
+    "TaskTargetId": [
+      3
+    ],
+    "TaskTargetCount": [
+      3
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 300,
+    "RewardCoin": 1500,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100103
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100106,
+    "TaskName": "提升等级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      2
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 400,
+    "RewardCoin": 2000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100104
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100107,
+    "TaskName": "消灭仙踪林小哥布林",
+    "TaskActionType": 1,
+    "TaskDes": "小哥布林(3)",
+    "MapId": 200,
+    "AutoPathPos": [
+      269,
+      229
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "小哥布林",
+    "TaskTargetId": [
+      4
+    ],
+    "TaskTargetCount": [
+      3
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 800,
+    "RewardCoin": 4000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100106
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100108,
+    "TaskName": "消灭仙踪林勾尾蝎",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物：勾尾蝎(5)",
+    "MapId": 200,
+    "AutoPathPos": [
+      187,
+      233
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "勾尾蝎",
+    "TaskTargetId": [
+      6
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 500,
+    "RewardCoin": 3000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100107
+    ],
+    "ReqLevelMin": 2,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100109,
+    "TaskName": "消灭仙踪林大哥布林",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物：大哥布林(7)",
+    "MapId": 200,
+    "AutoPathPos": [
+      325,
+      205
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "大哥布林",
+    "TaskTargetId": [
+      8
+    ],
+    "TaskTargetCount": [
+      7
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1200,
+    "RewardCoin": 7000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100108
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100110,
+    "TaskName": "前往仙踪林装备商人",
+    "TaskActionType": 3,
+    "TaskDes": "精灵安吉拉",
+    "MapId": 200,
+    "AutoPathPos": [
+      198,
+      268
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      205
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "小型红药*20，小型蓝药*20",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100109
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100111,
+    "TaskName": "消灭仙踪林瓢虫怪",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物：瓢虫怪(5)",
+    "MapId": 200,
+    "AutoPathPos": [
+      321,
+      164
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "瓢虫怪",
+    "TaskTargetId": [
+      10
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1000,
+    "RewardCoin": 200,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100110
+    ],
+    "ReqLevelMin": 2,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100112,
+    "TaskName": "收集仙踪林苹果",
+    "TaskActionType": 4,
+    "TaskDes": "需要道具：苹果(5)",
+    "MapId": 200,
+    "AutoPathPos": [
+      198,
+      245
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "苹果",
+    "TaskTargetId": [
+      310045
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1500,
+    "RewardCoin": 6000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100111
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100113,
+    "TaskName": "消灭仙踪林偷猎者",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物:偷猎者(7)",
+    "MapId": 200,
+    "AutoPathPos": [
+      242,
+      186
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "偷猎者",
+    "TaskTargetId": [
+      12
+    ],
+    "TaskTargetCount": [
+      7
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2000,
+    "RewardCoin": 8000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100112
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100114,
+    "TaskName": "消灭仙踪林树妖",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物：树妖(10)",
+    "MapId": 200,
+    "AutoPathPos": [
+      68,
+      270
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "树妖",
+    "TaskTargetId": [
+      14
+    ],
+    "TaskTargetCount": [
+      10
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2200,
+    "RewardCoin": 10000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100113
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100115,
+    "TaskName": "消灭仙踪林偷猎者",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物：偷猎者(10)",
+    "MapId": 200,
+    "AutoPathPos": [
+      242,
+      186
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "偷猎者",
+    "TaskTargetId": [
+      12
+    ],
+    "TaskTargetCount": [
+      10
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2500,
+    "RewardCoin": 15000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100114
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100116,
+    "TaskName": "地图传送",
+    "TaskActionType": 104,
+    "TaskDes": "",
+    "MapId": 200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 900,
+    "RewardCoin": 4500,
+    "RewardItems": "小型红药*20，小型蓝药*20",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100115
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100200,
+    "TaskName": "寻找幻影导师领取祝福",
+    "TaskActionType": 106,
+    "TaskDes": "领取精灵的祝福",
+    "MapId": 100,
+    "AutoPathPos": [
+      186,
+      243
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 500,
+    "RewardItems": "宝箱*1(任务物品，可交易，价值100金币)",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      0
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100201,
+    "TaskName": "完成一次加点",
+    "TaskActionType": 101,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 500,
+    "RewardCoin": 2500,
+    "RewardItems": "钢铁之盾(必带技能，任务物品)",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100200
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100202,
+    "TaskName": "丢弃物品",
+    "TaskActionType": 100,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 200,
+    "RewardCoin": 1000,
+    "RewardItems": "短斧",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100201
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100203,
+    "TaskName": "配置装备",
+    "TaskActionType": 102,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 600,
+    "RewardCoin": 3000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100202
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100204,
+    "TaskName": "击杀怪物-蜘蛛",
+    "TaskActionType": 1,
+    "TaskDes": "蜘蛛(3)",
+    "MapId": 100,
+    "AutoPathPos": [
+      199,
+      270
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "蜘蛛",
+    "TaskTargetId": [
+      3
+    ],
+    "TaskTargetCount": [
+      3
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 300,
+    "RewardCoin": 1500,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100203
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100206,
+    "TaskName": "提升等级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      2
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 400,
+    "RewardCoin": 2000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100204
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100207,
+    "TaskName": "击杀怪物-幼龙",
+    "TaskActionType": 1,
+    "TaskDes": "幼龙(3)",
+    "MapId": 100,
+    "AutoPathPos": [
+      199,
+      270
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "幼龙",
+    "TaskTargetId": [
+      5
+    ],
+    "TaskTargetCount": [
+      3
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 800,
+    "RewardCoin": 4000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100206
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100208,
+    "TaskName": "消灭勇者大陆牛怪",
+    "TaskActionType": 1,
+    "TaskDes": "牛怪(5)",
+    "MapId": 100,
+    "AutoPathPos": [
+      201,
+      128
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "牛怪",
+    "TaskTargetId": [
+      7
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 500,
+    "RewardCoin": 3000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100207
+    ],
+    "ReqLevelMin": 2,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100209,
+    "TaskName": "消灭勇者大陆猎犬怪",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物:猎犬怪(7)",
+    "MapId": 100,
+    "AutoPathPos": [
+      180,
+      115
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "猎犬怪",
+    "TaskTargetId": [
+      9
+    ],
+    "TaskTargetCount": [
+      7
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1200,
+    "RewardCoin": 7000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100208
+    ],
+    "ReqLevelMin": 2,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100210,
+    "TaskName": "前往勇者大陆装备商人",
+    "TaskActionType": 3,
+    "TaskDes": "铁匠",
+    "MapId": 100,
+    "AutoPathPos": [
+      171,
+      171
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      108
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "小型红药*20，小型蓝药*20",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100209
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100211,
+    "TaskName": "收集勇者大陆苹果",
+    "TaskActionType": 4,
+    "TaskDes": "需要道具:苹果(5)",
+    "MapId": 100,
+    "AutoPathPos": [
+      199,
+      270
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "苹果",
+    "TaskTargetId": [
+      310045
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1000,
+    "RewardCoin": 200,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100210
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100212,
+    "TaskName": "消灭勇者大陆蛮牛怪",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物:蛮牛怪(7)",
+    "MapId": 100,
+    "AutoPathPos": [
+      279,
+      239
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "蛮牛怪",
+    "TaskTargetId": [
+      11
+    ],
+    "TaskTargetCount": [
+      7
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1500,
+    "RewardCoin": 6000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100211
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100213,
+    "TaskName": "消灭勇者大陆猎犬怪",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物:猎犬怪10)",
+    "MapId": 100,
+    "AutoPathPos": [
+      180,
+      115
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "猎犬怪",
+    "TaskTargetId": [
+      9
+    ],
+    "TaskTargetCount": [
+      10
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2000,
+    "RewardCoin": 8000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100212
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100214,
+    "TaskName": "消灭勇者大陆蛮牛怪",
+    "TaskActionType": 1,
+    "TaskDes": "蛮牛怪(10)",
+    "MapId": 100,
+    "AutoPathPos": [
+      279,
+      239
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "蛮牛怪",
+    "TaskTargetId": [
+      11
+    ],
+    "TaskTargetCount": [
+      10
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2200,
+    "RewardCoin": 10000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100213
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100215,
+    "TaskName": "消灭勇者大陆黑巫师",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物:黑巫师(10)",
+    "MapId": 100,
+    "AutoPathPos": [
+      88,
+      194
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "黑巫师",
+    "TaskTargetId": [
+      13
+    ],
+    "TaskTargetCount": [
+      10
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2500,
+    "RewardCoin": 15000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100214
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100216,
+    "TaskName": "地图传送",
+    "TaskActionType": 104,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 900,
+    "RewardCoin": 4500,
+    "RewardItems": "小型红药*20，小型蓝药*20",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100215
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": -1,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100300,
+    "TaskName": "寻找幻影导师领取祝福",
+    "TaskActionType": 106,
+    "TaskDes": "领取精灵的祝福",
+    "MapId": 300,
+    "AutoPathPos": [
+      52,
+      97
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 500,
+    "RewardItems": "宝箱*1(任务物品，可交易，价值100金币)",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      0
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100301,
+    "TaskName": "完成一次加点",
+    "TaskActionType": 101,
+    "TaskDes": "",
+    "MapId": 300,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 500,
+    "RewardCoin": 2500,
+    "RewardItems": "短剑(任务物品)",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100300
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100302,
+    "TaskName": "丢弃物品",
+    "TaskActionType": 100,
+    "TaskDes": "",
+    "MapId": 300,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 200,
+    "RewardCoin": 1000,
+    "RewardItems": "短斧",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100301
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100303,
+    "TaskName": "配置装备",
+    "TaskActionType": 102,
+    "TaskDes": "",
+    "MapId": 300,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 600,
+    "RewardCoin": 3000,
+    "RewardItems": "火球术(任务物品)",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100302
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100304,
+    "TaskName": "击杀怪物-蜘蛛",
+    "TaskActionType": 1,
+    "TaskDes": "蜘蛛(3)",
+    "MapId": 300,
+    "AutoPathPos": [
+      52,
+      178
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "蜘蛛",
+    "TaskTargetId": [
+      3
+    ],
+    "TaskTargetCount": [
+      3
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 300,
+    "RewardCoin": 1500,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100303
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100306,
+    "TaskName": "提升等级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 300,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      2
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 400,
+    "RewardCoin": 2000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100304
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100307,
+    "TaskName": "击杀怪物-蜘蛛",
+    "TaskActionType": 1,
+    "TaskDes": "蜘蛛(5)",
+    "MapId": 300,
+    "AutoPathPos": [
+      52,
+      178
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "蜘蛛",
+    "TaskTargetId": [
+      3
+    ],
+    "TaskTargetCount": [
+      3
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 800,
+    "RewardCoin": 4000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100306
+    ],
+    "ReqLevelMin": 1,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100308,
+    "TaskName": "消灭幻术园污染之蝶",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物：污染之蝶(5)",
+    "MapId": 300,
+    "AutoPathPos": [
+      75,
+      192
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "污染之蝶",
+    "TaskTargetId": [
+      374
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 500,
+    "RewardCoin": 3000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100307
+    ],
+    "ReqLevelMin": 2,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100309,
+    "TaskName": "消灭幻术园怪异的兔子",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物: 怪异的兔子(5)",
+    "MapId": 300,
+    "AutoPathPos": [
+      162,
+      47
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "怪异的兔子",
+    "TaskTargetId": [
+      371
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1200,
+    "RewardCoin": 7000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100308
+    ],
+    "ReqLevelMin": 2,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100310,
+    "TaskName": "前往幻术园装备商人",
+    "TaskActionType": 3,
+    "TaskDes": "摩尔塞",
+    "MapId": 300,
+    "AutoPathPos": [
+      56,
+      38
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "小型红药*20，小型蓝药*20",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100309
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100311,
+    "TaskName": "收集幻术园苹果",
+    "TaskActionType": 4,
+    "TaskDes": "需要道具：苹果(5)",
+    "MapId": 300,
+    "AutoPathPos": [
+      52,
+      178
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "苹果",
+    "TaskTargetId": [
+      310045
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1000,
+    "RewardCoin": 200,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100310
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100312,
+    "TaskName": "消灭幻术园污染之蝶",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物：污染之蝶(7)",
+    "MapId": 300,
+    "AutoPathPos": [
+      75,
+      192
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "污染之蝶",
+    "TaskTargetId": [
+      374
+    ],
+    "TaskTargetCount": [
+      7
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1500,
+    "RewardCoin": 6000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100311
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100313,
+    "TaskName": "消灭幻术园怪异的兔子",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物: 怪异的兔子(7)",
+    "MapId": 300,
+    "AutoPathPos": [
+      162,
+      47
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "怪异的兔子",
+    "TaskTargetId": [
+      371
+    ],
+    "TaskTargetCount": [
+      7
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2000,
+    "RewardCoin": 8000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100312
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100314,
+    "TaskName": "消灭幻术园污染之蝶",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物：污染之蝶(10)",
+    "MapId": 300,
+    "AutoPathPos": [
+      75,
+      192
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "污染之蝶",
+    "TaskTargetId": [
+      374
+    ],
+    "TaskTargetCount": [
+      10
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2200,
+    "RewardCoin": 10000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100313
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100315,
+    "TaskName": "消灭幻术园疯狂的兔子",
+    "TaskActionType": 1,
+    "TaskDes": "消灭怪物: 怪异的兔子(10)",
+    "MapId": 300,
+    "AutoPathPos": [
+      143,
+      172
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "疯狂的兔子",
+    "TaskTargetId": [
+      372
+    ],
+    "TaskTargetCount": [
+      10
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2500,
+    "RewardCoin": 15000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100314
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 100316,
+    "TaskName": "地图传送",
+    "TaskActionType": 104,
+    "TaskDes": "",
+    "MapId": 300,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 900,
+    "RewardCoin": 4500,
+    "RewardItems": "小型红药*20，小型蓝药*20",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100315
+    ],
+    "ReqLevelMin": 5,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 102033,
+    "TaskName": "消灭幻术园2狼人",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物：狼人(12)",
+    "MapId": 300,
+    "AutoPathPos": [
+      325,
+      99
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "狼人",
+    "TaskTargetId": [
+      373
+    ],
+    "TaskTargetCount": [
+      12
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 3000,
+    "RewardCoin": 17000,
+    "RewardItems": "小型红药*20，小型蓝药*20",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100316
+    ],
+    "ReqLevelMin": 10,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 102034,
+    "TaskName": "消灭幻术园2狼人",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物：狼人(12)",
+    "MapId": 300,
+    "AutoPathPos": [
+      325,
+      99
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "狼人",
+    "TaskTargetId": [
+      373
+    ],
+    "TaskTargetCount": [
+      12
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 3000,
+    "RewardCoin": 17000,
+    "RewardItems": "小型红药*20，小型蓝药*20",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      100016,
+      100116,
+      100216
+    ],
+    "ReqLevelMin": 10,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102035,
+    "TaskName": "消灭幻术园2诅咒巫师",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物：诅咒巫师(12)",
+    "MapId": 300,
+    "AutoPathPos": [
+      321,
+      138
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "诅咒巫师",
+    "TaskTargetId": [
+      375
+    ],
+    "TaskTargetCount": [
+      12
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 3500,
+    "RewardCoin": 17000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102033,
+      102034
+    ],
+    "ReqLevelMin": 10,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102036,
+    "TaskName": "消灭幻术园图腾树人",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   图腾树人(15)",
+    "MapId": 300,
+    "AutoPathPos": [
+      144,
+      282
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "图腾树人",
+    "TaskTargetId": [
+      376
+    ],
+    "TaskTargetCount": [
+      15
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 5500,
+    "RewardCoin": 17000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102035
+    ],
+    "ReqLevelMin": 13,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102037,
+    "TaskName": "消灭幻术园残暴的灰熊",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   残暴的灰熊(15)",
+    "MapId": 300,
+    "AutoPathPos": [
+      367,
+      286
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "残暴的灰熊",
+    "TaskTargetId": [
+      378
+    ],
+    "TaskTargetCount": [
+      15
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 7500,
+    "RewardCoin": 17000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102036
+    ],
+    "ReqLevelMin": 17,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102038,
+    "TaskName": "达到20级",
+    "TaskActionType": 2,
+    "TaskDes": "null",
+    "MapId": 400,
+    "AutoPathPos": [
+      193,
+      126
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 10000,
+    "RewardCoin": 10000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102037
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102039,
+    "TaskName": "前往冰风谷",
+    "TaskActionType": 3,
+    "TaskDes": "null",
+    "MapId": 400,
+    "AutoPathPos": [
+      322,
+      319
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      400
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102038
+    ],
+    "ReqLevelMin": 20,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102040,
+    "TaskName": "消灭冰风谷雪虫",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   雪虫(15)",
+    "MapId": 400,
+    "AutoPathPos": [
+      257,
+      361
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "雪虫",
+    "TaskTargetId": [
+      19
+    ],
+    "TaskTargetCount": [
+      15
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 9500,
+    "RewardCoin": 20000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102039
+    ],
+    "ReqLevelMin": 20,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102041,
+    "TaskName": "消灭冰风谷蓝魔怪",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   蓝魔怪(5)",
+    "MapId": 400,
+    "AutoPathPos": [
+      203,
+      346
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "蓝魔怪",
+    "TaskTargetId": [
+      21
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 5500,
+    "RewardCoin": 5000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102040
+    ],
+    "ReqLevelMin": 20,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102042,
+    "TaskName": "消灭冰风谷寒冰魔",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   寒冰魔(5)",
+    "MapId": 400,
+    "AutoPathPos": [
+      179,
+      247
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "寒冰魔",
+    "TaskTargetId": [
+      20
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 5500,
+    "RewardCoin": 5000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102041
+    ],
+    "ReqLevelMin": 20,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102043,
+    "TaskName": "消灭冰风谷暗杀者",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   暗杀者(15)",
+    "MapId": 400,
+    "AutoPathPos": [
+      175,
+      148
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "暗杀者",
+    "TaskTargetId": [
+      23
+    ],
+    "TaskTargetCount": [
+      15
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 10500,
+    "RewardCoin": 20000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102042
+    ],
+    "ReqLevelMin": 20,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102044,
+    "TaskName": "消灭冰风谷雪人",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   雪人(15)",
+    "MapId": 400,
+    "AutoPathPos": [
+      34,
+      195
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "雪人",
+    "TaskTargetId": [
+      25
+    ],
+    "TaskTargetCount": [
+      15
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 11000,
+    "RewardCoin": 20000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102043
+    ],
+    "ReqLevelMin": 20,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102045,
+    "TaskName": "达到25级后去找幻影导师",
+    "TaskActionType": 3,
+    "TaskDes": "找NPC",
+    "MapId": 100,
+    "AutoPathPos": [
+      186,
+      243
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      106
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 50,
+    "RewardCoin": 50,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102044
+    ],
+    "ReqLevelMin": 25,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102047,
+    "TaskName": "消灭雪人王",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   雪人王(15)",
+    "MapId": 400,
+    "AutoPathPos": [
+      197,
+      217
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "雪人王",
+    "TaskTargetId": [
+      28
+    ],
+    "TaskTargetCount": [
+      15
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 11500,
+    "RewardCoin": 20000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102045
+    ],
+    "ReqLevelMin": 25,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102048,
+    "TaskName": "消灭雪人",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   雪人(15)",
+    "MapId": 400,
+    "AutoPathPos": [
+      34,
+      195
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "雪人",
+    "TaskTargetId": [
+      25
+    ],
+    "TaskTargetCount": [
+      15
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 11500,
+    "RewardCoin": 20000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102047
+    ],
+    "ReqLevelMin": 25,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102049,
+    "TaskName": "消灭蓝魔怪",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   蓝魔怪(15}",
+    "MapId": 400,
+    "AutoPathPos": [
+      203,
+      346
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "蓝魔怪",
+    "TaskTargetId": [
+      21
+    ],
+    "TaskTargetCount": [
+      15
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 12000,
+    "RewardCoin": 20000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102048
+    ],
+    "ReqLevelMin": 25,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102050,
+    "TaskName": "达到30级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 400,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 15000,
+    "RewardCoin": 12000,
+    "RewardItems": "小型红药*20，小型蓝药*20",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102049
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102051,
+    "TaskName": "前往地下城",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 500,
+    "AutoPathPos": [
+      10,
+      170
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      500
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102050
+    ],
+    "ReqLevelMin": 30,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102052,
+    "TaskName": "消灭骷髅兵",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   骷髅兵(15)",
+    "MapId": 500,
+    "AutoPathPos": [
+      68,
+      150
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "骷髅兵",
+    "TaskTargetId": [
+      18
+    ],
+    "TaskTargetCount": [
+      15
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 12000,
+    "RewardCoin": 12000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102051
+    ],
+    "ReqLevelMin": 30,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102053,
+    "TaskName": "消灭毒虫",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   毒虫(20)",
+    "MapId": 500,
+    "AutoPathPos": [
+      101,
+      146
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "毒虫",
+    "TaskTargetId": [
+      22
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 13000,
+    "RewardCoin": 20000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102052
+    ],
+    "ReqLevelMin": 30,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102054,
+    "TaskName": "消灭独眼巨人",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   独眼巨人(20)",
+    "MapId": 500,
+    "AutoPathPos": [
+      34,
+      82
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "独眼巨人",
+    "TaskTargetId": [
+      24
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 15000,
+    "RewardCoin": 20000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102053
+    ],
+    "ReqLevelMin": 35,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102055,
+    "TaskName": "消灭幽灵",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   幽灵(20)",
+    "MapId": 500,
+    "AutoPathPos": [
+      29,
+      46
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "幽灵",
+    "TaskTargetId": [
+      26
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 17000,
+    "RewardCoin": 20000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102054
+    ],
+    "ReqLevelMin": 35,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102056,
+    "TaskName": "达到40级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 500,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      40
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 25000,
+    "RewardCoin": 20000,
+    "RewardItems": "小型红药*20，小型蓝药*20",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102055
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102057,
+    "TaskName": "前往地下城2层",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 503,
+    "AutoPathPos": [
+      198,
+      361
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      503
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102056
+    ],
+    "ReqLevelMin": 40,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102058,
+    "TaskName": "消灭地狱猎犬怪",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   地狱猎犬怪(20)",
+    "MapId": 503,
+    "AutoPathPos": [
+      209,
+      276
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "地狱猎犬怪",
+    "TaskTargetId": [
+      29
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 20000,
+    "RewardCoin": 20000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102057
+    ],
+    "ReqLevelMin": 40,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102059,
+    "TaskName": "消灭骷髅弓箭手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   骷髅弓箭手(20)",
+    "MapId": 503,
+    "AutoPathPos": [
+      200,
+      250
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "骷髅弓箭手",
+    "TaskTargetId": [
+      27
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 22000,
+    "RewardCoin": 20000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102058
+    ],
+    "ReqLevelMin": 40,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102060,
+    "TaskName": "消灭地狱蜘蛛",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   地狱蜘蛛(20)",
+    "MapId": 503,
+    "AutoPathPos": [
+      235,
+      265
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "地狱蜘蛛",
+    "TaskTargetId": [
+      30
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 24000,
+    "RewardCoin": 22000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102059
+    ],
+    "ReqLevelMin": 40,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102061,
+    "TaskName": "消灭半兽人队长-骷髅战士",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   骷髅战士(20)",
+    "MapId": 503,
+    "AutoPathPos": [
+      216,
+      225
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "骷髅战士",
+    "TaskTargetId": [
+      31
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 26000,
+    "RewardCoin": 24000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102060
+    ],
+    "ReqLevelMin": 43,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102062,
+    "TaskName": "消灭死灵巫师",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   死灵巫师(20)",
+    "MapId": 503,
+    "AutoPathPos": [
+      350,
+      376
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "死灵巫师",
+    "TaskTargetId": [
+      33
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 28000,
+    "RewardCoin": 26000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102061
+    ],
+    "ReqLevelMin": 43,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102063,
+    "TaskName": "消灭毒牛怪",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   毒牛怪(20)",
+    "MapId": 503,
+    "AutoPathPos": [
+      338,
+      232
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "毒牛怪",
+    "TaskTargetId": [
+      35
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 30000,
+    "RewardCoin": 28000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102062
+    ],
+    "ReqLevelMin": 45,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102064,
+    "TaskName": "消灭暗黑骑士",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   暗黑骑士(20)",
+    "MapId": 508,
+    "AutoPathPos": [
+      268,
+      38
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "暗黑骑士",
+    "TaskTargetId": [
+      38
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 30000,
+    "RewardCoin": 28000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102063
+    ],
+    "ReqLevelMin": 45,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102065,
+    "TaskName": "达到50级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 500,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 40000,
+    "RewardCoin": 35000,
+    "RewardItems": "小型红药*50，小型蓝药*50",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102064
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102066,
+    "TaskName": "寻找铁匠汉斯",
+    "TaskActionType": 3,
+    "TaskDes": "找NPC",
+    "MapId": 100,
+    "AutoPathPos": [
+      169,
+      171
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      108
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 50,
+    "RewardCoin": 50,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102065
+    ],
+    "ReqLevelMin": 50,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102067,
+    "TaskName": "勇者大陆幻影导师的邀请",
+    "TaskActionType": 3,
+    "TaskDes": "找NPC",
+    "MapId": 100,
+    "AutoPathPos": [
+      186,
+      243
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      106
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 85,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102066
+    ],
+    "ReqLevelMin": 50,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102068,
+    "TaskName": "寻找多普瑞恩家族",
+    "TaskActionType": 3,
+    "TaskDes": "找NPC",
+    "MapId": 100,
+    "AutoPathPos": [
+      188,
+      208
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      107
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102067
+    ],
+    "ReqLevelMin": 50,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102070,
+    "TaskName": "前往失落之塔",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 700,
+    "AutoPathPos": [
+      266,
+      311
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      700
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102068
+    ],
+    "ReqLevelMin": 50,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102071,
+    "TaskName": "消灭鬼魅",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   鬼魅(20)",
+    "MapId": 700,
+    "AutoPathPos": [
+      224,
+      296
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "鬼魅",
+    "TaskTargetId": [
+      37
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 30000,
+    "RewardCoin": 28000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102070
+    ],
+    "ReqLevelMin": 50,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102072,
+    "TaskName": "消灭剧毒鬼魅",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   剧毒鬼魅(20)",
+    "MapId": 700,
+    "AutoPathPos": [
+      238,
+      334
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "剧毒鬼魅",
+    "TaskTargetId": [
+      39
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 32000,
+    "RewardCoin": 30000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102071
+    ],
+    "ReqLevelMin": 50,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102073,
+    "TaskName": "消灭诅咒巫师",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   诅咒巫师(20)",
+    "MapId": 708,
+    "AutoPathPos": [
+      123,
+      301
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "诅咒巫师",
+    "TaskTargetId": [
+      40
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 34000,
+    "RewardCoin": 32000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102072
+    ],
+    "ReqLevelMin": 53,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102074,
+    "TaskName": "消灭牛魔王",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   牛魔王(20)",
+    "MapId": 707,
+    "AutoPathPos": [
+      30,
+      181
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "牛魔王",
+    "TaskTargetId": [
+      41
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 36000,
+    "RewardCoin": 34000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102073
+    ],
+    "ReqLevelMin": 53,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102075,
+    "TaskName": "消灭恶魔",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:    恶魔(20)",
+    "MapId": 709,
+    "AutoPathPos": [
+      179,
+      170
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "恶魔",
+    "TaskTargetId": [
+      42
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 38000,
+    "RewardCoin": 36000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102074
+    ],
+    "ReqLevelMin": 53,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102076,
+    "TaskName": "消灭死神骑士",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   死神骑士(20)",
+    "MapId": 703,
+    "AutoPathPos": [
+      365,
+      184
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "死神骑士",
+    "TaskTargetId": [
+      43
+    ],
+    "TaskTargetCount": [
+      20
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 40000,
+    "RewardCoin": 38000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102075
+    ],
+    "ReqLevelMin": 55,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102077,
+    "TaskName": "达到60级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 700,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      60
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 45000,
+    "RewardCoin": 40000,
+    "RewardItems": "小型红药*50，小型蓝药*50",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102076
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102078,
+    "TaskName": "前往亚特兰蒂斯",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 600,
+    "AutoPathPos": [
+      344,
+      37
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      600
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102077
+    ],
+    "ReqLevelMin": 60,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102079,
+    "TaskName": "消灭小巴哈姆特",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   小巴哈姆特(30)",
+    "MapId": 600,
+    "AutoPathPos": [
+      357,
+      82
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "小巴哈姆特",
+    "TaskTargetId": [
+      32
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 42000,
+    "RewardCoin": 40000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102078
+    ],
+    "ReqLevelMin": 60,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102080,
+    "TaskName": "消灭死亡美人鱼",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   死亡美人鱼(30)",
+    "MapId": 600,
+    "AutoPathPos": [
+      270,
+      63
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "死亡美人鱼",
+    "TaskTargetId": [
+      34
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 52000,
+    "RewardCoin": 50000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102079
+    ],
+    "ReqLevelMin": 60,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102081,
+    "TaskName": "消灭蓝翼海怪",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   蓝翼海怪(10)",
+    "MapId": 600,
+    "AutoPathPos": [
+      339,
+      179
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "蓝翼海怪",
+    "TaskTargetId": [
+      36
+    ],
+    "TaskTargetCount": [
+      10
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 25000,
+    "RewardCoin": 30000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102080
+    ],
+    "ReqLevelMin": 65,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102082,
+    "TaskName": "达到70级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 600,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      70
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 75000,
+    "RewardCoin": 70000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102081
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102083,
+    "TaskName": "亚特兰蒂斯1-死亡美人鱼",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   死亡美人鱼(50)",
+    "MapId": 600,
+    "AutoPathPos": [
+      270,
+      63
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "死亡美人鱼",
+    "TaskTargetId": [
+      34
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 80000,
+    "RewardCoin": 75000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102082
+    ],
+    "ReqLevelMin": 70,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102084,
+    "TaskName": "达到80级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 600,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      80
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 85000,
+    "RewardCoin": 80000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102083
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102085,
+    "TaskName": "移动亚特兰蒂斯2",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 604,
+    "AutoPathPos": [
+      278,
+      341
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      604
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102084
+    ],
+    "ReqLevelMin": 80,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102086,
+    "TaskName": "消灭大巴哈姆特",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物：大巴哈姆特(30)",
+    "MapId": 600,
+    "AutoPathPos": [
+      281,
+      210
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "大巴哈姆特",
+    "TaskTargetId": [
+      45
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 64000,
+    "RewardCoin": 62000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102085
+    ],
+    "ReqLevelMin": 80,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102087,
+    "TaskName": "消灭银弓海怪",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   银弓海怪(30)",
+    "MapId": 600,
+    "AutoPathPos": [
+      202,
+      136
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "银弓海怪",
+    "TaskTargetId": [
+      46
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 66000,
+    "RewardCoin": 64000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102086
+    ],
+    "ReqLevelMin": 80,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102088,
+    "TaskName": "消灭巫师王",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   巫师王(30)",
+    "MapId": 600,
+    "AutoPathPos": [
+      86,
+      248
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "巫师王",
+    "TaskTargetId": [
+      47
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 68000,
+    "RewardCoin": 66000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102087
+    ],
+    "ReqLevelMin": 80,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102089,
+    "TaskName": "消灭死神戈登",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   死神戈登(30)",
+    "MapId": 710,
+    "AutoPathPos": [
+      220,
+      44
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "死神戈登",
+    "TaskTargetId": [
+      44
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 70000,
+    "RewardCoin": 68000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102088
+    ],
+    "ReqLevelMin": 85,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102090,
+    "TaskName": "达到90级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 600,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      90
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 95000,
+    "RewardCoin": 90000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102089
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102091,
+    "TaskName": "亚特兰蒂斯-大巴哈姆特",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   大巴哈姆特(50)",
+    "MapId": 600,
+    "AutoPathPos": [
+      281,
+      210
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "大巴哈姆特",
+    "TaskTargetId": [
+      45
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100000,
+    "RewardCoin": 95000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102090
+    ],
+    "ReqLevelMin": 90,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102092,
+    "TaskName": "达到100级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 600,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 110000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102091
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102093,
+    "TaskName": "移动到幻影导师",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [
+      186,
+      243
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      106
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102092
+    ],
+    "ReqLevelMin": 100,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102094,
+    "TaskName": "亚特兰蒂斯3-大巴哈姆特",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   大巴哈姆特(100)",
+    "MapId": 600,
+    "AutoPathPos": [
+      281,
+      210
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "大巴哈姆特",
+    "TaskTargetId": [
+      45
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 120000,
+    "RewardCoin": 110000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102093
+    ],
+    "ReqLevelMin": 100,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102095,
+    "TaskName": "达到110级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 600,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      110
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 150000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102094
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102096,
+    "TaskName": "亚特兰蒂斯4-大巴哈姆特",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   大巴哈姆特(100)",
+    "MapId": 600,
+    "AutoPathPos": [
+      281,
+      210
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "大巴哈姆特",
+    "TaskTargetId": [
+      45
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 180000,
+    "RewardCoin": 170000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102095
+    ],
+    "ReqLevelMin": 110,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102097,
+    "TaskName": "达到120级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 600,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      120
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 200000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102096
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102098,
+    "TaskName": "亚特兰蒂斯-大巴哈姆特",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   大巴哈姆特(100)",
+    "MapId": 600,
+    "AutoPathPos": [
+      281,
+      210
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "大巴哈姆特",
+    "TaskTargetId": [
+      45
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 230000,
+    "RewardCoin": 220000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102097
+    ],
+    "ReqLevelMin": 120,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102099,
+    "TaskName": "达到130级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 600,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      130
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 250000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102098
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102100,
+    "TaskName": "亚特兰蒂斯-大巴哈姆特",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   大巴哈姆特(100)",
+    "MapId": 600,
+    "AutoPathPos": [
+      281,
+      210
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "大巴哈姆特",
+    "TaskTargetId": [
+      45
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 280000,
+    "RewardCoin": 270000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102099
+    ],
+    "ReqLevelMin": 130,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102101,
+    "TaskName": "达到140级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 600,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      140
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 300000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102100
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102102,
+    "TaskName": "前往死亡沙漠",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 800,
+    "AutoPathPos": [
+      260,
+      279
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      800
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102101
+    ],
+    "ReqLevelMin": 140,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102103,
+    "TaskName": "消灭铁脊怪",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   铁脊怪(30)",
+    "MapId": 800,
+    "AutoPathPos": [
+      261,
+      221
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "铁脊怪",
+    "TaskTargetId": [
+      48
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100000,
+    "RewardCoin": 95000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102102
+    ],
+    "ReqLevelMin": 140,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102104,
+    "TaskName": "消灭巨齿兽",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   巨齿兽(30)",
+    "MapId": 800,
+    "AutoPathPos": [
+      299,
+      190
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "巨齿兽",
+    "TaskTargetId": [
+      50
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 110000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102103
+    ],
+    "ReqLevelMin": 140,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102105,
+    "TaskName": "消灭铁轮战士",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   铁轮战士(30)",
+    "MapId": 800,
+    "AutoPathPos": [
+      319,
+      138
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "铁轮战士",
+    "TaskTargetId": [
+      52
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 120000,
+    "RewardCoin": 110000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102104
+    ],
+    "ReqLevelMin": 143,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102106,
+    "TaskName": "消灭破坏骑士",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   破坏骑士(30)",
+    "MapId": 800,
+    "AutoPathPos": [
+      172,
+      58
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "破坏骑士",
+    "TaskTargetId": [
+      54
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 130000,
+    "RewardCoin": 120000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102105
+    ],
+    "ReqLevelMin": 143,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102107,
+    "TaskName": "前往死亡沙漠",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 800,
+    "AutoPathPos": [
+      260,
+      279
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      800
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102106
+    ],
+    "ReqLevelMin": 100,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102108,
+    "TaskName": "消灭黑炎魔",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   黑炎魔(30)",
+    "MapId": 800,
+    "AutoPathPos": [
+      160,
+      91
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "黑炎魔",
+    "TaskTargetId": [
+      55
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 140000,
+    "RewardCoin": 130000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102107
+    ],
+    "ReqLevelMin": 145,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102109,
+    "TaskName": "消灭炽炎魔",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   炽炎魔(30)",
+    "MapId": 800,
+    "AutoPathPos": [
+      33,
+      157
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "炽炎魔",
+    "TaskTargetId": [
+      65
+    ],
+    "TaskTargetCount": [
+      30
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 70000,
+    "RewardCoin": 65000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102108
+    ],
+    "ReqLevelMin": 145,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102110,
+    "TaskName": "死亡沙漠-铁脊怪",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   铁脊怪(100)",
+    "MapId": 800,
+    "AutoPathPos": [
+      261,
+      221
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "铁脊怪",
+    "TaskTargetId": [
+      48
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 290000,
+    "RewardCoin": 280000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102109
+    ],
+    "ReqLevelMin": 145,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102111,
+    "TaskName": "达到150级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 800,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      150
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 350000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102110
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 102112,
+    "TaskName": "完成1次转职任务(1次转职)",
+    "TaskActionType": 11,
+    "TaskDes": "",
+    "MapId": 400,
+    "AutoPathPos": [
+      330,
+      280
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 0,
+    "RewardCoin": 0,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102111
+    ],
+    "ReqLevelMin": 150,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 103112,
+    "TaskName": "前往幽暗森林",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 900,
+    "AutoPathPos": [
+      283,
+      31
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      900
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102112
+    ],
+    "ReqLevelMin": 150,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 103113,
+    "TaskName": "前往幽暗森林",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 900,
+    "AutoPathPos": [
+      283,
+      31
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      900
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      102111
+    ],
+    "ReqLevelMin": 150,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103114,
+    "TaskName": "消灭丛林树精灵",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   丛林树精灵(50)",
+    "MapId": 900,
+    "AutoPathPos": [
+      287,
+      60
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "丛林树精灵",
+    "TaskTargetId": [
+      137
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 160000,
+    "RewardCoin": 150000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103112,
+      103113
+    ],
+    "ReqLevelMin": 150,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103115,
+    "TaskName": "消灭丛林残暴者",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   丛林残暴者(50)",
+    "MapId": 900,
+    "AutoPathPos": [
+      271,
+      77
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "丛林残暴者",
+    "TaskTargetId": [
+      138
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 170000,
+    "RewardCoin": 160000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103114
+    ],
+    "ReqLevelMin": 150,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103116,
+    "TaskName": "消灭丛林暗杀者",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   丛林暗杀者(50)",
+    "MapId": 900,
+    "AutoPathPos": [
+      247,
+      132
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "丛林暗杀者",
+    "TaskTargetId": [
+      139
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 180000,
+    "RewardCoin": 170000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103115
+    ],
+    "ReqLevelMin": 153,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103117,
+    "TaskName": "消灭丛林生命体",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   丛林生命体(50)",
+    "MapId": 900,
+    "AutoPathPos": [
+      158,
+      195
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "丛林生命体",
+    "TaskTargetId": [
+      140
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 190000,
+    "RewardCoin": 180000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103116
+    ],
+    "ReqLevelMin": 153,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103118,
+    "TaskName": "幽暗森林-丛林树精林",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   丛林树精灵(100)",
+    "MapId": 900,
+    "AutoPathPos": [
+      287,
+      60
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "丛林树精灵",
+    "TaskTargetId": [
+      137
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 300000,
+    "RewardCoin": 290000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103117
+    ],
+    "ReqLevelMin": 153,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103119,
+    "TaskName": "达到160级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 900,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      160
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 400000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103118
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103120,
+    "TaskName": "前往坎特鲁废墟1",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [
+      52,
+      21
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      1200
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103119
+    ],
+    "ReqLevelMin": 160,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103121,
+    "TaskName": "消灭裂角狼",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   裂角狼(50)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      31,
+      61
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "裂角狼",
+    "TaskTargetId": [
+      304
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 200000,
+    "RewardCoin": 190000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103120
+    ],
+    "ReqLevelMin": 160,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103122,
+    "TaskName": "消灭金甲兽",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   金甲兽(50)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      48,
+      213
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "金甲兽",
+    "TaskTargetId": [
+      305
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 210000,
+    "RewardCoin": 200000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103121
+    ],
+    "ReqLevelMin": 160,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103123,
+    "TaskName": "消灭半兽人",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   半兽人(50)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      83,
+      278
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "半兽人",
+    "TaskTargetId": [
+      306
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 220000,
+    "RewardCoin": 210000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103122
+    ],
+    "ReqLevelMin": 160,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103124,
+    "TaskName": "前往坎特鲁废墟1",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [
+      52,
+      21
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      1200
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103123
+    ],
+    "ReqLevelMin": 165,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103125,
+    "TaskName": "消灭刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(50)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 230000,
+    "RewardCoin": 220000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103124
+    ],
+    "ReqLevelMin": 165,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103126,
+    "TaskName": "消灭疯魔",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   疯魔(50)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      295,
+      159
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "疯魔",
+    "TaskTargetId": [
+      303
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 240000,
+    "RewardCoin": 230000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103125
+    ],
+    "ReqLevelMin": 165,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103127,
+    "TaskName": "消灭寒冰刺客",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   寒冰刺客(50)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      372,
+      230
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "寒冰刺客",
+    "TaskTargetId": [
+      308
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 250000,
+    "RewardCoin": 240000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103126
+    ],
+    "ReqLevelMin": 167,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103128,
+    "TaskName": "消灭屠杀者",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   屠杀者(50)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      357,
+      119
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "屠杀者",
+    "TaskTargetId": [
+      310
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 260000,
+    "RewardCoin": 250000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103127
+    ],
+    "ReqLevelMin": 167,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103129,
+    "TaskName": "消灭狂巨人",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   狂巨人(50)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      328,
+      219
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "狂巨人",
+    "TaskTargetId": [
+      309
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 270000,
+    "RewardCoin": 260000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103128
+    ],
+    "ReqLevelMin": 167,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103130,
+    "TaskName": "坎特鲁废墟-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 400000,
+    "RewardCoin": 390000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103129
+    ],
+    "ReqLevelMin": 167,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103131,
+    "TaskName": "达到170级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      170
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 450000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103130
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103132,
+    "TaskName": "坎特鲁废墟-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 500000,
+    "RewardCoin": 490000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103131
+    ],
+    "ReqLevelMin": 167,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103133,
+    "TaskName": "达到180级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      180
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 500000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103132
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103134,
+    "TaskName": "坎特鲁废墟-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 600000,
+    "RewardCoin": 590000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103133
+    ],
+    "ReqLevelMin": 180,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103135,
+    "TaskName": "达到190级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      190
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 600000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103134
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103136,
+    "TaskName": "坎特鲁废墟-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 700000,
+    "RewardCoin": 690000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103135
+    ],
+    "ReqLevelMin": 190,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103137,
+    "TaskName": "达到200级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      200
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 700000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103136
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103138,
+    "TaskName": "前往幽暗森林",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 900,
+    "AutoPathPos": [
+      285,
+      29
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      900
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103137
+    ],
+    "ReqLevelMin": 200,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103139,
+    "TaskName": "消灭丛林女巫师",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   丛林女巫师(50)",
+    "MapId": 900,
+    "AutoPathPos": [
+      144,
+      81
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "丛林女巫师",
+    "TaskTargetId": [
+      141
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 400000,
+    "RewardCoin": 390000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103138
+    ],
+    "ReqLevelMin": 205,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103140,
+    "TaskName": "消灭丛林召唤者",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   丛林召唤者(5)",
+    "MapId": 900,
+    "AutoPathPos": [
+      193,
+      99
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "丛林召唤者",
+    "TaskTargetId": [
+      142
+    ],
+    "TaskTargetCount": [
+      5
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 200000,
+    "RewardCoin": 180000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103139
+    ],
+    "ReqLevelMin": 205,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103141,
+    "TaskName": "幽暗森林-丛林树精林",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   丛林树精灵(100)",
+    "MapId": 900,
+    "AutoPathPos": [
+      276,
+      132
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "丛林树精林",
+    "TaskTargetId": [
+      137
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 800000,
+    "RewardCoin": 790000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103140
+    ],
+    "ReqLevelMin": 205,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103142,
+    "TaskName": "达到210级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 900,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      210
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 800000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103141
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103143,
+    "TaskName": "前往坎特鲁废墟3",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [
+      49,
+      27
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      1200
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103142
+    ],
+    "ReqLevelMin": 210,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103144,
+    "TaskName": "坎特鲁废墟-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 900000,
+    "RewardCoin": 890000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103143
+    ],
+    "ReqLevelMin": 210,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103145,
+    "TaskName": "达到220级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      220
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 900000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103144
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103146,
+    "TaskName": "找2转勇者大陆警卫队长摩伦1",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [
+      243,
+      198
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      109
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103145
+    ],
+    "ReqLevelMin": 220,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 103147,
+    "TaskName": "完成2次转职任务(能力提升)",
+    "TaskActionType": 11,
+    "TaskDes": "",
+    "MapId": 100,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      2
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 0,
+    "RewardCoin": 0,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103146
+    ],
+    "ReqLevelMin": 220,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 103148,
+    "TaskName": "坎特鲁废墟-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1000000,
+    "RewardCoin": 900000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103147
+    ],
+    "ReqLevelMin": 220,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": -1,
+    "Holyteacher": -1,
+    "SummonWarlock": 0,
+    "Combat": -1,
+    "GrowLancer": -1
+  },
+  {
+    "Id": 103149,
+    "TaskName": "坎特鲁废墟-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1000000,
+    "RewardCoin": 900000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103145
+    ],
+    "ReqLevelMin": 220,
+    "ReqLevelMax": 0,
+    "Spell": -1,
+    "Swordsman": -1,
+    "Archer": -1,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": -1,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103150,
+    "TaskName": "达到230级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 600,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      230
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1000000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103148,
+      103149
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103151,
+    "TaskName": "前往坎特鲁遗址",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 1300,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      1300
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103150
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103152,
+    "TaskName": "消灭毒步妖",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   毒步妖(50)",
+    "MapId": 1300,
+    "AutoPathPos": [
+      154,
+      199
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "毒步妖",
+    "TaskTargetId": [
+      312
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 460000,
+    "RewardCoin": 450000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103151
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103153,
+    "TaskName": "消灭假面巫",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   假面巫(50)",
+    "MapId": 1300,
+    "AutoPathPos": [
+      158,
+      135
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "假面巫",
+    "TaskTargetId": [
+      311
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 470000,
+    "RewardCoin": 460000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103152
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103154,
+    "TaskName": "消灭恐惧天使",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   恐惧天使(50)",
+    "MapId": 1300,
+    "AutoPathPos": [
+      102,
+      106
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "恐惧天使",
+    "TaskTargetId": [
+      313
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 480000,
+    "RewardCoin": 470000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103153
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103155,
+    "TaskName": "坎特鲁废墟-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1100000,
+    "RewardCoin": 1000000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103154
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103156,
+    "TaskName": "达到240级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      240
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1100000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103155
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103157,
+    "TaskName": "坎特鲁废墟-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1200000,
+    "RewardCoin": 1100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103156
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103158,
+    "TaskName": "达到250级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      250
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1200000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103157
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103159,
+    "TaskName": "坎特鲁废墟-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1300000,
+    "RewardCoin": 1200000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103158
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103160,
+    "TaskName": "达到260级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      260
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1300000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103159
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103161,
+    "TaskName": "坎特鲁废墟-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1400000,
+    "RewardCoin": 1300000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103160
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103162,
+    "TaskName": "达到270级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      270
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1400000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103161
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103163,
+    "TaskName": "特废墟狩猎-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      333,
+      339
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1500000,
+    "RewardCoin": 1400000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103162
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103164,
+    "TaskName": "达到280级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      280
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1500000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103163
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103165,
+    "TaskName": "前往冰霜之城",
+    "TaskActionType": 3,
+    "TaskDes": "",
+    "MapId": 1400,
+    "AutoPathPos": [
+      94,
+      354
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      1400
+    ],
+    "TaskTargetCount": [
+      1
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 100,
+    "RewardCoin": 100,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103164
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103166,
+    "TaskName": "消灭冰之魔犬",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   冰之魔犬(50)",
+    "MapId": 1400,
+    "AutoPathPos": [
+      107,
+      283
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "冰之魔犬",
+    "TaskTargetId": [
+      407
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 490000,
+    "RewardCoin": 480000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103165
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103167,
+    "TaskName": "消灭冰之魔象",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   冰之魔象(50)",
+    "MapId": 1400,
+    "AutoPathPos": [
+      116,
+      239
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "冰之魔象",
+    "TaskTargetId": [
+      408
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 500000,
+    "RewardCoin": 490000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103166
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103168,
+    "TaskName": "消灭冰之巨魔",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   冰之巨魔(50)",
+    "MapId": 1400,
+    "AutoPathPos": [
+      216,
+      243
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "冰之巨魔",
+    "TaskTargetId": [
+      409
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 510000,
+    "RewardCoin": 500000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103167
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103169,
+    "TaskName": "消灭冰铁剑魂",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物:   冰铁剑魔(50)",
+    "MapId": 1400,
+    "AutoPathPos": [
+      381,
+      333
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "冰铁剑魔",
+    "TaskTargetId": [
+      411
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 520000,
+    "RewardCoin": 510000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103168
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103170,
+    "TaskName": "消灭冰之魔蛛",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物：冰之魔蛛(50)",
+    "MapId": 1400,
+    "AutoPathPos": [
+      381,
+      333
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "冰之魔蛛",
+    "TaskTargetId": [
+      410
+    ],
+    "TaskTargetCount": [
+      50
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 530000,
+    "RewardCoin": 520000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103169
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103171,
+    "TaskName": "坎特鲁废墟-刀刃猎手",
+    "TaskActionType": 5,
+    "TaskDes": "消灭怪物：刀刃猎手(100)",
+    "MapId": 1200,
+    "AutoPathPos": [
+      345,
+      251
+    ],
+    "IsAutoHitMonster": 1,
+    "MonsterName": "刀刃猎手",
+    "TaskTargetId": [
+      307
+    ],
+    "TaskTargetCount": [
+      100
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1600000,
+    "RewardCoin": 1500000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103170
+    ],
+    "ReqLevelMin": 300,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103172,
+    "TaskName": "达到290级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      290
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1600000,
+    "RewardCoin": 100000,
+    "RewardItems": "玛雅宝石*1",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103171
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103173,
+    "TaskName": "达到300级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      300
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 1700000,
+    "RewardCoin": 100000,
+    "RewardItems": "祝福宝石*1",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103172
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103178,
+    "TaskName": "达到400级",
+    "TaskActionType": 2,
+    "TaskDes": "",
+    "MapId": 1200,
+    "AutoPathPos": [],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      400
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 2200000,
+    "RewardCoin": 100000,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103173
+    ],
+    "ReqLevelMin": 0,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  },
+  {
+    "Id": 103179,
+    "TaskName": "完成3次转职任务（2次转职）",
+    "TaskActionType": 11,
+    "TaskDes": "",
+    "MapId": 1100,
+    "AutoPathPos": [
+      278,
+      316
+    ],
+    "IsAutoHitMonster": 0,
+    "MonsterName": "",
+    "TaskTargetId": [
+      0
+    ],
+    "TaskTargetCount": [
+      3
+    ],
+    "AutoReceiveReward": 0,
+    "RewardExp": 0,
+    "RewardCoin": 0,
+    "RewardItems": "",
+    "CustomReward": "",
+    "TaskBeforeId": [
+      103178
+    ],
+    "ReqLevelMin": 400,
+    "ReqLevelMax": 0,
+    "Spell": 0,
+    "Swordsman": 0,
+    "Archer": 0,
+    "Spellsword": 0,
+    "Holyteacher": 0,
+    "SummonWarlock": 0,
+    "Combat": 0,
+    "GrowLancer": 0
+  }
+]

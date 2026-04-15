@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6de765a36248f1c4591b89b70e08a496, type: 3}
+  m_Name: ChooseRolePlacementConfig
+  m_EditorClassIdentifier: 
+  Pedestals:
+  - Label: P0
+    Position: {x: 7.1, y: 1.15, z: 5.04}
+    Yaw: -10
+  - Label: P1
+    Position: {x: 4.61, y: 1.15, z: 1.96}
+    Yaw: -5
+  - Label: P2
+    Position: {x: -0.84, y: 1.15, z: 3.76}
+    Yaw: 0
+  - Label: P3
+    Position: {x: -4.95, y: 1.15, z: 4.44}
+    Yaw: 5
+  - Label: P4
+    Position: {x: -10.01, y: 1.15, z: 4.05}
+    Yaw: 10
+  TargetPedestals:
+  - Label: T0
+    Position: {x: 7.1, y: 1.15, z: 5.04}
+    Yaw: -10
+  - Label: T1
+    Position: {x: 4.61, y: 1.15, z: 1.96}
+    Yaw: -5
+  - Label: T2
+    Position: {x: -0.84, y: 1.15, z: 3.76}
+    Yaw: 0
+  - Label: T3
+    Position: {x: -4.95, y: 1.15, z: 4.44}
+    Yaw: 5
+  - Label: T4
+    Position: {x: -10.01, y: 1.15, z: 4.05}
+    Yaw: 10
+  PreviewRoles:
+  - Label: GrowLancer
+    PrefabPath: Assets/Bundles/Roles/Role_GrowLancer.prefab
+    PedestalIndex: 3
+    ModelOffset: {x: 0, y: 0, z: 0}
+    ModelYaw: 0
+    Scale: 0.88
+  - Label: Gladiator
+    PrefabPath: Assets/Bundles/Roles/Role_Gladiator.prefab
+    PedestalIndex: 2
+    ModelOffset: {x: 0, y: 0, z: 0}
+    ModelYaw: 0
+    Scale: 0.88
+  - Label: Holymentor
+    PrefabPath: Assets/Bundles/Roles/Role_Holymentor.prefab
+    PedestalIndex: 1
+    ModelOffset: {x: 0, y: 0, z: 0}
+    ModelYaw: 0
+    Scale: 0.88
+  - Label: Archer
+    PrefabPath: Assets/Bundles/Roles/Role_Archer.prefab
+    PedestalIndex: 0
+    ModelOffset: {x: 0, y: 0, z: 0}
+    ModelYaw: 0
+    Scale: 0.88

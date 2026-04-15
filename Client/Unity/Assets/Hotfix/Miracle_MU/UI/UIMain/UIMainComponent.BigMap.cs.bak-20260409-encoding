@@ -1,0 +1,167 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using ETModel;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
+namespace ETHotfix
+{
+
+    /// <summary>
+    /// 大地图
+    /// </summary>
+    public partial class UIMainComponent
+    {
+        public RectTransform LimitContainer;//限制区域
+        public Canvas canvas;
+
+        bool isOpenBigMap = false;
+
+        public MiniMap bigMap;
+        /// <summary>本地角色 大地图Icon对象</summary>
+        private MiniMap.IconRole bigMap_RoleIcon;
+
+        private MiniMap.IconTargetPoint bigMap_TargetPointIcon;
+
+        private LinkedList<MiniMap.IconNavPoint> bigMap_NavIconList = new LinkedList<MiniMap.IconNavPoint>();
+        /// <summary>用来恢复Icon数据的</summary>
+        private LinkedList<Vector2> bigMap_NavList = new LinkedList<Vector2>();
+
+        private void EnsureBigMapRootLayout()
+        {
+            if (this.BigMap == null)
+            {
+                return;
+            }
+
+            RectTransform rectTransform = this.BigMap.transform as RectTransform;
+            if (rectTransform != null)
+            {
+                rectTransform.anchorMin = Vector2.zero;
+                rectTransform.anchorMax = Vector2.one;
+                rectTransform.pivot = new Vector2(0.5f, 0.5f);
+                rectTransform.anchoredPosition = Vector2.zero;
+                rectTransform.sizeDelta = Vector2.zero;
+                rectTransform.localScale = Vector3.one;
+                rectTransform.localRotation = Quaternion.identity;
+            }
+
+            this.BigMap.transform.SetAsLastSibling();
+        }
+
+        //显示大地图
+        public void ShowBigMap()
+        {
+            BigMap.SetActive(true);
+            EnsureBigMapRootLayout();
+            isOpenBigMap = true;
+
+            if (bigMap == null)
+            {
+                bigMap = new MiniMap();
+            }
+            bigMap.Init(BigMap.transform);
+            bigMap.SetViewportCenterOffset(Vector2.zero);
+            bigMap.SetTrackCenterOffset(Vector2.zero);
+            bigMap.MiniMap_Icon = miniMap.MiniMap_Icon;
+            bigMap.OffsetTranform.SetSiblingIndex(0);
+
+            SwitchMiniMap(bigMap, curSceneId);
+            LoadTreasurePoint(bigMap, curSceneId);
+
+
+
+            bigMap.MapScale = new Vector3(3f, 3f, 3f);
+
+            bigMap_RoleIcon = bigMap.Create<MiniMap.IconRole>("role", 5);
+            // 设置角色位置、旋转方向
+            bigMap_RoleIcon.Position = miniMap_RoleIcon.Position;
+            bigMap_RoleIcon.Rotation = miniMap_RoleIcon.Rotation;
+
+
+            bigMap.Update();
+
+            // 跟踪Icon
+            bigMap.TrackIcon = bigMap_RoleIcon;
+            bigMap.SetCenterPosition(bigMap_RoleIcon.Position);
+
+            {
+                // 恢复寻路Icon
+                if (bigMap_NavList.Count != 0)
+                {
+                    bigMap_TargetPointIcon = bigMap.Create<MiniMap.IconTargetPoint>("target_point", 1);
+                    bigMap_TargetPointIcon.Position = bigMap_NavList.Last();
+                    foreach (Vector2 navPos in bigMap_NavList)
+                    {
+                        MiniMap.IconNavPoint navIcon = bigMap.Create<MiniMap.IconNavPoint>("nav_point", 1);
+                        navIcon.Position = navPos;
+                        bigMap_NavIconList.AddLast(navIcon);
+                    }
+                }
+
+            }
+
+            unitEntityPathComponent ??= this.roleEntity.GetComponent<UnitEntityPathComponent>();
+            bigMap.OnClickEvent = pos =>
+            {
+                var navtarget = AstarComponent.Instance.GetNodeVector(pos.x, pos.y);
+                Log.DebugBrown("点击下地图的信息" + pos.x + ":::" + pos.y);
+                if (navtarget == null) return;
+                if (navtarget.isWalkable == false)
+                {
+                    UIComponent.Instance.VisibleUI(UIType.UIHint, "目标点为不可行走区域");
+                }
+                else
+                {
+                    this.navtarget = navtarget;
+                    unitEntityPathComponent.NavTarget(navtarget, ClearBigMapNavigationIcons);
+                    QueueBigMapNavigationPreview(navtarget);
+                }
+            };
+
+        }
+
+        private void QueueBigMapNavigationPreview(AstarNode target)
+        {
+            if (target == null)
+            {
+                return;
+            }
+
+            // Let the actual navigation request enter the A* worker before asking for the preview path.
+            TimerComponent.Instance.RegisterTimeCallBack(100, () =>
+            {
+                if (!this.isOpenBigMap || this.bigMap == null || this.navtarget == null)
+                {
+                    return;
+                }
+
+                if (this.navtarget.x != target.x || this.navtarget.z != target.z)
+                {
+                    return;
+                }
+
+                if (this.roleEntity?.CurrentNodePos == null)
+                {
+                    return;
+                }
+
+                AstarComponent.Instance.FindPath(this.roleEntity.CurrentNodePos, target, UpdateBigMapNavigationIcons);
+            });
+        }
+
+        public void HideBigMap()
+        {
+            this.BigMap.SetActive(false);
+            isOpenBigMap = false;
+            bigMap_RoleIcon = null;
+            bigMap.Clear();
+            bigMap_NavIconList.Clear();
+            // 下次打开地图显示
+            //bigMap_NavList.Clear();
+            bigMap_TargetPointIcon = null;
+        }
+    }
+}

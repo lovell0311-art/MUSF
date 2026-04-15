@@ -1,0 +1,39 @@
+{
+  "profileName": "local-lan",
+  "description": "Default LAN development profile. All client and server scripts must resolve to the local network instead of emulator loopback or public internet.",
+  "serverIp": "10.10.10.192",
+  "externalUrl": "http://10.10.10.192",
+  "mongo": {
+    "host": "127.0.0.1",
+    "port": 58030,
+    "url": "mongodb://127.0.0.1:58030"
+  },
+  "ports": {
+    "realm": 10002,
+    "gateBase": 10004,
+    "gates": [
+      10004,
+      10005,
+      10006,
+      10007,
+      10008
+    ],
+    "fileserver": 8080,
+    "gmNode": 5000,
+    "gmApi": 65001,
+    "nginx": 6013
+  },
+  "client": {
+    "defaultAccount": "blaike",
+    "defaultPassword": "123456",
+    "loginAddress": "10.10.10.192:10002",
+    "assetBundleBaseUrl": "http://10.10.10.192:8080/update/2.0TestGame/",
+    "streamingAssetsVersionUrl": "http://10.10.10.192:8080/Android/StreamingAssets/Version.txt",
+    "packageName": "com.quanzhilieshou.bytedance.gamecenter"
+  },
+  "gm": {
+    "webUrl": "http://127.0.0.1:6013",
+    "nodeUrl": "http://127.0.0.1:5000",
+    "apiUrl": "http://127.0.0.1:65001"
+  }
+}

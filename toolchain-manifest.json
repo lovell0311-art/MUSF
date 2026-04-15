@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "toolchainRoot": "F:\\MUSF\\toolchain",
+  "policy": {
+    "formalDrive": "F:",
+    "allowExistingReadonlySources": true,
+    "formalPathsMustBeResolvedFromManifest": true
+  },
+  "items": [
+    {
+      "name": "unity-editor",
+      "version": "2020.3.49f1c1",
+      "path": "F:\\MUSF\\toolchain\\unity\\2020.3.49f1c1\\Editor\\Unity.exe",
+      "currentPath": "C:\\Program Files\\Unity 2020.3.49f1c1\\Editor\\Unity.exe",
+      "required": true,
+      "status": "missing",
+      "notes": "Formal Unity path should move to F:. Current execution can fall back to the detected system installation."
+    },
+    {
+      "name": "android-sdk",
+      "version": "managed",
+      "path": "F:\\MUSF\\toolchain\\android-sdk\\platform-tools\\adb.exe",
+      "currentPath": "C:\\Android\\Sdk\\platform-tools\\adb.exe",
+      "required": true,
+      "status": "missing",
+      "notes": "Formal SDK root is planned under F:. Current execution can fall back to the detected system installation."
+    },
+    {
+      "name": "adb",
+      "version": "platform-tools",
+      "path": "F:\\MUSF\\toolchain\\android-sdk\\platform-tools\\adb.exe",
+      "currentPath": "C:\\Android\\Sdk\\platform-tools\\adb.exe",
+      "required": true,
+      "status": "missing",
+      "notes": "ADB should be resolved from the formal Android SDK root on F:."
+    },
+    {
+      "name": "jdk8",
+      "version": "8",
+      "path": "F:\\MUSF\\toolchain\\jdk8\\bin\\java.exe",
+      "currentPath": "C:\\Program Files\\Eclipse Adoptium\\jdk-8.0.482.8-hotspot\\bin\\java.exe",
+      "required": true,
+      "status": "missing",
+      "notes": "Unity Android builds use JDK 8. Formal path should move to F:."
+    },
+    {
+      "name": "jdk17",
+      "version": "17",
+      "path": "F:\\MUSF\\toolchain\\jdk17\\bin\\java.exe",
+      "currentPath": "C:\\Program Files\\Microsoft\\jdk-17.0.18.8-hotspot\\bin\\java.exe",
+      "required": true,
+      "status": "missing",
+      "notes": "Command-line tools may use JDK 17. Formal path should move to F:."
+    },
+    {
+      "name": "python311",
+      "version": "3.11.9",
+      "path": "F:\\MUSF\\toolchain\\python311\\python.exe",
+      "currentPath": "",
+      "required": true,
+      "status": "missing",
+      "notes": "Formal automation runtime. All project-owned automation should run from this F:-hosted Python instead of PowerShell."
+    },
+    {
+      "name": "node18",
+      "version": "18.20.5",
+      "path": "F:\\MUSF\\toolchain\\node18\\node.exe",
+      "currentPath": "",
+      "required": true,
+      "status": "missing",
+      "notes": "Formal production Node runtime. Global Node 24 must not be used by release scripts."
+    },
+    {
+      "name": "dotnet-runtime",
+      "version": "3.1/2.1/10.0",
+      "path": "F:\\MUSF\\toolchain\\dotnet\\dotnet.exe",
+      "currentPath": "C:\\Program Files\\dotnet\\dotnet.exe",
+      "required": true,
+      "status": "missing",
+      "notes": "Formal dotnet toolchain is planned on F:. Existing system dotnet may be used as a transitional fallback."
+    },
+    {
+      "name": "mongodb",
+      "version": "4.0",
+      "path": "F:\\MUSF\\Tools\\MongoDB\\MongoDB\\MongoDB\\Server\\4.0\\bin\\mongod.exe",
+      "currentPath": "F:\\MUSF\\Tools\\MongoDB\\MongoDB\\MongoDB\\Server\\4.0\\bin\\mongod.exe",
+      "required": true,
+      "status": "installed",
+      "notes": "MongoDB is already hosted under F: and listens on port 58030."
+    },
+    {
+      "name": "nginx",
+      "version": "1.25.0",
+      "path": "F:\\MUSF\\Tools\\nginx\\nginx-1.25.0\\nginx.exe",
+      "currentPath": "F:\\MUSF\\Tools\\nginx\\nginx-1.25.0\\nginx.exe",
+      "required": true,
+      "status": "installed",
+      "notes": "GM reverse proxy runtime."
+    },
+    {
+      "name": "bundlepatch",
+      "version": "netcoreapp3.1",
+      "path": "F:\\MUSF\\Tools\\BundlePatch\\bin\\Debug\\netcoreapp3.1\\BundlePatch.exe",
+      "currentPath": "",
+      "required": true,
+      "status": "missing",
+      "notes": "Required for guarded hotfix publishing and Hotfix.dll marker scans."
+    },
+    {
+      "name": "apktool",
+      "version": "managed",
+      "path": "F:\\MUSF\\toolchain\\apktool\\apktool.jar",
+      "currentPath": "",
+      "required": false,
+      "status": "missing",
+      "notes": "APK baseline extraction helper."
+    },
+    {
+      "name": "jadx",
+      "version": "managed",
+      "path": "F:\\MUSF\\toolchain\\jadx\\bin\\jadx.bat",
+      "currentPath": "",
+      "required": false,
+      "status": "missing",
+      "notes": "APK inspection helper."
+    },
+    {
+      "name": "uber-apk-signer",
+      "version": "managed",
+      "path": "F:\\MUSF\\toolchain\\apk-signer\\uber-apk-signer.jar",
+      "currentPath": "",
+      "required": false,
+      "status": "missing",
+      "notes": "APK resign helper."
+    }
+  ]
+}

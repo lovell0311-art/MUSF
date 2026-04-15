@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ETHotfix
+{
+    public class RecycleEquipComponent : Component
+    {
+        public float recycleTime = 3;
+    }
+}

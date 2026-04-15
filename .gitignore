@@ -1,0 +1,112 @@
+# MUSF workspace
+# Keep source, docs, configs, scripts, and templates tracked.
+# Ignore generated outputs, heavy toolchains, local data, and release artifacts.
+
+# Existing cross-project heavy directories
+**/[Ll]ibrary/
+**/[Ll]ogs/
+**/[Oo]bj/
+**/[Tt]emp/
+**/[Uu]serSettings/
+**/[Bb]uild/
+**/[Bb]uilds/
+**/[Mm]emoryCaptures/
+**/[Rr]ecordings/
+**/[Nn]ode_modules/
+**/[Bb]in/
+
+# Editor / IDE caches
+**/.vs/
+**/.idea/
+*.suo
+*.user
+*.userprefs
+
+# Python caches
+**/__pycache__/
+*.pyc
+*.pyo
+
+# Large packaged artifacts
+*.apk
+*.aab
+*.ipa
+*.unitypackage
+
+# Root heavy/runtime directories
+/--output/
+/archive/
+/backups/
+/baseline/
+/canary-state/
+/downloads/
+/Excel/
+/mini30_probe_export/
+/MongoDB/
+/reports/
+/tmp/
+/toolchain/
+/_apktool_20260310/
+/_apktool_20260310pjzr_assets/
+/_manifest_check/
+/_patch_work/
+/codebundle_probe_export_shadow/
+
+# Generated release targets and local deployment mirrors
+/Release_Test/
+/Server/Release/
+/Server/BuildTemp/
+/Server/BuildTmp/
+/Server/Runtime/
+/Server/Log/
+/Server/_archive/
+/Server/**/*.DotSettings.user
+/Server/**/*.lscache
+
+# Client generated clones and build outputs
+/Client/Builds/
+/Client/Excel/
+/Client/UnityBatchShadow/
+/Client/UnityCodeBundleMini/
+/Client/UnityCodeBundleMini+/
+/Client/UnityCodeBundleMini30Shadow/
+/Client/Unity_BuildClone_NavGrid_20260326_1201/
+
+# Bundles and build output under the primary Unity project
+/Client/Unity/AssetBundles/
+/Client/Unity/Build/
+/Client/Unity/Builds/
+/Client/Unity/Library/
+/Client/Unity/Logs/
+/Client/Unity/Temp/
+/Client/Unity/obj/
+/Client/Unity/reports/
+/Client/Unity/.codex/
+/Client/Unity/UserSettings/
+/Client/Unity/*.log
+/Client/Unity/*.bat
+
+# Tool outputs and third-party installs
+/Tools/nginx/
+/Tools/MongoDB/
+/Server/Tools/cwRsync/
+/Tools/webgm/*.log
+/Tools/webgm/*.msi
+/Tools/webgm_deploy_stage/client/dist/
+/Tools/*.png
+/Tools/*.jpg
+/Tools/*.jpeg
+/Tools/*.xml
+/Tools/*.txt
+/Tools/*.log
+/Tools/*.zip
+/Tools/*.exe
+/Tools/*.apk
+/Tools/*.aab
+
+# Local app state
+/.codex/
+
+# Office and ad hoc local references
+*.docx
+/*.log

@@ -1,0 +1,72 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using CustomFrameWork;
+using CustomFrameWork.Component;
+using ETModel;
+using UnityEngine;
+
+namespace ETHotfix
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    [PropertyNumerialAttribute(BindId = (int)E_GameProperty.HurtValueAbsorbRate)]
+    public partial class C_PropertyNumerial_HurtValueAbsorbRate : C_PropertyNumerial
+    {
+        public override int Run(GamePlayer b_Component, bool b_HasTemporary = true)
+        {
+            int mResult = 0;
+
+            if (b_HasTemporary)
+            {
+                if (b_Component.HealthStatsDic.TryGetValue(E_BattleSkillStats.Use310120, out var mTempBuffer))
+                {
+                    if (mTempBuffer.CacheDatas.TryGetValue(0, out var mTempBufferData))
+                    {
+                        var mTempBufferValue = mTempBufferData.StrengthValue;
+                        mResult += mTempBufferValue;
+                    }
+                }
+            }
+            
+            if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.BeCommon3013, out var mMasteryValue1))
+            {
+                mResult += mMasteryValue1 *100;
+            }
+            if(!ConstServer.PlayerMaster)
+            if (b_Component.Data.Level >= 400 && b_Component.Data.OccupationLevel >= 3)
+            {
+                {
+                    if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.Common2007, out var mMasteryValue))
+                    {
+                        mResult += mMasteryValue;
+                    }
+                }
+                switch ((E_GameOccupation)b_Component.Data.PlayerTypeId)
+                {
+                    case E_GameOccupation.None:
+                        break;
+                    case E_GameOccupation.Archer:
+                        {
+                            if (b_Component.BattleMasteryDic.TryGetValue(E_BattleMasteryState.HurtValueAbsorbRate230, out var mMasteryValue))
+                            {// 
+                                mResult += mMasteryValue;
+                            }
+                        }
+                        break;
+                    case E_GameOccupation.Combat:
+                        break;
+                    case E_GameOccupation.GrowLancer:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return mResult;
+        }
+    }
+}

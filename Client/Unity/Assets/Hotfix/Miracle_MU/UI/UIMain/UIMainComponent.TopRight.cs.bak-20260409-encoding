@@ -1,0 +1,512 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using ETModel;
+using UnityEngine.UI;
+using System;
+using UnityEngine.PlayerLoop;
+using System.Reflection;
+
+namespace ETHotfix
+{   
+
+    /// <summary>
+    /// 左上角按钮模块
+    /// </summary>
+    public partial class UIMainComponent
+    {
+        
+
+        /// <summary>
+        /// 小月卡倒计时 显示回调
+        /// </summary>
+        public Action<TimeSpan> UpdateMCCountDownAction;
+        /// <summary>
+        /// 大月卡倒计时 显示回调
+        /// </summary>
+        public Action<TimeSpan> UpdateMaxCCountDownAction;
+        //原地复活CD
+        public Action<TimeSpan> UpdateInSituCdAction; 
+        //红名CD
+        public Action UpdateRedNameCdAction;
+
+        public TimeSpan subTimeSpan = new TimeSpan(0, 0, 1);
+        private Action minMonthCardTickAction;
+        private Action maxMonthCardTickAction;
+        private Action inSituCdTickAction;
+        private Action pkNumberTickAction;
+        private float minMonthCardNextTime = 1f;
+        private float maxMonthCardNextTime = 1f;
+        private float inSituCdNextTime = 1f;
+        private float pkNumberNextTime = 1f;
+
+        public GameObject TogRightObj;
+        ReferenceCollector referenceCollector_TopRigh;
+        public Button dayTopupBtn,LimtBtn,Btn51, choujiangBtn,BtnOpen,BtnClose;
+        public void Init_TopRight()
+        {
+            TogRightObj = ReferenceCollector_Main.GetGameObject("TopRight");
+            referenceCollector_TopRigh = ReferenceCollector_Main.GetGameObject("TopRight").GetReferenceCollector();
+            //设置相机位置
+            referenceCollector_TopRigh.GetButton("camesetBtn").onClick.AddSingleListener(() => { UIComponent.Instance.VisibleUI(UIType.UISetCameraAtr); });
+           
+            //商城
+            referenceCollector_TopRigh.GetButton("shopBtn").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UIShop, (int)E_TopUpType.ShopTopUp));
+            //签到
+            referenceCollector_TopRigh.GetButton("qiandao").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UIQianDao_9_Day));
+            //签到
+            referenceCollector_TopRigh.GetButton("shangjin").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UINewYearActivity));
+            //首充
+            referenceCollector_TopRigh.GetButton("shouchongBtn").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UIFirstCharge));
+            //冲刺
+            referenceCollector_TopRigh.GetButton("shengjiBtn").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UISprint)); 
+            //藏宝阁
+            referenceCollector_TopRigh.GetButton("cangbaoge").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UITreasureHouse));
+            //活动
+            referenceCollector_TopRigh.GetButton("huodongBtn").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UINewYearActivity));
+            //等级奖励
+            referenceCollector_TopRigh.GetButton("levelJiangLi").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UI_RankReward));
+            //在线奖励
+            referenceCollector_TopRigh.GetButton("ZaiXian").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UIZaiXian));
+            //七日充值
+            referenceCollector_TopRigh.GetButton("7dayTopup").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.TopUp_7_Day));
+            dayTopupBtn = referenceCollector_TopRigh.GetButton("7dayTopup");
+            //限时充值
+            referenceCollector_TopRigh.GetButton("LimiTopUp").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UI_LimitTopUpActivity));
+            LimtBtn = referenceCollector_TopRigh.GetButton("LimiTopUp");
+            //五一活动·
+            referenceCollector_TopRigh.GetButton("51").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UI_51Active));
+            Btn51 = referenceCollector_TopRigh.GetButton("51");
+            //通行证
+            referenceCollector_TopRigh.GetButton("passportBtn").onClick.AddSingleListener(() =>
+            {
+                UIComponent.Instance.VisibleUI(UIType.UIPassport);
+            });
+            //------------新增控制按钮
+            BtnOpen = referenceCollector_TopRigh.GetButton("BtnOpen");
+            BtnClose = referenceCollector_TopRigh.GetButton("BtnClose");
+            BtnOpen.onClick.AddSingleListener(() =>
+            {
+                BtnOpen.gameObject.SetActive(false);
+                BtnClose.gameObject.SetActive(true);
+                referenceCollector_TopRigh.GetImage("Scroll View").gameObject.SetActive(true);
+                referenceCollector_TopRigh.GetGameObject("obj").gameObject.SetActive(true);
+
+            });
+            BtnClose.onClick.AddSingleListener(() =>
+            {
+                BtnOpen.gameObject.SetActive(true);
+                BtnClose.gameObject.SetActive(false);
+                referenceCollector_TopRigh.GetGameObject("obj").gameObject.SetActive(false);
+                referenceCollector_TopRigh.GetImage("Scroll View").gameObject.SetActive(false);
+
+            });
+            //抽奖
+            choujiangBtn =referenceCollector_TopRigh.GetButton("choujiang");
+            choujiangBtn.onClick.AddSingleListener(() => 
+            {
+                UIComponent.Instance.VisibleUI(UIType.UIChouJiang);
+            });
+
+            //充值排行榜
+            referenceCollector_TopRigh.GetButton("chongzhiBtn").onClick.AddSingleListener(() =>
+            {
+                UIComponent.Instance.VisibleUI(UIType.UICongZhiPaiHangBang);
+            });
+            //幸运抽奖
+            referenceCollector_TopRigh.GetButton("Welfare").onClick.AddSingleListener(() =>
+            {
+                Log.DebugBrown("请求打开福利活动");
+                UIComponent.Instance.VisibleUI(UIType.UIWelfare);
+            });
+            //开挂礼包
+            referenceCollector_TopRigh.GetButton("reclamationBtn").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UIReclamation));
+            //开挂礼包
+            referenceCollector_TopRigh.GetButton("Awakening").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UIAwakening));
+            //超值礼包
+            referenceCollector_TopRigh.GetButton("TangibleLimit").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UITangibleLimit));
+            //超值礼包
+            referenceCollector_TopRigh.GetButton("MonthCard").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UIMonthCard));
+            //限购礼包
+            referenceCollector_TopRigh.GetButton("PurchaseLimit").onClick.AddSingleListener(() => UIComponent.Instance.VisibleUI(UIType.UIPurchaseLimit));
+            //充值按钮折叠
+            referenceCollector_TopRigh.GetToggle("BtnTog").onValueChanged.AddSingleListener((value) => 
+            {
+                referenceCollector_TopRigh.GetToggle("BtnTog").transform.GetChild(0).GetComponent<Image>().enabled = !value;
+                
+                TogRightObj.SetActive(!value);
+            });
+            //挑战Boss
+            referenceCollector_TopRigh.GetButton("Challenge").onClick.AddSingleListener(() => 
+            {
+                UIComponent.Instance.VisibleUI(UIType.UIChallenge);
+            });
+
+            //查询
+            referenceCollector_TopRigh.GetButton("chaxun").onClick.AddSingleListener(() =>
+            {
+                UIComponent.Instance.VisibleUI(UIType.UIChaXun);
+            });
+
+            //累计充值
+            referenceCollector_TopRigh.GetButton("TopUpRewards").onClick.AddSingleListener(() => 
+            {
+                UIComponent.Instance.VisibleUI(UIType.UITopUpRewards);
+
+            });
+            //referenceCollector_TopRigh.GetToggle("BtnTog").isOn = true;
+
+            // Game.EventManager.AddEventHandler(EventTypeId.LOCALROLE_DEAD, delegate { HookTog.isOn = false; });
+            
+
+            //关闭活动
+            //Btn51.gameObject.SetActive(true);
+          //  LimtBtn.gameObject.SetActive(false);
+            /*dayTopup_7.gameObject.SetActive(roleEntity.Level >= 10);
+            LimiTopUp.gameObject.SetActive(roleEntity.Level >= 50);
+            Btn_51.gameObject.SetActive(roleEntity.Level >= 100);*/
+            //CloseActivity();
+        }
+        //时间到了自动关闭活动
+       /* public void CloseActivity() 
+        {
+            *//* DateTime starttime =System.DateTime.Now;
+             DateTime endtime = Convert.ToDateTime(info.EndTime);*//*
+            //  DateTime starttime = Convert.ToDateTime("2023-10-31 23:00:00");
+
+            var info = ConfigComponent.Instance.GetItem<Activity_InfoConfig>(3);
+            DateTime endtime = Convert.ToDateTime(info.EndTime);
+           // DateTime endtime = Convert.ToDateTime("2023-05-05 23:00:00");
+            closeSpane = endtime.Subtract(DateTime.Now);
+
+            if ((long)closeSpane.TotalMilliseconds > 0)
+            {
+                TimerComponent.Instance.RegisterTimeCallBack((long)closeSpane.TotalMilliseconds, () =>
+                {
+                   
+                    LimiTopUp.gameObject.SetActive(false);
+                    Btn_51.gameObject.SetActive(false);
+                });
+
+            }
+            else
+            {
+                LimiTopUp.gameObject.SetActive(false);
+                Btn_51.gameObject.SetActive(false);
+            }
+            SetTopUpHint(roleEntity.Level);
+
+        }*/
+       public  async ETVoid GetCurTopupInfo()
+        {
+            G2C_PlayerShopInfoResponse g2C_PlayerShopInfo = (G2C_PlayerShopInfoResponse)await SessionComponent.Instance.Session.Call(new C2G_PlayerShopInfoRequest { });
+            if (g2C_PlayerShopInfo.Error != 0)
+            {
+             //   Log.DebugRed($"{g2C_PlayerShopInfo.Error.GetTipInfo()}");
+                UIComponent.Instance.VisibleUI(UIType.UIHint, g2C_PlayerShopInfo.Error.GetTipInfo());
+            }
+            else
+            {
+                roleEntity.Property.ChangeProperValue(E_GameProperty.MiracleCoin, g2C_PlayerShopInfo.Info.MiracleCoin);//奇迹币
+                roleEntity.Property.ChangeProperValue(E_GameProperty.MoJing, g2C_PlayerShopInfo.Info.CurrentYuanbao);//元宝数量
+                roleEntity.Property.ChangeProperValue(E_GameProperty.AccumulatedRecharge, g2C_PlayerShopInfo.Info.AccumulatedRecharge);//累计充值额度
+                roleEntity.RechargeStates = g2C_PlayerShopInfo.Info.RechargeStatus;//首充进度状态
+               
+
+                if (g2C_PlayerShopInfo.Info.MinMCEndTime != 0)
+                    roleEntity.MinMonthluCardTimeSpan = TimeHelper.GetSpacingTime_Milliseconds(g2C_PlayerShopInfo.Info.MinMCEndTime);//小月卡到期时间
+                if (g2C_PlayerShopInfo.Info.MaxMCEndTime != 0)
+                    roleEntity.MaxMonthluCardTimeSpan = TimeHelper.GetSpacingTime_Milliseconds(g2C_PlayerShopInfo.Info.MaxMCEndTime);//大月卡到期时间
+                if (g2C_PlayerShopInfo.Info.InSituCd != 0)
+                    roleEntity.InsiteTimeSpan = TimeHelper.GetSpacingTime_Milliseconds(g2C_PlayerShopInfo.Info.InSituCd);//原地复活
+
+                roleEntity.Property.ChangeProperValue(E_GameProperty.InSituCd, g2C_PlayerShopInfo.Info.InSituCd);//原地复活CD
+
+                ///购买了小月卡
+                if (g2C_PlayerShopInfo.Info.MinMCEndTime != 0)
+                {
+                    //MinMothCard();
+
+                }
+                ///购买了大月卡 
+                if (g2C_PlayerShopInfo.Info.MaxMCEndTime != 0)
+                {
+                   // MaxMothCard();
+                }
+                //原地复活特权
+                if (roleEntity.InSitu && g2C_PlayerShopInfo.Info.InSituCd != 0)
+                {
+                   // InSituCd();
+                }
+            }
+        }
+        /// <summary>
+        /// 设置充值隐藏
+        /// </summary>
+        public void SetTopUpHint(int level)
+        {
+            
+           // dayTopupBtn.gameObject.SetActive(level >= 1);
+           // referenceCollector_TopRigh.GetButton("LimiTopUp").gameObject.SetActive(level >= 50);
+           // referenceCollector_TopRigh.GetButton("51").gameObject.SetActive(level >= 100);
+        }
+        /// <summary>
+        /// 小月卡 倒计时
+        /// </summary>
+        public void MinMothCard() 
+        {
+            if (minMonthCardTickAction == null)
+            {
+                minMonthCardTickAction = UpdateMinMonthCardTick;
+            }
+
+            minMonthCardNextTime = 1f;
+            EnsureCountDownRegistered(minMonthCardTickAction);
+            return;
+#if false
+
+            var nextTime = 1f;
+            CountDownAction += UpdateMacMin;
+            void UpdateMacMin()
+            {
+                if (roleEntity.MinMonthluCardTimeSpan.TotalSeconds <= 0)
+                {
+                    //月卡已到期
+                    CountDownAction -= UpdateMacMin;
+                   // Log.DebugRed($"小月卡到期 移除监听");
+                    return;
+                }
+                if (Time.time >= nextTime)
+                {
+                    roleEntity.MinMonthluCardTimeSpan = roleEntity.MinMonthluCardTimeSpan.Subtract(subTimeSpan);
+                    //Log.DebugGreen($"小月卡时间 -》{roleEntity.MinMonthluCardTimeSpan}");
+                    UpdateMCCountDownAction?.Invoke(roleEntity.MinMonthluCardTimeSpan);
+                    nextTime = Time.time + 1;
+                }
+            }
+#endif
+        }
+        /// <summary>
+        /// 大月卡 倒计时
+        /// </summary>
+        public void MaxMothCard()
+        {
+            if (maxMonthCardTickAction == null)
+            {
+                maxMonthCardTickAction = UpdateMaxMonthCardTick;
+            }
+
+            maxMonthCardNextTime = 1f;
+            EnsureCountDownRegistered(maxMonthCardTickAction);
+            return;
+#if false
+
+            var nextTime = 1f;
+            CountDownAction += UpdateMacMax;
+            void UpdateMacMax()
+            {
+                if (roleEntity.MaxMonthluCardTimeSpan.TotalSeconds <= 0)
+                {
+                    //月卡已到期
+                    CountDownAction -= UpdateMacMax;
+                   // Log.DebugRed($"大月卡到期 移除监听");
+                    return;
+                }
+                if (Time.time >= nextTime)
+                {
+                    roleEntity.MaxMonthluCardTimeSpan = roleEntity.MaxMonthluCardTimeSpan.Subtract(subTimeSpan);
+                    UpdateMaxCCountDownAction?.Invoke(roleEntity.MaxMonthluCardTimeSpan);
+                    nextTime = Time.time + 1;
+                }
+            }
+#endif
+        }
+        /// <summary>
+        /// 原地复活CD 倒计时
+        /// </summary>
+        public void InSituCd() 
+        {
+            if (inSituCdTickAction == null)
+            {
+                inSituCdTickAction = UpdateInSituCdTick;
+            }
+
+            inSituCdNextTime = 1f;
+            EnsureCountDownRegistered(inSituCdTickAction);
+            return;
+#if false
+
+            float InSitunextTime = 1f;
+            CountDownAction += InSituCallBack;
+            void InSituCallBack()
+            {
+                if (roleEntity.InsiteTimeSpan.TotalSeconds <= 0)
+                {
+                    //月卡已到期
+                    CountDownAction -= InSituCallBack;
+                   
+                    return;
+                }
+                if (Time.time >= InSitunextTime)
+                {
+                    roleEntity.InsiteTimeSpan = roleEntity.InsiteTimeSpan.Subtract(subTimeSpan);
+                    UpdateInSituCdAction?.Invoke(roleEntity.InsiteTimeSpan);
+                    InSitunextTime = Time.time + 1;
+                }
+            }
+#endif
+        }
+        /// <summary>
+        /// 刷新Pk惩罚点数
+        /// </summary>
+
+        public void PkNumber()
+        {
+            if (pkNumberTickAction == null)
+            {
+                pkNumberTickAction = UpdatePkTick;
+            }
+
+            pkNumberNextTime = 1f;
+            EnsureCountDownRegistered(pkNumberTickAction);
+            return;
+#if false
+
+            var nextTime = 1f;
+            foreach (var item in CountDownAction.GetInvocationList())
+            {
+                //Log.DebugGreen($"CountDownAction.GetInvocationList():{item.GetMethodInfo().Name}");
+                if (item.GetMethodInfo().Name == "UpdatePk")
+                {
+                    return;
+                }
+            }
+            CountDownAction += UpdatePk;
+            void UpdatePk()
+            {
+                if (roleEntity.Property.GetProperValue(E_GameProperty.PkNumber)<= 0)
+                {
+                    //Pk惩罚点数
+                    this.roleEntity.GetComponent<UIUnitEntityHpBarComponent>().ChangeNameColor(ColorTools.GetColorHtmlString(Color.yellow));
+                    CountDownAction -= UpdatePk;
+                    return;
+                }
+                if (Time.time >= nextTime)
+                {
+                    var point = roleEntity.Property.GetProperValue(E_GameProperty.PkNumber);
+                    point -= 2;
+                    roleEntity.Property.ChangeProperValue(E_GameProperty.PkNumber, point);
+                    UpdateRedNameCdAction?.Invoke();
+                    nextTime = Time.time + 1;
+                }
+            }
+#endif
+        }
+
+        private void EnsureCountDownRegistered(Action action)
+        {
+            if (action == null)
+            {
+                return;
+            }
+
+            if (CountDownAction == null)
+            {
+                CountDownAction = action;
+                return;
+            }
+
+            foreach (Delegate item in CountDownAction.GetInvocationList())
+            {
+                if (item == (Delegate)action)
+                {
+                    return;
+                }
+            }
+
+            CountDownAction += action;
+        }
+
+        private void UpdateMinMonthCardTick()
+        {
+            if (roleEntity == null || roleEntity.MinMonthluCardTimeSpan.TotalSeconds <= 0)
+            {
+                CountDownAction -= minMonthCardTickAction;
+                return;
+            }
+
+            if (Time.time < minMonthCardNextTime)
+            {
+                return;
+            }
+
+            roleEntity.MinMonthluCardTimeSpan = roleEntity.MinMonthluCardTimeSpan.Subtract(subTimeSpan);
+            UpdateMCCountDownAction?.Invoke(roleEntity.MinMonthluCardTimeSpan);
+            minMonthCardNextTime = Time.time + 1f;
+        }
+
+        private void UpdateMaxMonthCardTick()
+        {
+            if (roleEntity == null || roleEntity.MaxMonthluCardTimeSpan.TotalSeconds <= 0)
+            {
+                CountDownAction -= maxMonthCardTickAction;
+                return;
+            }
+
+            if (Time.time < maxMonthCardNextTime)
+            {
+                return;
+            }
+
+            roleEntity.MaxMonthluCardTimeSpan = roleEntity.MaxMonthluCardTimeSpan.Subtract(subTimeSpan);
+            UpdateMaxCCountDownAction?.Invoke(roleEntity.MaxMonthluCardTimeSpan);
+            maxMonthCardNextTime = Time.time + 1f;
+        }
+
+        private void UpdateInSituCdTick()
+        {
+            if (roleEntity == null || roleEntity.InsiteTimeSpan.TotalSeconds <= 0)
+            {
+                CountDownAction -= inSituCdTickAction;
+                return;
+            }
+
+            if (Time.time < inSituCdNextTime)
+            {
+                return;
+            }
+
+            roleEntity.InsiteTimeSpan = roleEntity.InsiteTimeSpan.Subtract(subTimeSpan);
+            UpdateInSituCdAction?.Invoke(roleEntity.InsiteTimeSpan);
+            inSituCdNextTime = Time.time + 1f;
+        }
+
+        private void UpdatePkTick()
+        {
+            if (roleEntity == null || roleEntity.Property == null || roleEntity.Property.GetProperValue(E_GameProperty.PkNumber) <= 0)
+            {
+                if (roleEntity != null)
+                {
+                    this.roleEntity.GetComponent<UIUnitEntityHpBarComponent>()?.ChangeNameColor(ColorTools.GetColorHtmlString(Color.yellow));
+                }
+
+                CountDownAction -= pkNumberTickAction;
+                return;
+            }
+
+            if (Time.time < pkNumberNextTime)
+            {
+                return;
+            }
+
+            long point = roleEntity.Property.GetProperValue(E_GameProperty.PkNumber);
+            point -= 2;
+            roleEntity.Property.ChangeProperValue(E_GameProperty.PkNumber, point);
+            UpdateRedNameCdAction?.Invoke();
+            pkNumberNextTime = Time.time + 1f;
+        }
+
+
+    }
+
+}

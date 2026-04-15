@@ -1,0 +1,178 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using ETModel;
+using UnityEngine.UI;
+using System;
+
+namespace ETHotfix
+{
+    /// <summary>
+    /// 倒计时 显示
+    /// </summary>
+    public partial class UIRoleInfoComponent
+    {
+        public Transform countdowns;
+        public Text MCCountDownTxt, MACCountDownTxt, InSituCd, RedNameCd, Experience, YueKaExperience;
+
+        private void FormatTime(float totalSeconds)
+        {
+            int days = Mathf.FloorToInt(totalSeconds / 86400); // 一天有86400秒
+            totalSeconds -= days * 86400;
+
+            int hours = Mathf.FloorToInt(totalSeconds / 3600); // 一小时有3600秒
+            totalSeconds -= hours * 3600;
+
+            int minutes = Mathf.FloorToInt(totalSeconds / 60); // 一分钟有60秒
+            int seconds = Mathf.FloorToInt(totalSeconds % 60); // 取剩余的秒数
+            string des = $"{days}天{hours}小时";//{minutes}分钟{seconds}秒";
+            Experience.text = $"<color=white>双倍经验体验时间：</color>" + "<color=yellow>" + des + "</color>";
+            Experience.gameObject.SetActive(true);
+            //  return $"{days}天{hours}小时{minutes}分钟{seconds}秒";
+        }
+        private void OnFormatTime(float totalSeconds)
+        {
+            int days = Mathf.FloorToInt(totalSeconds / 86400); // 一天有86400秒
+            totalSeconds -= days * 86400;
+
+            int hours = Mathf.FloorToInt(totalSeconds / 3600); // 一小时有3600秒
+            totalSeconds -= hours * 3600;
+
+            int minutes = Mathf.FloorToInt(totalSeconds / 60); // 一分钟有60秒
+            int seconds = Mathf.FloorToInt(totalSeconds % 60); // 取剩余的秒数
+            string des = $"{days}天{hours}小时";//{minutes}分钟{seconds}秒";
+            YueKaExperience.text = $"<color=white>赞助卡折扣体验时间：</color>" + "<color=yellow>" + des + "</color>";
+            YueKaExperience.gameObject.SetActive(true);
+            //  return $"{days}天{hours}小时{minutes}分钟{seconds}秒";
+        }
+        public void Init_CountDown()
+        {
+            countdowns = collector.GetGameObject("CountDown").transform;
+            for (int i = 0, length = countdowns.childCount; i < length; i++)
+            {
+                countdowns.GetChild(i).gameObject.SetActive(false);
+            }
+            ReferenceCollector collector_countdowns = countdowns.GetReferenceCollector();
+            MCCountDownTxt = collector_countdowns.GetText("yuekatime");//小月卡
+            MACCountDownTxt = collector_countdowns.GetText("maxyuekatime");//大月卡
+            InSituCd = collector_countdowns.GetText("InSituCd");//原地复活CD倒计时
+            RedNameCd = collector_countdowns.GetText("RedNameCd");//红名CD倒计时
+            Experience = collector_countdowns.GetText("Experience");//经验
+            YueKaExperience = collector_countdowns.GetText("YueKaExperience");//月卡
+            ///小月卡倒计时
+            if (roleEntity.MinMonthluCardTimeSpan.TotalSeconds > 0)
+            {
+                MCCountDownTxt.text = $"<color=white>小月卡倒计时：</color>{roleEntity.MinMonthluCardTimeSpan.Days}天{roleEntity.MinMonthluCardTimeSpan.Hours}小时{roleEntity.MinMonthluCardTimeSpan.Minutes}分钟{roleEntity.MinMonthluCardTimeSpan.Seconds}秒";
+                MCCountDownTxt.gameObject.SetActive(true);
+            }
+            UIMainComponent.Instance.UpdateMCCountDownAction = (timespan) =>
+            {
+                MCCountDownTxt.gameObject.SetActive(true);
+                if (timespan.TotalSeconds < 0)
+                {
+                    MCCountDownTxt.text = "小月卡已到期";
+                    InSituCd.text = "月卡已到期 不可以原地复活";
+                    UIMainComponent.Instance.UpdateMCCountDownAction = null;
+                    UIMainComponent.Instance.UpdateInSituCdAction = null;
+                }
+                else
+                {
+                    MCCountDownTxt.text = $"<color=white>小月卡倒计时：</color>{timespan.Days}天{timespan.Hours}小时{timespan.Minutes}分钟{timespan.Seconds}秒";
+                }
+            };
+            if (UIMainComponent.Instance.OnExTime() != 0)
+            {
+                FormatTime(UIMainComponent.Instance.OnExTime());
+
+            }
+            else
+            {
+                Experience.text = "";
+            }
+
+
+            //if (UIMainComponent.Instance.OnYuekaTime() != 0)
+            //{
+            //    OnFormatTime(UIMainComponent.Instance.OnYuekaTime());
+            //}
+            //else
+            //{
+            //    YueKaExperience.text = "";
+            //}
+            ///大月卡倒计时
+            if (roleEntity.MaxMonthluCardTimeSpan.TotalSeconds > 0)
+            {
+                MACCountDownTxt.text = $"<color=white>赞助卡倒计时：</color>{roleEntity.MaxMonthluCardTimeSpan.Days}天{roleEntity.MaxMonthluCardTimeSpan.Hours}小时{roleEntity.MaxMonthluCardTimeSpan.Minutes}分钟{roleEntity.MaxMonthluCardTimeSpan.Seconds}秒";
+                MACCountDownTxt.gameObject.SetActive(true);
+            }
+            UIMainComponent.Instance.UpdateMaxCCountDownAction = (timespan) =>
+            {
+                MACCountDownTxt.gameObject.SetActive(true);
+                if (timespan.TotalSeconds < 0)
+                {
+                    MACCountDownTxt.text = "月卡已到期";
+                    InSituCd.text = "月卡已到期 不可以原地复活";
+
+                    UIMainComponent.Instance.UpdateMaxCCountDownAction = null;
+                    UIMainComponent.Instance.UpdateInSituCdAction = null;
+                }
+                else
+                {
+                    MACCountDownTxt.text = $"<color=white>赞助卡倒计时：</color>{timespan.Days}天{timespan.Hours}小时{timespan.Minutes}分钟{timespan.Seconds}秒";
+                }
+            };
+            ///原地复活CD 
+            if (roleEntity.InSitu)
+            {
+                InSituCd.gameObject.SetActive(true);
+                if (roleEntity.InsiteTimeSpan.TotalSeconds <= 0)
+                {
+                    InSituCd.text = "<color=green>可以原地复活</color>";
+                    UIMainComponent.Instance.UpdateInSituCdAction = null;
+                }
+                else
+                {
+                    InSituCd.text = $"<color=white>原地复活Cd：</color>{roleEntity.InsiteTimeSpan.Minutes}分钟{roleEntity.InsiteTimeSpan.Seconds}秒";
+                }
+            }
+
+            UIMainComponent.Instance.UpdateInSituCdAction = (timespan) =>
+            {
+                InSituCd.gameObject.SetActive(true);
+                if (timespan.TotalSeconds < 0)
+                {
+                    InSituCd.text = "可以原地复活";
+
+                    UIMainComponent.Instance.UpdateInSituCdAction = null;
+                }
+                else
+                {
+                    InSituCd.text = $"<color=white>原地复活Cd：</color>{timespan.Minutes}分钟{timespan.Seconds}秒";
+                }
+            };
+
+            ///红名倒计时
+            if (roleEntity.Property.GetProperValue(E_GameProperty.PkNumber) > 0)
+            {
+                //每分钟120点->每秒钟消除2点惩罚点数
+                RedNameCd.text = $"<color={this.roleEntity.GetRedNameColor()}>PK惩罚点数：{roleEntity.Property.GetProperValue(E_GameProperty.PkNumber)}点 ({roleEntity.Property.GetProperValue(E_GameProperty.PkNumber) / 120 / 60}小时{roleEntity.Property.GetProperValue(E_GameProperty.PkNumber) / 120 % 60}分钟)</color>";
+
+                RedNameCd.gameObject.SetActive(true);
+            }
+            UIMainComponent.Instance.UpdateRedNameCdAction = () =>
+            {
+                RedNameCd.gameObject.SetActive(true);
+                if (roleEntity.Property.GetProperValue(E_GameProperty.PkNumber) <= 0)
+                {
+                    UIMainComponent.Instance.UpdateRedNameCdAction = null;
+                    RedNameCd.text = String.Empty;
+                }
+                else
+                {
+                    RedNameCd.text = $"<color={this.roleEntity.GetRedNameColor()}>PK惩罚点数：{roleEntity.Property.GetProperValue(E_GameProperty.PkNumber)}点 ({roleEntity.Property.GetProperValue(E_GameProperty.PkNumber) / 120 / 60}小时{roleEntity.Property.GetProperValue(E_GameProperty.PkNumber) / 120 % 60}分钟)</color>";
+                }
+            };
+        }
+
+    }
+}
