@@ -64,6 +64,10 @@
 /Server/Deploy/*.archive.gz
 /Server/**/*.DotSettings.user
 /Server/**/*.lscache
+/Server/.svn/
+/Server/Book/Example/
+/Server/Book/Example/**/bin/
+/Server/Book/Example/**/obj/
 
 # Client generated clones and build outputs
 /Client/Builds/
@@ -78,6 +82,7 @@
 /Client/Unity/AssetBundles/
 /Client/Unity/Build/
 /Client/Unity/Builds/
+/Client/Unity/BuildOutput/
 /Client/Unity/Library/
 /Client/Unity/Logs/
 /Client/Unity/Temp/
@@ -88,6 +93,7 @@
 /Client/Unity/UserSettings/
 /Client/Unity/*.log
 /Client/Unity/*.bat
+/Client/Unity/Assets/**/*.bak-*
 
 # Tool outputs and third-party installs
 /Tools/nginx/
