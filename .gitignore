@@ -60,6 +60,8 @@
 /Server/Runtime/
 /Server/Log/
 /Server/_archive/
+/Server/Deploy/cloud-bundles/
+/Server/Deploy/*.archive.gz
 /Server/**/*.DotSettings.user
 /Server/**/*.lscache
 
@@ -82,6 +84,7 @@
 /Client/Unity/obj/
 /Client/Unity/reports/
 /Client/Unity/.codex/
+/Client/Unity/.ignore
 /Client/Unity/UserSettings/
 /Client/Unity/*.log
 /Client/Unity/*.bat
@@ -110,3 +113,22 @@
 # Office and ad hoc local references
 *.docx
 /*.log
+
+# Proto compiler binaries and local codegen helpers
+/Client/Proto/protoc
+/Client/Proto/protoc.exe
+/Client/Proto/Proto2CS.dll
+/Client/Proto/Proto2CS.pdb
+/Client/Proto/Proto2CS.deps.json
+/Client/Proto/Proto2CS.runtimeconfig.dev.json
+/Client/Proto/Proto2CS.runtimeconfig.json
+/Server/Proto/protoc
+/Server/Proto/protoc.exe
+/Server/Proto/Proto2CS.dll
+/Server/Proto/Proto2CS.pdb
+/Server/Proto/Proto2CS.deps.json
+/Server/Proto/Proto2CS.runtimeconfig.dev.json
+/Server/Proto/Proto2CS.runtimeconfig.json
+
+# Legacy workspace metadata
+/Client/.svn/

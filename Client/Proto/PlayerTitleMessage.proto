@@ -1,0 +1,150 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 42000
+//称号通知
+message G2C_ServerSendTitleMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int32 UseTitle =1;
+	repeated Title_Status TitleList = 2;
+	
+}
+//称号修改
+message C2G_SetPlayerTitleRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int32 		UseTitle		= 1;
+}
+
+message G2C_SetPlayerTitleResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//称号删除
+message C2G_DelPlayerTitleRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int32 		UseTitle		= 1;
+}
+message G2C_DelPlayerTitleResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//获取排行
+message C2G_GetRankInfoRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int32 RankType = 1;
+	
+}
+message G2C_GetRankInfoResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 GameUserID =1;
+	repeated Rank_status RankList =2;
+}
+//客户端不需要
+message G2M_GetRankInfoRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int32 RankType = 1; 
+	
+}
+message M2G_GetRankInfoResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated Rank_status RankList =2;
+}
+//触发排行
+message G2M_EnterRankingRequest  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int64 Value64A = 1;
+	int64 Value64B = 2;
+	int64 Value64C = 3;
+	int32 Value32A = 4;
+	int32 Value32B = 5;
+	int32 Value32C = 6;
+	string StrA=7;
+	string StrB=8;
+	string StrC=9;
+	int32 RankType = 10;
+}
+message M2G_EnterRankingResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 EndTime = 1;
+}
+//排行榜结算通知
+message M2G_SettlementRankingMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData		= 92;
+	
+	int32 RankType = 1;
+	int64 Value64A = 2;
+	int64 Value64B = 3;
+	int32 Value32A =4;
+	int32 Value32B =5;
+	string StrA = 6;
+	string StrB = 7;
+
+}
+message G2C_SendFullServiceMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int32 TitleID=1;
+	int32 MessageId =2;
+	string PlayerName =3;
+}
+message Title_Status
+{
+	 int32 TitleID =1;
+     int64 BingTime =2;
+     int64 EndTime=3;
+}
+message Rank_status
+{
+	int32 RankType = 1;
+	int64 Value64A =2;
+	int64 Value64B =3;
+	int32 Value32A =4;
+	int32 Value32B =5;
+	string StrA =6;
+	string StrB =7;
+}

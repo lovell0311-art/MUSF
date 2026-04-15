@@ -1,0 +1,292 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 41000
+
+//进入战斗副本请求
+message C2G_EnterBattleCopyRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+
+	int32   Level = 1;           //副本等级
+	int32   Type = 2;            //副本类型  1 ：恶魔广场  2：血色城堡  4：藏宝图
+	int64	NPCID = 3;			 //进入副本的NPCID
+	int64   PlayerID=4;			//藏宝图使用其他为0，藏宝图开启者playerid
+}
+//进入战斗副本 响应
+message G2C_EnterBattleCopyResponse  // IActorResponse
+{
+    int32 		RpcId 			= 90;
+	int32 		Error 			= 91;
+	string 		Message 		= 92;
+}
+
+//退出战斗副本请求
+message C2G_QuitBattleCopyRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+
+    int32   Level = 1;           //副本等级
+	int32   Type = 2;            //副本类型  1 ：恶魔广场  2：血色城堡
+}
+//退出战斗副本 响应
+message G2C_QuitBattleCopyResponse  // IActorResponse
+{
+    int32 		RpcId 			= 90;
+	int32 		Error 			= 91;
+	string 		Message 		= 92;
+}
+
+//副本状态
+message BattleCopyState
+{
+   int32 State = 1;                    //副本状态   0 等待 1 装备  2 开启  3关闭（数组下标  0 ：恶魔广场  1 血色城堡）
+   int64 PrepareTimer = 2;      //准备时间
+   int64 StartTimer =3;            //开启时间
+   int64 EndTimer =4;             //结束时间
+}
+
+
+//获取副本信息 请求
+message C2G_GetBattleCopyInfoRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+
+//获取副本信息 响应
+message G2C_GetBattleCopyInfoRequest   // IActorResponse
+{
+    int32 		RpcId 			= 90;
+	int32 		Error 			= 91;
+	string 		Message 		= 92;
+
+   repeated BattleCopyState BatteCopyStates = 1;    //数组下标  0 ：恶魔广场  1 血色城堡）
+   repeated int32 Numbers =2 ;         //副本剩余的挑战次数 （数组下标  0 ：恶魔广场  1 血色城堡）
+    repeated int32 NumMaxs =3 ;      //每天挑战次数上限（数组下标  0 ：恶魔广场  1 血色城堡）
+}
+
+// 房间变更  通知
+message G2C_BattleCopyStateUpdate_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	int32 MapType =1;//（0 ：恶魔广场  1 血色城堡）
+    int32 State = 2;              //副本状态  0：等待 1 ： 准备 2 ：开启   3：结束 
+    int64 LeftSeconds =3;   //进入下个状态剩余多少秒
+}
+
+//血色城堡房间状态  通知
+message G2C_CopyRoomStateUpdate_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	
+   int32 State = 1;     // 1 ：大门打破   2：水晶棺被打破
+}
+
+//副本通用击杀怪物数量状态  通知
+message G2C_CopyRoomKillMonster_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	//repeated int32 AllMonsterId 	= 1;		// 怪物id
+	int32 KilledNumber				= 2;		// 已击杀怪物数量
+	int32 MaxNumber					= 3;		// 需击杀的怪物总量
+}
+message BatteCopyRankData
+{
+	int64 GameUserId		= 1;     //玩家ID
+
+	int32 Rank = 2;           //排名
+	
+	int32 Score = 3;          //分数
+
+	int32 Coin = 4;         //金币
+
+	int32 EXP = 5;           //经验
+
+	string Name = 6;     //名字
+}
+
+// 副本排名通知
+message G2C_BattleCopyRanks_notice // IActorMessage
+{
+    int64 ActorId = 90;
+
+   repeated BatteCopyRankData BatteCopyRankDatas = 1;
+}
+
+//攻击血色城堡(大门/水晶棺) 请求
+message C2G_AttackCopyObstacleRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+//攻击血色城堡(大门/水晶棺) 响应
+message G2C_AttackCopyObstacleRequest   // IActorResponse
+{
+    int32 		RpcId 			= 90;
+	int32 		Error 			= 91;
+	string 		Message 		= 92;
+
+	int32 Number = 1;            //大门 或 水晶棺剩余次数
+}
+
+//提交大天使武器 请求
+message C2G_CommitArchangelWeaponRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+
+//提交大天使武器) 响应
+message G2C_CommitArchangelWeaponRequest   // IActorResponse
+{
+    int32 		RpcId 			= 90;
+	int32 		Error 			= 91;
+	string 		Message 		= 92;
+}
+
+// 副本排名通知
+message G2C_RedCastleSettlement_notice // IActorMessage
+{
+    int64 ActorId = 90;
+
+	int32 State = 1;//0：副本失败 1：成功
+   repeated BatteCopyRankData BatteCopyRankDatas = 2; // 只有金币数 和 经验值 玩家ID
+}
+
+
+// 大门和棺材的攻击次数
+message G2C_NumberOfttacks_notice // IActorMessage
+{
+    int64 ActorId = 90;
+
+	int32 State = 1;//0：大门 1：棺材
+    int32 Cnt = 2; //次数
+}
+
+//藏宝图位置  通知
+message G2C_CangBaoTuPosUpdate_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	
+    int32 MapIndex = 1;     // 1 ：勇者大陆   2：仙踪林   3：幻术园
+	int32 NpcConfigID = 4;		//NPC UUID
+	int32 PosX = 2;
+	int32 PosY = 3;
+	int32 TreasureType = 5;
+	
+	int64 Id = 6;	// 位置id
+}
+
+//藏宝图开启 通知组队
+message G2C_CangBaoTuOpen_notice // IActorMessage
+{
+	int64 ActorId = 90;
+	
+	string 	PlayerName =1;
+	int64   PlayerID =2;
+	int64 	NpcID = 3;		//NPC UUID
+}
+
+// 藏宝图位置关闭  通知
+message G2C_CangBaoTuPosClose_notice	// IActorMessage
+{
+	int64 ActorId = 90;
+	
+	int64 Id = 1;	// 位置id
+}
+
+
+//点击NPC打开界面查看信息
+message C2G_OpenClimbingTowerNPC  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+
+message G2C_OpenClimbingTowerNPC // IActorResponse
+{
+    int32 		RpcId 			= 90;
+	int32 		Error 			= 91;
+	string 		Message 		= 92;
+	
+	int32  Amount = 1;//当前次数
+	int32  Expend = 2;//消耗魔晶
+		
+	repeated RanKingInfo Ranking = 3;
+}
+
+//进入试炼之地
+message C2G_EnterTheTestTower  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+
+message G2C_EnterTheTestTower // IActorResponse
+{
+    int32 		RpcId 			= 90;
+	int32 		Error 			= 91;
+	string 		Message 		= 92;
+}
+
+
+//本层怪物清理完毕会通知一下前端
+message C2G_NotificationReward // IActorMessage
+{
+	int64 ActorId = 90;
+	int32 Cnt = 1;//层数
+}
+//领奖进入下一层或者领奖退出
+message C2G_SetOutToChallenge // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int32 Type = 1;//0:领奖退出1:领奖进入下一层
+}
+
+message G2C_SetOutToChallenge // IActorResponse
+{
+    int32 		RpcId 			= 90;
+	int32 		Error 			= 91;
+	string 		Message 		= 92;
+	
+	int32 Cnt = 1;//层数
+}
+
+message G2C_SendDamageRanking // IActorMessage
+{
+    int64 ActorId = 90;
+	
+	repeated RanKingInfo InfoList = 1;
+}
+message RanKingInfo
+{
+	string Name = 1;
+	int32 Cnt = 2;
+}
+
+message C2G_SweepTheTrialGrounds // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+
+message G2C_SweepTheTrialGrounds // IActorResponse
+{
+    int32 		RpcId 			= 90;
+	int32 		Error 			= 91;
+	string 		Message 		= 92;
+}

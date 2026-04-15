@@ -1,0 +1,178 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 22000
+// 请求 进入聊天房间
+message C2G_EnterChatRoom // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ChatRoomID		= 1;
+}
+
+// 返回 进入聊天房间  
+message G2C_EnterChatRoom // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 离开聊天房间
+message C2G_LeaveChatRoom // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ChatRoomID		= 1;
+}
+
+// 返回 离开聊天房间
+message G2C_LeaveChatRoom // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 发送消息到聊天房间
+message C2G_SendChatMessageToChatRoom // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ChatRoomID		= 1;
+	string	ChatMessage	= 2;
+}
+
+// 返回 发送消息到聊天房间
+message G2C_SendChatMessageToChatRoom // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 私聊聊天消息
+message C2G_SendChatMessageToPlayer // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PlayerGameUserId	= 1;
+	string	ChatMessage	= 2;
+}
+
+// 返回 私聊聊天消息
+message G2C_SendChatMessageToPlayer // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 发送消息到附近
+message C2G_SendChatMessageToNearby // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	string	ChatMessage	= 1;
+}
+
+// 返回 发送消息到附近
+message G2C_SendChatMessageToNearby // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//通知 消息到达聊天房间
+message G2C_MessageInChatRoom_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64	ChatRoomID			= 1;		// 聊天房间Id
+	int64	SendGameUserId		= 2;		// 发送消息的实体GameUserId
+	string	SendUserName		= 3;		// 发送消息的实体昵称
+	int64	SendTime			= 4;		// 消息发送时间 时间戳 秒
+	string  ChatMessage			= 5;		// 聊天消息
+}
+
+//通知 收到一条私聊消息
+message ReceivePlayerChatMessage_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+
+	int64	PlayerGameUserId	= 1;		// 发送消息的实体GameUserId
+	string	PlayerName			= 2;		// 发送消息的实体昵称
+	int64	SendTime			= 3;
+	string	ChatMessage			= 4;
+}
+
+//通知 来自附近的聊天消息
+message ChatMessageFromNearby_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+
+	int64	SendGameUserId		= 1;		// 发送消息的实体GameUserId
+	string  SendUserName		= 2;		// 发送消息的实体昵称
+	int64	SendTime			= 3;
+	string	ChatMessage			= 4;
+}
+
+message C2G_FullServiceHornRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	string	ChatMessage	= 1;
+}
+
+message G2C_FullServiceHornResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+message G2C_FullServiceHornnotice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64	SendGameUserId		= 1;		// 发送消息的实体GameUserId
+	string  SendUserName		= 2;		// 发送消息的实体昵称
+	int64	SendTime			= 3;
+	string  MessageInfo			= 4;
+	int32	LineId				= 5;
+}
+
+
+message C2G_BagShareRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ShareItemId = 1;
+	int32 Color =       2;//颜色
+	string MessageInfo = 3;//名字
+}
+message G2C_BagShareResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+

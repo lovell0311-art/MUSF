@@ -1,0 +1,503 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 35000
+//打开宠物界面
+message C2G_OpenPetsInterfaceRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+//打开宠物界面 返回
+message G2C_OpenPetsInterfaceResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	PetsInfo Current=1;
+	repeated PetsRankInfo List = 2;
+	int32	 IsToWar =3;
+}
+
+//获取宠物信息
+message C2G_GetPetsInfoRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+//获取宠物信息 返回
+message G2C_GetPetsInfoResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	PetsInfo Info = 1;
+}
+
+//打开经验道具使用界面
+message C2G_OpenItemInterfaceRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+//打开经验道具使用界面 返回
+message G2C_OpenItemInterfaceResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	repeated PetsItem List =1;
+}
+
+//使用道具增加经验
+message C2G_UseItemAddExpRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+	int64 ItemID = 2;
+}
+//使用道具增加经验 返回
+message G2C_UseItemAddExpResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	PetsInfo Info = 1;
+}
+
+//增加属性点
+message C2G_AddAttributePointRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+	int32 PetsAttributeType = 2;
+	int32 PetsAddPoint =3;
+}
+//增加属性点 返回
+message G2C_AddAttributePointResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	PetsInfo Info = 1;
+}
+
+//放生
+message C2G_PetsReleaseRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+//放生 返回
+message G2C_PetsReleaseResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//出战
+message C2G_PetsGoToWarRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+//出战 返回
+message G2C_PetsGoToWarResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//休息
+message C2G_PetsRestRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+//休息 返回
+message G2C_PetsRestResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//技能
+message C2G_OpenPetsSkillRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+// 技能 返回
+message G2C_OpenPetsSkillResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 PetsID = 1;
+	repeated int32 SkillList =2;//已学习的技能ID
+	repeated PetsItem LesrnSkillList =3;//可以学习的技能
+}
+//技能学习
+message C2G_PetsLearnSkillRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+	PetsItem Skill =2;
+}
+//技能学习 返回 
+message G2C_PetsLearnSkillResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//技能使用
+message C2G_UsePetsSkillRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+	int32 SkillID =2;
+}
+//技能使用 返回
+message G2C_UsePetsSkillResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//技能取消 
+message C2G_PetsSkillCancelUseRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+	int32 SkillID =2;
+}
+//技能取消 返回
+message G2C_PetsSkillCancelUseResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//获取新宠物
+message C2G_InsertPetsRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 PetsConfigID = 1;
+}
+// 获取新宠物  返回
+message G2C_InsertPetsResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	PetsInfo Info =1;
+}
+// 增送宠物  通知
+message G2C_InsertPetsMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int32	State =1;//1：赠送宠物通知 2:宠物到期通知
+	int32	MessageID =2;//消息内容
+}
+// 属性变化
+message C2G_AttributeChangeRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+message G2C_AttributeChangeResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+// 属性变化  通知
+message G2C_AttributeChangeMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+
+	string	PetsName =1;//名称
+	int64 	PetsHP =2;
+	int64	PetsHPMax =3;
+	int64	PetsMP =4;
+	int64	PetsMPMax =5;
+	int32	IsDeath =6;
+}
+//卓越信息
+message C2G_GetPetsExcellentInfoRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+message G2C_GetPetsExcellentInfoResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated int32 ExcellentList =1;
+}
+//宠物复活
+message C2G_PetsResurrectionRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+message G2C_PetsResurrectionResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	PetsInfo Info =1;
+}
+//宠物洗点
+message C2G_PetsWashASpotRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+message C2G_PetsWashASpotResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	PetsInfo Info =1;
+}
+message C2G_PetcLevelUpdataMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+
+}
+
+message C2G_PetsPackBackRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+
+message G2C_PetsPackBackResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message C2G_OpenPetsEnhanceRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+
+message G2C_OpenPetsEnhanceResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 Lv = 1;
+	int32 Rate = 2;
+	repeated PetsItem EnhanceMaterials = 3;
+}
+
+message C2G_PetsEnhanceRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+
+message G2C_PetsEnhanceResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	PetsInfo Info = 1;
+}
+
+message PetsInfo
+{
+	int32	PetsConfigID =1;//配置表ID
+	int64	PetsID =2;//宠物唯一ID
+	string	PetsName =3;//宠物名称
+	int32	PetsType =4;//宠物类型
+	int32 	PetsLevel =5;//宠物等级
+	int32	PetsLVpoint =6;//自由点数
+	int32	PetsHP =7;//当前血量
+	int32	PetsHPMax =8;//最大血量
+	int32	PetsMP =9;//当前魔法值
+	int32	PetsMPMax =10;//最大魔法值
+	int32	PetsSTR =11;//力量
+	int32	PetsDEX = 12;//敏捷
+	int32	PetsPSTR =13;//体力
+	int32	PetsPINT =14;//智力
+	int32	PetsMinATK =15;//最小攻击力
+	int32	PetsMaxATK =16;//最大攻击力
+	int32	PetsASM =17;//攻击成功率
+	int32	PetsPAR =18;//PVP攻击率
+	int32	PetsDEF =19;//防御力
+	int32	PetsDFR =20;//防御率
+	int32	PetsSPD =21;//攻速
+	int32	PetsPDFR =22;//PVP防御率
+	int32	PetsSATK =23;//技能攻击力
+	int32	PetsMinINT =24;//最小魔力
+	int32	PetsMaxINT =25;//最大魔力
+	int64	PetsEXP =26;//宠物经验
+	int32	PetsSkillID =27;//正在使用的技能
+	int64	PetsTrialTime =28;//体验时间
+	int32	IsDeath =29;//是否死亡
+	int64	DeathTime = 30;//死亡等待时间
+	int32   Elv = 31;//强化等级
+	int32   AdvancedLevel = 32;//进阶等级
+}
+
+message PetsItem
+{
+	int32	ItemConfingID =1;
+	int64	ItemID =2;//在宠物强化里面是需要道具的数量
+	int32	ItemCnt =3;
+}
+
+message PetsRankInfo
+{
+	int32	PetsConfigID =1;//配置表ID
+	int64	PetsID =2;//宠物唯一ID
+	int32 	PetsLevel =3;//宠物等级
+	int64	PetsTrialTime =4;//体验时间
+	int32	IsDeath =5;//是否死亡
+	int64	DeathTime = 6;//死亡等待时间
+	int32	Point =7;//属性点数
+	int32   ELvis = 8;//强化等级
+}
+
+//****************宠物改版****************
+
+//打开新宠物界面
+message C2G_OpenNewPetsUI // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+message G2C_OpenNewPetsUI // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+			
+	repeated NewPetsInfo PetList = 1;//宠物列表
+}
+message NewPetsInfo
+{
+	int32	PetsConfigID =1;//配置表ID
+	int64	PetsID =2;//宠物唯一ID
+	repeated int32 SkillID = 3;//基础属性
+	repeated int32 Excellent = 4;//卓越属性
+	int32 ISBattle = 5;//1是使用中
+	int64  DaoQiTime = 6;//到期时间
+}
+//****************************************
+//进阶
+message C2G_PetProgressionRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+message G2C_PetProgressionResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//精炼
+message C2G_PetRefiningRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 PetsID = 1;
+}
+message G2C_PetRefiningResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated int32 ExcellentList =1;
+}

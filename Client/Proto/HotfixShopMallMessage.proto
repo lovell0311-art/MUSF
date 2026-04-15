@@ -1,0 +1,868 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 38000
+//打开商城界面
+message C2G_OpenShopMallRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	//0:一般商城1:元宝商城
+	int32		ShopMall		= 1;
+	//1=buff类2=消耗类3=宠物坐骑类4=特殊类
+	int32		ShopType		= 2;
+}
+message G2C_OpenShopMallResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated ShopProp ItemList = 1;
+}
+//购买
+message C2G_ShopMallBuyItemRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	//0:一般商城1:元宝商城
+	int32 ShopMall = 1;
+	int32 ShopId = 2;// 商城ID
+    int32 Id = 3;// 道具ID
+	int32 ItemCnt =4;//购买数量
+	int32 ShopType = 5;//类型
+}
+message G2C_ShopMallBuyItemResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//累计充值领奖
+message C2G_ShopMallReceiveRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	//1:充值6元2:充值38元3:充值68元4:充值198元5:充值288元6:七天领奖
+	int32		Type =1;
+	int32		Day=2;
+	
+}
+message G2C_ShopMallReceiveResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//原地复活
+message C2G_ResurrectionInSituRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+message G2C_ResurrectionInSituResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//安全区复活
+message C2G_SafeAreaResurrectionRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+message G2C_SafeAreaResurrectionResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//获取玩家充值信息
+message C2G_PlayerShopInfoRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+message G2C_PlayerShopInfoResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	PlayerShop Info =1;
+}
+message G2C_PlayerShopInfoUpdataMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int32 CurrentYuanbao =1;//当前元宝数量
+	int32 MiracleCoin =2;//奇迹币
+	int32 RechargeStatus =3;//状态DeviationType枚举
+	int32 AccumulatedRecharge =4;//累计充值额度
+	int64 MinMCEndTime = 5;//小月卡到期时间
+	int64 MaxMCEndTime =6;//大月卡到期时间
+	int64 InSituCd =7;//原地复活cd到期时间
+	//首充Dictionary<int, int> <档次，金额>
+	string RechargeRecord =8;
+}
+//远程打开
+message C2G_RemoteOpenRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	//0:商店1:仓库
+	int32	Type =1;
+}
+message G2C_RemoteOpenResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	//0:商店1:仓库
+	int32	Type =1;
+	repeated ItemInBackpack_Status allItems = 2;//商店才有值
+	repeated ItemAllProperty allProperty = 3;//商店才有值
+	int64 NpcId = 4;
+}
+
+//充值
+message C2G_RechargeRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	//充值Type
+	int32	Page =1;
+}
+message G2C_RechargeResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//扩展为额外充值信息
+message G2C_SevenDaysToRechargeMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	//Dic<string,(int,bool)> 日期key，int值，bool领奖状态
+	//DateTime dateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0)
+	//string =  dateTime.ToString
+	string Info =1;
+}
+//创建订单
+message C2G_CreateAnOrderRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	//参照 PlayerShopQuotaType
+	int32		RechargeType = 1;
+}
+message C2G_CreateAnOrderResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string OrderId=1;//订单id
+	string AppCallbackUrl =2;//支付回调
+	string PayRmb = 3;//充值额度
+	string Extra1 = 4;//线路信息
+}
+message GM2C_PayReturnRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int32 mAreaId =1;
+	int64 AppOrderId=2;
+	int64 GameUserID=3;
+	string LogInfo = 4;
+}
+message C2GM_PayReturnResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message C2G_QuickPurchaseRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int32		Cnt	=1;//组数
+	int32		ItemConfigId =2;//道具Id
+}
+message G2C_QuickPurchaseResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+message ShopProp
+{
+    int32 ShopId = 1;// 商城ID
+    int32 Id = 2;// 道具ID
+    int32 Price=3;// 价格
+    string ItemIcon=4;// 物品标识
+    string Introduce=5;// 物品介绍
+    int64 StartTime =6;// 限时起点秒
+    int64 EndTime=7;// 限时终点秒
+    int32 Discount =8;// 折扣
+	int32 BuyMaxlimit = 9;//购买限制单次购买最大组数
+	string ItemName = 10;//物品名称
+	int32 ItemTime =11;//使用期限
+	int32 BuyMinlimit = 12;//购买限制单次购买最小组数
+	int32 UnitQuantity = 13;////购买限制单次购买每组数量
+	int32 LimitCnt = 14;//库存
+	int32 Gemtypes = 15;//需要的宝石种类
+}
+
+message PlayerShop
+{
+	int32 CurrentYuanbao =1;//当前元宝数量
+	int32 RechargeStatus = 2;//状态DeviationType枚举
+	int64 MinMCEndTime = 3;//小月卡到期时间
+	int64 MaxMCEndTime =4;//大月卡到期时间
+	int32 AccumulatedRecharge =5;//累计充值额度
+	int64 InSituCd =6;//原地复活cd到期时间
+	int32 MiracleCoin =7;//奇迹币
+} 
+
+message ItemInBackpack_Status
+{
+	// 背包所属玩家ID
+	int64 GameUserId		= 1;
+	// 物品唯一标识
+	int64 ItemUID		= 2;
+	// 物品配置表ID
+	int32 ConfigID		= 3;
+	// 物品类型ID
+	int32 Type		= 4;
+	// 物品在背包中的位置
+	int32 PosInBackpackX	= 5;
+	int32 PosInBackpackY	= 6;
+	// 物品占用的格子
+	int32 Width	= 7;
+	int32 Height = 8;
+	// 物品数量
+	int32 Quantity	= 9;
+	// 物品等级
+	int32 ItemLevel	= 10;
+}
+
+// 物品所有的属性
+message ItemAllProperty
+{
+	int64 ItemUUID = 1;
+	repeated Property PropList = 2;
+	repeated AttrEntry ExecllentEntry = 3;
+}
+//--------属性结构-------------
+message Property
+{ 
+	int32	PropID = 1;			// 属性ID
+	int32	Value = 2;				// 属性值
+}
+
+//--------物品属性词条结构---------
+message AttrEntry
+{
+	int32	PropId = 1;		// 配置表中的属性id
+	int32	Level = 2;		// 属性等级
+}
+
+
+//创建订单
+message C2G_DouYinCreateAnOrderRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	
+	//参照 PlayerShopQuotaType
+	int32		RechargeType = 1;
+	string control_info = 2;//风控信息
+	string clinetip = 3;
+}
+message C2G_DouYinCreateAnOrderResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string OrderId=1;//订单id
+	string AppCallbackUrl =2;//支付回调
+	int32		PayRmb	=3;//支付金额
+}
+
+
+
+
+//藏宝阁
+
+//上架物品
+message C2G_listingTreasureHouse // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int64 ItemUUID = 1;//道具ID
+	int32 ItemPrice = 2;//道具价格
+}
+
+message G2C_listingTreasureHouse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//打开藏宝阁
+message C2G_OpenTreasureHouse // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int32 	MaxType = 1;//打开的大类型默认1
+	int32	MinType = 2;//小类
+}
+
+message G2C_OpenTreasureHouse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 Page = 1;//总页签
+	repeated TreasureHouseItemInfo ItemList = 2;//返回的物品
+}
+//收索道具
+message C2G_SearchForItems // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;	
+	
+	string Name = 1;//道具名称
+	string Class = 2;//职业类型
+	int32  Excellent = 3;//卓越条数
+	int32  Enhance = 4;//强化等级
+	int32  Readdition = 5;//追加等级
+	int32  MaxType = 6;//道具所在大类
+	int32  SortType =7;//排序方式0降序1升序默认降序
+	int32  Type = 8;//0藏宝阁1寄售页
+}
+message G2C_SearchForItems // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 Page = 1;//页签
+	repeated TreasureHouseItemInfo ItemList = 2;//返回的物品
+}
+//查看下一页
+message C2G_NextPage  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int32 Page = 1;//页签
+	int32 Type = 2;//0藏宝阁1寄售页
+}
+message G2C_NextPage // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 Page = 1;//总页签
+	repeated TreasureHouseItemInfo ItemList = 2;//返回的物品
+}
+//查看道具信息
+message C2G_GetTreasureHouseItemInfo  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int64  Uid = 1;//道具ID
+	int64  UserID = 2;//出售者ID
+	int32  AreaId = 3;
+}
+message G2C_GetTreasureHouseItemInfo // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//购买道具
+message C2G_BuyTreasureHouseItemInfo // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int64  Uid = 1;//道具ID
+	int64  UserID = 2;//出售者ID
+	int32  AreaId = 3;//区服Id
+}
+
+message G2C_BuyTreasureHouseItemInfo // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//打开寄售
+message C2G_OpenConsign  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+message G2C_OpenConsign // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 Page = 1;//页签
+	repeated TreasureHouseItemInfo ItemList = 2;//返回的物品
+	repeated TransactionRecord Records = 3;//交易记录
+}
+//下架物品
+message C2G_RemovedItems // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int64  Uid = 1;//道具ID
+	int32  Page = 2;//页签
+}
+
+message G2C_RemovedItems // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;	
+}
+//清除角色缓存
+message C2G_DeletePlayerTreasureHouse // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+message G2C_DeletePlayerTreasureHouse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;	
+}
+message TreasureHouseItemInfo
+{
+	int64  Uid = 1;//道具ID
+	int64  UserID = 2;//出售者ID
+	string Name = 3;//道具名称
+	string Class = 4;//职业类型
+	int32  Excellent = 5;//卓越条数
+	int32  Enhance = 6;//强化等级
+	int32  Readdition = 7;//追加等级
+	int32  Price = 8;//价格
+	int32  AreaId =9;//区服Id
+	int32  ConfigID = 10;
+	int64  EndTime = 11;//到期下架时间
+	int32  Cnt = 12;//数量
+}
+
+message TransactionRecord
+{
+	string ItemName = 1;//道具名
+	int32 Price = 2;//交易金额
+	int32 ActualPrice = 3;//扣除手续费后到账金额
+	int32 Type = 4;//出售还是购买0=出售1=购买
+}
+
+
+// =========================
+// 直冲礼包协议
+// =========================
+// Opcode = 38500
+
+// 物品基础信息
+message ItemBaseInfo
+{
+	int64 Id = 1;		// 物品id
+	int32 ConfigId = 2;	// 配置表id
+	int32 Count = 3;	// 物品数量
+	int32 Leve = 4;		// 物品等级
+	int32 SetId = 5;	// 套装id
+	
+	bool HaveSkill = 20;	// 有技能
+	bool HaveLucky = 21;	// 有幸运
+	bool HaveExcellent = 22;// 有卓越
+	bool HaveSet = 23;		// 有套装
+	bool HaveSock = 24;		// 有镶嵌
+}
+
+// 礼包信息
+message RecGiftBundleInfo
+{
+	int64 Id = 1;		// 礼包id
+	int32 ConfigId = 2; // 配置表id
+	string Name = 3;	// 礼包名
+	int64 LeftTime = 4;	// 剩余时间(秒)
+	int32 Price = 5;	// 价格
+	int32 LeftBuyCount = 6;// 剩余购买数量
+	
+	
+	int32 OriginPrice = 10;// 原价
+	int32 BuyCount = 11;// 购买次数
+}
+
+// 获取直冲礼包
+message C2G_GetDirectRechargeGiftBundle	// IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+message G2C_GetDirectRechargeGiftBundle // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated RecGiftBundleInfo AllGiftBundle = 1;
+	
+}
+
+// 获取礼包信息
+message C2G_GetGiftBundleItemInfo	// IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 GiftBundleId = 1;	// 礼包id
+}
+
+message G2C_GetGiftBundleItemInfo	// IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated ItemBaseInfo AllItemInfo = 1;
+}
+
+// 购买直冲礼包
+message C2G_TestBuyRechargeGiftBundle // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 GiftBundleId = 1; // 礼包id
+}
+
+message G2C_TestBuyRechargeGiftBundle // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// =========================
+// 抽奖协议
+// =========================
+// Opcode = 38550
+
+// 抽奖奖品信息
+message LotteryGiftInfo
+{
+	int64 Id = 1;
+	string ItemIcon = 2;
+	string ItemName = 3;
+}
+
+message LotteryLog
+{
+	int64 LogId = 1;
+	int64 UserId = 2;
+	int64 GameUserId = 3;
+	string NickName = 4;
+	string Desc = 5;
+}
+
+// 打开抽奖界面
+message C2G_OpenLotteryWin	// IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+message G2C_OpenLotteryWin	// IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated LotteryGiftInfo AllGiftInfo = 1;
+	int32 TotalCount = 3;		// 已经抽取了多少次数
+	int32 TotalCountMax = 4;	// 保底次数
+}
+
+// 开始抽奖
+message C2G_StartLottery	// IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 Count = 1;	// 抽取次数
+}
+
+
+message G2C_StartLottery	// IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated int64 Ids = 1;
+	int32 TotalCount = 3;		// 已经抽取了多少次数
+	int32 TotalCountMax = 4;	// 保底次数
+	int32 IsSendMail = 5; 		// 0.直接进入背包 1.背包已满，通过邮件发送
+}
+
+// ◄─StartLogId        EndLogId─►
+//       │                 │
+//       ▼                 ▼
+//────────────────────────────────►
+// 获取历史抽奖日志
+message C2G_GetHistoryLotteryLog	// IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	
+	int64 GameUserId = 1;	// 要查询的角色Id 0.为查询全部
+	int64 StartLogId = 2;		// 获取抽奖日志的开始位置 0.为获取最新的记录
+	int32 Count = 3;		// 获取记录条数 最大 20条
+}
+
+message G2C_GetHistoryLotteryLog	// IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated LotteryLog AllLog = 1;
+	int64 StartLogId = 2;
+	int64 EndLogId = 3;
+}
+
+// 获取抽奖日志
+message C2G_GetLotteryLog	// IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 GameUserId = 1;	// 要查询的角色Id 0.为查询全部
+	int64 EndLogId = 2;		// 获取抽奖日志的结束位置 0.为获取最新的记录
+	int32 Count = 3;		// 获取记录条数 最大 20条
+}
+
+message G2C_GetLotteryLog	// IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated LotteryLog AllLog = 1;
+	int64 EndLogId = 3;
+}
+
+// =========================
+// 累计充值协议
+// =========================
+// Opcode = 38600
+// 打开累计充值界面
+message C2G_OpenCumulativeRecharge // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+message G2C_OpenCumulativeRecharge // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 TotalAmount = 1;	// 充值金额
+	repeated int32 ConfigIds = 2;	// 已领取的充值礼包
+}
+
+// 领取累计充值礼包
+message C2G_ReceiveRechargeGiftPack // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 ConfigId = 1;	// 配置表中的Id
+	int32 Id2 = 2;		// 小类id,对应哪个分类
+}
+
+message G2C_ReceiveRechargeGiftPack // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message C2G_ShouQCreateAnOrder // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	
+	//参照 PlayerShopQuotaType
+	int32		RechargeType = 1;
+}
+message G2C_ShouQCreateAnOrder // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string OrderId = 1;//订单id
+	int32  PayRmb	=2;//支付金额
+	string ExInfo = 3;//线路信息
+}
+
+message	C2G_MyPayTopUp  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	
+	//参照 PlayerShopQuotaType
+	int32		RechargeType = 1;
+}
+message G2C_MyPayTopUp // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string OrderStr = 1;//订单
+}
+
+message	C2G_MyV4PayTopUp  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	
+	//参照 PlayerShopQuotaType
+	int32		RechargeType = 1;
+	string      PayType = 2;//V4支付类型
+}
+message G2C_MyV4PayTopUp // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string OrderStrURL = 1;
+}
+
+
+message	C2G_ClearingGiftKit  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int32		MaxType = 1;
+	int32		MinType = 2;
+}
+message G2C_ClearingGiftKit // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message	C2G_MagicBoxCreateOrder  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	
+	int32		RechargeType = 1;
+}
+message G2C_MagicBoxCreateOrder // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string ServerAddres = 1;//扩展参数
+	int32 Money = 2;
+}
+
+message C2G_BuyYourOwnGiftPackRequest   // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	
+	int32		MaxType = 1;
+	int32		MinType = 2;
+}
+message G2C_BuyYourOwnGiftPackResponse   // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}

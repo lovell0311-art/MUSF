@@ -1,0 +1,654 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 30000
+message G2C_TestHotfixMessage // IMessage
+{
+	string Info = 1;
+}
+
+//=========================注册账号 登录账号============================
+// 注册账号 登录账号
+message C2R_RegisterOrLoginRequest // IRequest
+{
+	int32 RpcId = 90;
+	
+	string  Account = 1;  // 帐号
+	string  Password = 2;  // 密码
+	string VerificationCode = 3;// 验证码
+	int32 LoginType = 4;//登录类型 0登录 1注册
+	string TerminalIP = 5;//登录ip
+	string ChannelId = 6;//运营商Id
+	string DeviceNum = 7;//设备码
+	string DeviceType = 8;//登录设型号(IPhone 7, vivo NEX 等)
+	int32 OSType = 9;//系统类型 1苹果, 2安卓, 3windows
+	string BaseVersion = 10;//版本号 (保留) 手机系统版本号
+    string CPUType = 11;//cpu 类型
+	string Code = 12;//推广码
+}
+// 注册账号 登录账号 返回
+message R2C_RegisterOrLoginResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string Address = 1;
+	int64 Key = 2;
+	int64 GateId = 3;
+	// 封禁到什么时候 时间戳 毫秒
+	int64 BanTillTime = 4;
+	// 封禁原因
+	string BanReason = 5;
+	
+	int64 UserId = 6;
+	string SelfIP = 7;
+}
+
+//=========================登录网关============================
+// 登录网关
+message C2G_LoginGateRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 Key = 1;  // 帐号
+	int64 GateId = 2;
+	string ChannelId = 3;//运营商Id
+}
+// 登录网关 返回
+message G2C_LoginGateResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 PlayerId = 1;
+	int64 NewKey = 2;
+}
+
+
+//=========================申请验证码============================
+// 申请验证码
+message C2R_LoginSystemSMSApplyCodeRequest // IRequest
+{
+	int32 RpcId = 90;
+	
+	string  PhoneNumber = 1;  // 帐号
+	string  CountryCode = 2;  // 国家码
+	int32 UseType = 3;// 0注册  1:修改密码
+	
+}
+// 申请验证码 返回
+message R2C_LoginSystemSMSApplyCodeResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//=========================请求游戏区服信息============================
+// 请求游戏区服信息   
+message C2G_LoginSystemGetServerInfoRequest // IRequest
+{	
+	int32 RpcId = 90;
+	
+    int32 GetGameAreaPage = 1;// 0 获取上次 1获取最近20 2 20-40
+}
+// 请求游戏区服信息  返回   
+message G2C_LoginSystemGetServerInfoResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated G2C_LoginSystemServerInfoMessage GameAreaInfos = 3;//游戏区服信息
+}
+// 游戏区服信息 结构体
+message G2C_LoginSystemServerInfoMessage // IMessage
+{
+    int32 GameAreaId = 1;//游戏区服ID 
+	string GameAreaNickName = 2;//游戏区服昵称
+	int32 GameAreaType = 3;//游戏区服状态  0正常 1爆满 2新服
+	int32 IsGameAreaState = 4;//状态 1开启 0关闭
+}
+
+
+//=========================请求游戏区服线路信息============================
+// 请求游戏区服线路信息   
+message C2G_LoginSystemGetServerLineInfoRequest // IRequest
+{	
+	int32 RpcId = 90;
+	
+	int32 GetGameAreaPage = 1;// 0 获取上次 1获取最近20 2 20-40
+	int32 AreaId = 3;//目标区服
+}
+// 请求游戏区服线路信息  返回   
+message G2C_LoginSystemGetServerLineInfoResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated G2C_LoginSystemServerLineInfoMessage GameAreaInfos = 3;//游戏区服线路信息
+}
+message G2R_GetServerLineInfoRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+message R2G_GetServerLineInfoResponse  // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated G2C_LoginSystemServerInfoMessage GameAreaInfos = 1;//游戏区服线路信息
+}
+// 游戏区服信息 结构体
+message G2C_LoginSystemServerLineInfoMessage // IMessage
+{
+    int32 GameAreaId = 1;//游戏区服ID 
+	string GameAreaNickName = 2;//游戏区服昵称
+	int32 GameAreaType = 3;//游戏区服状态  0正常 1爆满 2新服
+	int32 IsGameAreaState = 4;//状态 1开启 0关闭
+}
+
+message GM2R_UpdateArwaInfo // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	string AreaInfo = 1;
+}
+message G2All_UpdateCommandInfo // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	string Command = 1;
+	int32 AreaId = 2;
+}
+
+//=========================请求进入游戏区服============================
+// 请求进入游戏区服
+message C2G_LoginSystemEnterGameAreaMessage // IRequest
+{
+	int32 RpcId = 90;
+    int32 GameAreaId = 1;//游戏区服ID
+	int32 LineId = 2;//游戏区线路id
+}
+// 请求进入游戏区服  返回
+message G2C_LoginSystemEnterGameAreaMessage // IResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated int64 GameIds = 3;//游戏区角色信息
+	repeated int64 GameOccupation = 4;//游戏角色id
+}
+
+
+//=========================获取角色信息============================
+// 获取角色信息
+message C2G_LoginSystemGetGamePlayerInfoRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	repeated int64 GameId = 2;//角色id
+}
+// 获取角色信息  返回
+message G2C_LoginSystemGetGamePlayerInfoResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated G2C_LoginSystemGetGamePlayerInfoMessage GameInfos = 3;//游戏区角色信息
+}
+// 角色信息 结构体
+message G2C_LoginSystemGetGamePlayerInfoMessage // IMessage
+{
+	int64 GameId = 1;//角色id
+	string NickName = 2;//角色昵称
+	int32 PlayerType = 3;//角色类型
+	int32 Level = 4;//角色等级
+	repeated G2C_LoginSystemEquipItemMessage allEquipStatus = 5;	//实体的所有装备
+	int32 OccupationLevel = 6;// 转职次数
+}
+//---------卡槽中的物品状态-------------
+message G2C_LoginSystemEquipItemMessage // IMessage
+{
+	int64 GameUserId 	= 1;	// 实体玩家的ID
+	int64 ItemUID		= 2;	// 物品唯一标识
+	int64 ConfigID		= 3;	// 物品配置ID
+	int32 SlotID		= 4;	// 实体卡槽 0 - 14
+	int32 ItemLevel		= 5;	// 物品等级
+}
+
+
+//=========================新建角色 删除 选择角色============================
+// 新建角色
+message C2G_LoginSystemCreateGamePlayerRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 PlayerType = 2;//角色类型
+	string NickName = 3;//角色昵称
+}
+// 新建角色  返回
+message G2C_LoginSystemCreateGamePlayerResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated int64 GameIds = 3;//游戏区角色信息
+}
+
+// 删除角色
+message C2G_LoginSystemDeleteGamePlayerRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 GameId = 2;//角色id
+}
+// 删除角色  返回
+message G2C_LoginSystemDeleteGamePlayerResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 选择角色开始游戏
+message C2G_StartGameGamePlayerRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 GameUserId = 2;//角色id
+}
+// 选择角色开始游戏  返回
+message G2C_StartGameGamePlayerResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 GameUserId = 1;// 角色id
+}
+
+
+//=========================准备就绪============================
+// 准备就绪
+message C2G_ReadyRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+// 准备就绪  返回
+message G2C_ReadyResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//=========================准备就绪后 属性通知============================
+message G2C_InitProperty_notice // IActorMessage
+{
+	int64 ActorId = 91;
+	
+	int32 Hp = 1;
+	int32 Mp = 2;
+	int32 AG = 3;
+	int64 SD = 4;//
+	int32 HpMax = 5;
+	int32 MpMax = 6;
+	int32 AGMax = 7;
+	int64 SDMax = 8;//
+}
+
+
+
+// GM
+message C2G_GMRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	string Command = 1;
+	repeated int32 Parameter = 2;
+}
+
+// GM  返回
+message G2C_GMResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 从其他设备登录账号
+message Gate2C_LoginFromOtherDevices // IActorMessage
+{
+	int64 ActorId = 91;
+}
+
+// 下线角色 恢复到刚 LoginGate 状态
+message C2Gate_KickRole	 // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+// 下线角色 返回
+message Gate2C_KickRole	 // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 断开连接，服务器将不会等待客户端重连
+// 玩家关闭游戏时请求
+message C2Gate_Disconnect // IActorMessage
+{
+	int64 ActorId = 91;
+}
+
+// 重新进入游戏，服务器会将session切换成断线前的
+// 服务器会将断线期间的数据包重新发送
+message C2Gate_Reconnect	// IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+
+	int64 Key = 1;
+}
+
+message Gate2C_Reconnect	 // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 NewKey = 2;
+}
+
+// 用于重连 gate 的 key
+// 客户端收到后，需要保存。（用于下次重连）
+message Gate2C_GateSessionKeyChange 	// IActorMessage
+{
+	int64 ActorId = 91;
+
+	int64 NewKey = 1;
+}
+
+
+message C2R_ResetPasswordByPhoneNumberRequest	// IRequest
+{
+	int32 RpcId = 90;
+	
+	string PhoneNumber = 1;	
+	string NewPassword = 2;  // 新密码
+	string VerificationCode = 3;// 验证码
+	string ChannelId = 6;//运营商Id
+	string DeviceNum = 7;//设备码
+	string DeviceType = 8;//登录设型号(IPhone 7, vivo NEX 等)
+	int32 OSType = 9;//系统类型 1苹果, 2安卓, 3windows
+	string BaseVersion = 10;//版本号 (保留) 手机系统版本号
+    string CPUType = 11;//cpu 类型
+	string Idcard = 12;//身份证后几位
+}
+
+message R2C_ResetPasswordByPhoneNumberResponse	// IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+}
+
+// 服务器关闭时间
+message Game2C_ServerShutdownTime // IActorMessage
+{
+	int64 ActorId = 91;
+	
+	int64 ShutdownTillTime = 1;	// 服务器关闭时间戳utc 毫秒
+}
+
+// 服务器关闭
+message Gate2C_ServerShutdown // IActorMessage
+{
+	int64 ActorId = 91;
+}
+
+//SDK登录验证
+message C2R_XYSDKvalidatelogonRequest // IRequest
+{
+	int32 RpcId = 90;
+	
+	int32 uid = 1;
+	int32 gid =2;
+	int32 time =3;
+	string token =4;
+	string ChannelId = 5;//运营商Id
+	string DeviceNum = 6;//设备码
+	string DeviceType = 7;//登录设型号(IPhone 7, vivo NEX 等)
+	int32 OSType = 8;//系统类型 1苹果, 2安卓, 3windows
+	string BaseVersion = 9;//版本号 (保留) 手机系统版本号
+    string CPUType = 10;//cpu 类型
+}
+
+message R2C_XYSDKvalidatelogonResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string Address = 1;
+	int64 Key = 2;
+	int64 GateId = 3;
+	// 封禁到什么时候 时间戳 毫秒
+	int64 BanTillTime = 4;
+	// 封禁原因
+	string BanReason = 5;
+	
+	int64 UserId = 6;
+	string SelfIP = 7;
+}
+
+// 被服务器踢下线
+message Gate2C_KickOffline	// IActorMessage
+{
+	int64 ActorId = 91;
+	
+	// 下线原因
+	// 0.顶号
+    // 1.服务器关闭
+	// 2.gm 踢下线
+    // 3.封号
+	int32 DisconnectType = 1;
+	// 封禁到什么时候 时间戳 毫秒
+	int64 BanTillTime = 2;
+	// 被踢下线的原因 （2、3 才有数据）
+	string Reason = 3;
+}
+
+message C2G_Ping // IMessage
+{
+	
+}
+//腾讯实名认证
+message C2G_NeedIdCardInspectMessage // IMessage
+{
+	int64 Account = 3;//账号
+}
+
+//身份验证
+message C2G_IdCardInspectRequest // IRequest
+{
+	int32 RpcId = 90;
+	
+	string IdCardCord = 1;//身份
+	string Name = 2;//名字
+	int64 Account = 3;//账号
+}
+//身份验证 返回
+message G2C_IdCardInspectResponse // IResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//中宣部实名认证
+message C2G_RealNameAuthenticationRequest // IRequest
+{
+	int32		RpcId 			= 90;
+	
+	string 		name		= 1;
+	string		idNum		= 2;
+	string		Account		= 3;
+}
+message G2C_RealNameAuthenticationResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//抖音SDK登录验证
+message C2R_DouYinSDKLogonRequest // IRequest
+{
+	int32 RpcId = 90;
+	
+	int32 uid = 1;
+	int32 gid =2;
+	int32 time =3;
+	string token =4;
+	string ChannelId = 5;//运营商Id
+	string DeviceNum = 6;//设备码
+	string DeviceType = 7;//登录设型号(IPhone 7, vivo NEX 等)
+	int32 OSType = 8;//系统类型 1苹果, 2安卓, 3windows
+	string BaseVersion = 9;//版本号 (保留) 手机系统版本号
+    string CPUType = 10;//cpu 类型
+}
+//抖音SDK登录验证
+message R2C_DouYinSDKLogonResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string Address = 1;
+	int64 Key = 2;
+	int64 GateId = 3;
+	// 封禁到什么时候 时间戳 毫秒
+	int64 BanTillTime = 4;
+	// 封禁原因
+	string BanReason = 5;
+	
+	int64 UserId = 6;
+	string SelfIP = 7;
+}
+
+message C2R_ShouQSDKLogonRequest // IRequest
+{
+	int32 RpcId = 90;
+	
+	string uid = 1;
+	string ChannelId = 2;//运营商Id
+	string DeviceNum = 3;//设备码
+	string DeviceType = 4;//登录设型号(IPhone 7, vivo NEX 等)
+	int32 OSType = 5;//系统类型 1苹果, 2安卓, 3windows
+	string BaseVersion = 6;//版本号 (保留) 手机系统版本号
+    string CPUType = 7;//cpu 类型
+}
+
+message R2C_ShouQSDKLogonResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string Address = 1;
+	int64 Key = 2;
+	int64 GateId = 3;
+	// 封禁到什么时候 时间戳 毫秒
+	int64 BanTillTime = 4;
+	// 封禁原因
+	string BanReason = 5;
+	
+	int64 UserId = 6;
+	string SelfIP = 7;
+}
+
+message C2R_GetLastLoginToTheRegion // IRequest
+{
+	int32 RpcId = 90;
+	
+	//第三方返回的Uid,游戏方是账号
+	string uid = 1;
+	//第三方类型1:恺英2:抖音3:手Q--其他所有类型都用游戏方ID
+	int32 Type = 2;
+}
+
+message R2C_GetLastLoginToTheRegion // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 GameAreaId = 1;//大区
+	int32 Gameline = 2;//线路
+}
+
+message C2R_HaXiSDKLogonRequest // IRequest
+{
+	int32 RpcId = 90;
+	
+	string Token = 1;
+	string ChannelId = 2;//运营商Id
+	string DeviceNum = 3;//设备码
+	string DeviceType = 4;//登录设型号(IPhone 7, vivo NEX 等)
+	int32 OSType = 5;//系统类型 1苹果, 2安卓, 3windows
+	string BaseVersion = 6;//版本号 (保留) 手机系统版本号
+    string CPUType = 7;//cpu 类型
+	string UserId = 8;
+}
+
+message R2C_HaXiSDKLogonResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string Address = 1;
+	int64 Key = 2;
+	int64 GateId = 3;
+	// 封禁到什么时候 时间戳 毫秒
+	int64 BanTillTime = 4;
+	// 封禁原因
+	string BanReason = 5;
+	
+	int64 UserId = 6;
+	string SelfIP = 7;
+
+}

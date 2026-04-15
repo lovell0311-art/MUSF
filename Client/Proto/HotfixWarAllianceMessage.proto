@@ -1,0 +1,384 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 34000
+//CG创建战盟 
+message C2G_WarAllianceEstablishRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	//战盟名称
+	string 		WarAllianceName 	=1;
+	//战盟徽章
+	repeated int32	WarAllianceBadge 	=2;
+	
+}
+//CG创建战盟  返回
+message G2C_WarAllianceEstablishResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	Struct_WarAllinceInfo Info = 1;
+}
+
+//打开战盟
+message C2G_OpenWarAllianceRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+//打开战盟 返回
+message G2C_OpenWarAllianceResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	Struct_WarAllinceInfo Info = 1;
+	int32 MemberListCont = 2;
+}
+//解散战盟
+message C2G_DisbandTheWarAllianceRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+//解散战盟 返回
+message G2C_DisbandTheWarAllianceResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;	
+}
+//打开成员列表
+message C2G_OpenMemberListRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	//类型 0是成员 1是申请
+	int32 Type =1;
+}
+//打开成员列表 返回
+message G2C_OpenMemberListResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated Struct_MemberInfo MemberList =1;
+}
+
+//修改公告
+message C2G_ModifyAnnouncementRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	//公告
+	string Notice =1;
+}
+//修改公告 返回
+message G2C_ModifyAnnouncementResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//任命
+message C2G_WarAllianceAppointmentRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	//UserID
+	int64 GameUserID =1;
+	//职务 0成员 1小队长 2副盟主 3盟主
+	int32 ClassType =2;
+}
+//任命 返回
+message G2C_WarAllianceAppointmentResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//任命通知
+message G2C_WarAllianceAppointmentNotice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	string CharName =1;
+	//职务 0成员 1小队长 2副盟主 3盟主
+	int32 ClassType =2;
+}
+
+//踢出
+message C2G_WarAllianceProposeRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	//UserID
+	int64 GameUserID =1;
+}
+//踢出 返回
+message G2C_WarAllianceProposeResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//踢出 通知
+message G2C_WarAllianceProposeNotice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	string Message = 92;
+}
+//同意或拒绝
+message C2G_WarAllianceAgreeOrRejectRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	//UserID 数组
+	repeated int64 GameUserID =1;
+	//Type 0是拒绝 1是同意
+	int32  Type = 2;
+}
+//同意或拒绝 返回
+message  G2C_WarAllianceAgreeOrRejectResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//同意或拒绝 通知
+message G2C_WarAllianceAgreeOrRejectNotice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	string Message = 92;
+	
+	Struct_WarAllinceInfo WAInfo =3;
+}
+//退出
+message C2G_WarAllianceSignOutRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+//退出 返回
+message G2C_WarAllianceSignOutResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//申请
+message C2G_AddWarAllianceRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 WarAllianceID =1;
+}
+//申请 返回
+message G2C_AddWarAllianceResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//申请 通知
+message G2C_AddWarAllianceNotice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	Struct_MemberInfo Member =1;
+}
+//加入战盟
+message C2G_AddWarAllianceListRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 Type = 1;//0上一页，1下一页
+}
+
+//加入战盟 返回
+message G2C_AddWarAllianceListResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	
+	repeated int64 List =1;//玩家申请过的战盟ID数组长度Max=5
+	repeated Struct_WarAllinceInfo WAInfo =2;//推荐战盟
+}
+
+//搜索战盟
+message C2G_SearchWarAllianceRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	string WarAllianceName =1;
+}
+//搜索战盟 返回
+message G2C_SearchWarAllianceResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	//ID
+	int64 WarAllianceID = 1;
+	//Name
+	string WarAllianceName =2;
+	//MemberCnt
+	int32 WarAllianceLevel =3;
+	//盟主名
+	string AllianceLeaderName =4;
+}
+
+//名字检查
+message C2G_CheackWarAllianceNameRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	string WarAllianceName =1;
+}
+//名字检查 返回
+message G2C_CheackWarAllianceNameResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//战盟聊天
+message C2G_SendMessageWarAllianceChatRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	string ChatMessage =1;
+}
+//战盟聊天 返回
+message G2C_SendMessageWarAllianceChatResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//战盟聊天 通知
+message G2C_SendMessageWarAllianceChatNotice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	string  ChatMessage =1;
+	int64	SendDataTime =2;
+	int64   SendGameUserId = 3;
+    string  SendUserName = 4;
+} 
+//是否加入战盟
+message C2G_JoinTheWarAllianceRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+message G2C_JoinTheWarAllianceResponse  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message G2C_KickOutOfTheWarNotice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 WarAllianceID = 1;
+}
+message C2G_DisableTheAllianceCache // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+message G2C_DisableTheAllianceCache // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message Struct_WarAllinceInfo
+{
+	//ID
+	int64 WarAllianceID = 1;
+	//Name
+	string WarAllianceName =2;
+	//Badge
+	repeated int32	WarAllianceBadge =3;
+	//MemberCnt
+	int32 WarAllianceLevel =4;
+	//Notice
+	string WarAllianceNotice =5;
+	//Post
+	int32 MemberPost = 6;
+	//AllianceLeaderName
+	string LeaderName =7;
+	//当前战盟人数
+	int32  Currentquantity = 8;
+	int32 AllianceScore = 9;
+}
+
+message Struct_MemberInfo
+{
+	//UserID
+	int64 GameUserID =1;
+	//Name
+	string MemberName =2;
+	//level
+	int32 MemberLevel =3;
+	//ClassType
+	int32 MemberClassType =4;
+	//Post 0:成员 1:队长 2:副盟主  2:盟主
+	int32 MemberPost =5;
+	//state
+	int32 MeberState =6;
+	//转职等级
+	int32	ClassTypeLevel = 7;
+}

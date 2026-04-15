@@ -1,0 +1,436 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 20000
+// 移动位置
+message C2G_MovePosRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 x = 1;
+	int32 y = 2;
+	int32 angle = 3;
+}
+// 移动位置  返回
+message G2C_MovePosResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 x = 1;
+	int32 y = 2;
+	int32 angle = 3;
+}
+
+message G2C_MovePos_notice // IActorListMessage
+{
+	int64 ActorId = 90;
+	repeated int64 ActorIdList = 95;
+	
+	int32 x = 1;
+	int32 y = 2;
+	int32 angle = 3;
+
+	int64 GameUserId = 4;//
+	int32 UnitType = 7;// GameUserId是不是怪物  0:玩家 1:怪物 2:npc
+	
+	int32 ViewId = 8;// 0:视野区域中 1:进入视野区域 2:离开视野区域
+	int32 MapId = 9;//地图Id  (进入视野区域有效 ViewId等于1)
+	int32 SourceX = 10;//原x (进入视野区域有效 ViewId等于1)
+	int32 SourceY = 11;//原Y (进入视野区域有效 ViewId等于1)
+	
+	string NickName = 12;//玩家昵称 (进入视野区域有效 ViewId等于1)
+	int32 ModelId = 13;//模型Id (进入视野区域有效 ViewId等于1)
+	int64 HpValue = 14;//当前血量 (进入视野区域有效 ViewId等于1)
+	int64 HpMaxValue = 15;//最大血量 (进入视野区域有效 ViewId等于1)
+	
+	int32 IsNeedMove = 16;//是不是需要移动 1:不需要移动 直接覆盖位置
+
+	int32 OccupationLevel = 17;// 转职次数
+	
+	int64 OwnerGameUserId = 18;//宠物主人的id
+	int64 MpValue = 19;//当前蓝量 (进入视野区域有效 ViewId等于1)
+	int64 MpMaxValue = 20;//最大蓝量 (进入视野区域有效 ViewId等于1)
+	
+	int32 PkNumber = 21;//pk 点数 (进入视野区域有效 ViewId等于1) 且是玩家 UnitType等于0
+	int32 Title =22;//称号
+	string WallTitle =23;//战盟名和职位
+	int32 ReincarnateCnt = 24;//转生次数
+}
+
+// 攻击
+message C2G_AttackRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 GameUserId		= 1;//目标
+	int64 AttackType	    = 2;//0:普通攻击 >=1 技能攻击
+	
+	int32 PosX = 3;
+	int32 PosY = 4;
+	int64 Tick = 5;// (前端不需要 后端自用字段)
+}
+// 攻击返回
+message G2C_AttackResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 Tick = 5;// 攻击延时时间 毫秒
+}
+
+// 攻击返回通知
+message G2C_AttackStart_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	
+	int64 AttackSource = 1;//战斗来源
+	int64 AttackTarget = 2;//战斗目标
+	int64 AttackType = 3;//战斗方式
+	int64 Ticks = 4;//攻速
+	int64 MpValue = 5;//当前蓝量
+	int64 AG = 6;//
+	
+	int64 TimeTick = 7;
+	repeated int64 pos = 8;//技能落点 16位x 16位y
+}
+
+
+// 攻击返回通知
+message G2C_AttackResult_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	
+	int64 AttackTarget = 2;//战斗目标
+	int64 HurtValue = 3;//伤害
+	int64 HurtValueType = 5;//伤害类型  0:什么都没触发 1:miss 2:幸运一击 3:卓越一击 4:双倍伤害 5三倍伤害
+	int64 HpValue = 6;//当前血量
+	int64 HpMaxValue = 7;//最大血量 为0这是怪物 或者攻击miss了
+	int32 HurtValueSource = 8;//伤害来源 bufferId 0:非buffer 造成的伤害
+	int64 MpValue =9;//当前蓝量
+	int64 MpMaxValue =10;//最大蓝量
+	int64 SD = 11;//
+	int64 AttackSource = 12;//战斗来源
+	int64 SDMaxValue = 13;//最大SD
+}
+
+
+// 攻击返回通知
+message G2C_AttackBuffer_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	
+	int64 AttackTarget = 2;//战斗目标
+	int64 BufferId = 3;//buffer id 
+	int64 Ticks = 4;//结束时间
+}
+
+message G2C_AttackBufferEnd_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	
+	int64 AttackTarget = 2;//战斗目标
+	int64 BufferId = 3;//buffer id
+}
+
+
+// 键值对
+message G2C_BattleKVData // IMessage
+{
+    int32 Key = 1;//
+	int64 Value = 2;//
+}
+
+message G2C_ChangeValue_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	
+	int64 GameUserId = 1;
+	repeated G2C_BattleKVData Info = 2;//属性集
+}
+
+
+// 属性界面
+message C2G_PlayerPropertyRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 SelectId = 1;//0:一般
+}
+// 属性界面 返回
+message G2C_PlayerPropertyResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated G2C_BattleKVData Info = 1;//属性集
+	int32 ReincarnateCnt = 2;
+}
+
+
+
+// 属性加点
+message C2G_BattlePropertyAddPointRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 BattlePropertyId = 1;//属性Id
+	int32 AddPointNumber = 2;//加点数
+}
+// 属性加点 返回
+message G2C_BattlePropertyAddPointResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 PropertyPoint = 1;//剩余的属性点
+	repeated G2C_BattleKVData Info = 2;//属性集
+}
+
+
+// 掉落通知
+message G2C_ItemDropData // IMessage
+{
+    int32 Key = 1;// 掉落类型
+	int64 Value = 2;// 数量
+	// 1 << 0 .有技能
+	// 1 << 2 .有幸运
+	// 1 << 3 .有卓越
+	// 1 << 4 .有套装
+	// 1 << 5 .有镶嵌
+	// (Quality & 1 << ? == 1 << ?) ? true : false
+	int32 Quality = 3;// 品质
+	int32 PosX = 4;
+	int32 PosY = 5;
+	int64 InstanceId = 6;//物品实例对象Id
+
+	// 拾取保护时间 时间戳 utc 秒
+	int64 ProtectTick = 7;
+	// 击杀玩家列表，谁可以拾取
+	repeated int64 KillerId = 8;
+	// 物品强化等级
+	int32 Level = 9;
+	// 套装id
+	int32 SetId = 10;
+	// 生成类型
+	// 0.其他
+	// 1.玩家丢弃
+	// 2.怪物掉落
+	// 3.宝箱掉落
+	int32 CreateType = 11;
+	// 物品追加等级
+	int32 OptLevel = 12;
+}
+// 掉落通知
+message G2C_ItemDrop_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	
+	repeated G2C_ItemDropData Info = 2;//属性集
+}
+
+
+
+// 物品拾取
+message C2G_BattlePickUpDropItemRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+    int32 PosX = 4;
+	int32 PosY = 5;
+	int64 InstanceId = 6;//物品实例对象Id
+	// 在背包中的位置
+	int32 PosInBackpackX	= 7;
+	int32 PosInBackpackY	= 8;
+}
+// 物品拾取 返回
+message G2C_BattlePickUpDropItemResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	// 拾取到背包的物品uid
+	int64 ItemUid = 1;
+}
+
+message G2C_BattlePickUpDropItem_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	
+	repeated int64 InstanceId = 1;//物品实例对象Id
+}
+
+
+// 地图传送
+message C2G_MapDeliveryRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 MapId = 1;//目标地图Id
+	
+}
+// 地图传送 返回
+message G2C_MapDeliveryResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 好友地图传送
+message C2G_FriendMapDeliveryRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+// 好友地图传送 返回
+message G2C_FriendMapDeliveryResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 单位离开视野
+message G2C_UnitLeaveView_notice // IActorMessage
+{
+	int64 ActorId = 90;
+	
+	repeated int64 LeavedUnitId = 1;
+}
+
+// Opcode = 21000
+// 转职完成
+message G2C_CareerChangeComplete_notice // IActorMessage
+{
+	int64 ActorId = 90;
+
+	int64 GameUserId = 1;
+	int32 OccupationLevel = 2;
+}
+
+
+
+
+// 设置pk模式
+message C2G_SetPlayerKillingRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 Model = 1;// 0:和平 1:全体 2:友方
+	
+}
+// 设置pk模式 返回
+message G2C_SetPlayerKillingResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 领取新手buff
+message C2G_XinShouBuffRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+// 领取新手buff 返回
+message G2C_XinShouBuffResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 客户端加载场景完成通知
+message C2G_LoadSceneCompleteRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+// 客户端加载场景完成通知 返回
+message G2C_LoadSceneCompleteResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+
+message G2C_AttackDistance_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	
+	int64 AttackType = 2;//攻击方式
+	int64 Distance = 3;//攻击距离
+}
+
+
+// 选择单人
+message C2G_SelectSingleTargetRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 TargetUserId = 1;
+}
+// 选择单人 返回
+message G2C_SelectSingleTargetResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+// 击杀公告
+message G2C_KillResult_notice // IActorMessage
+{
+    int64 ActorId = 90;
+	
+	string AttackId = 2;//攻击者
+	string BeAttackId = 3;//被攻击者
+}
+//获取玩家二级属性
+message C2G_GetPlayerSecondaryAttribute // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+message G2C_GetPlayerSecondaryAttribute // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated G2C_BattleKVData Info = 1;//属性集
+}
+
+
+

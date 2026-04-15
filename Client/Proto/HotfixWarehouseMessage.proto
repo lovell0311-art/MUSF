@@ -1,0 +1,153 @@
+syntax = "proto3";
+package ETHotfix;
+import "HotfixMessage.proto";
+
+// Opcode = 28000
+//=========================仓库============================
+// 移动仓库物品的位置 推送G2C_MoveWarehouseItem_notice 
+message C2G_MoveWarehouseItem // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ItemUUID		= 2;
+	int32 PosInBackpackX	= 3;
+	int32 PosInBackpackY	= 4;
+}
+
+// 移动仓库物品的位置  返回 
+message G2C_MoveWarehouseItem // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+// 从背包添加到仓库  推送G2C_AddWarehouseItem_notice 
+message C2G_AddWarehouseItem // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ItemUUID		= 2;
+	int32 PosInBackpackX	= 3;
+	int32 PosInBackpackY	= 4;
+}
+
+// 从背包添加到仓库  返回 
+message G2C_AddWarehouseItem // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 仓库物品移动到背包  推送G2C_ItemsLeaveBackpack_notice
+message C2G_DelWarehouseItem // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ItemUUID		= 1;
+	int32 PosInBackpackX	= 3;
+	int32 PosInBackpackY	= 4;
+}
+
+// 仓库物品移动到背包  返回
+message G2C_DelWarehouseItem // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 放进金币到仓库  推送G2C_BackpackGoldChange_notice和G2C_WarehouseGoldChange_notice
+message C2G_AddGoldToWarehouse // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64	Gold	= 1;
+}
+
+// 放进金币到仓库  返回
+message G2C_AddGoldToWarehouse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 从仓库中取出金币  推送G2C_BackpackGoldChange_notice和G2C_WarehouseGoldChange_notice
+message C2G_TackOutGoldInWarehouse // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64	Gold	= 1;
+}
+
+// 从仓库中取出金币  返回
+message G2C_TackOutGoldInWarehouse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//============================推送==============================
+//推送客户端仓库中有物品进入 选择角色进入游戏场景时会推送玩家仓库里现有物品
+message G2C_AddWarehouseItem_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	repeated Struct_ItemInBackpack_Status allItems = 1;
+}
+
+//推送客户端仓库中有物品离开
+message G2C_DelWarehouseItem_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64 GameUserId			= 1;	// 实体玩家的仓库
+	int64 LeaveItemUUID		= 2;	// 离开仓库的物品UUID
+}
+
+//推送客户端仓库中有物品位置变动
+message G2C_MoveWarehouseItem_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64 GameUserId		= 1;
+	int64 ItemUUID			= 2;
+	int32 PosInBackpackX	= 3;
+	int32 PosInBackpackY	= 4;
+}
+
+//推送仓库扩建
+message G2C_WarehouseExtension_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int32 Capacity = 1;
+}
+
+//广播玩家背包金币数值变动  选择角色进入游戏场景时或者金币变动时会推送
+message G2C_WarehouseGoldChange_notice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64 GameUserId		= 1;
+	int64 Gold  = 2;
+}
+
+

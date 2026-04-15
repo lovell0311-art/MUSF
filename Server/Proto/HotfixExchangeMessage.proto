@@ -1,0 +1,405 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 26000
+// 请求 邀请交易  邀请结果推送G2C_ApplyToJoinTheTeam_notice  done
+message C2G_InvitePlayerExchange // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 邀请交易的目标玩家
+	int64	PlayerGameUserId		= 1;
+}
+
+// 返回 邀请交易  done
+message G2C_InvitePlayerExchange // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 同意或拒绝玩家邀请  done
+message C2G_ReplyPlayerExchangeInvite // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 邀请交易的玩家
+	int64	PlayerGameUserId		= 1;
+	// false.拒绝  true.同意
+	bool    IsAgree 				= 2;
+}
+
+// 返回 同意或拒绝玩家申请  返回成功则开始交易，打开交易面板  done
+message G2C_ReplyPlayerExchangeInvite // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	string	PlayerName		= 1;
+	string  PlayerWarAllianceName = 2;//玩家战盟名字
+	int32  PlayerLevel     = 3;	//玩家等级
+}
+
+// 请求 放入交易物品  done
+message C2G_AddExchangeItem // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64	ItemUUID		= 1;
+	int32	PosInBackpackX	= 2;
+	int32	PosInBackpackY	= 3;
+}
+
+// 返回  放入交易物品  done
+message G2C_AddExchangeItem // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 移动交易物品  done
+message C2G_MoveExchangeItem // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64	ItemUUID		= 1;
+	int32	PosInBackpackX	= 2;
+	int32	PosInBackpackY	= 3;
+}
+
+// 返回 移动交易物品  done
+message G2C_MoveExchangeItem // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 移除交易物品  done
+message C2G_ReMoveExchangeItem // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64	ItemUUID		= 1;
+}
+
+// 返回 移除交易物品  done
+message G2C_ReMoveExchangeItem // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 设置交易金币数
+message C2G_SetExchangeGold // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 Gold = 1;
+}
+
+// 返回 设置交易金币数
+message G2C_SetExchangeGold // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+// 请求 交易状态改变
+message C2G_LockExchangeItem // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 锁定状态
+	// true.锁定交易物品
+	// false.取消锁定
+	bool LockState		= 1;
+}
+
+// 返回 交易状态改变
+message G2C_LockExchangeItem // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 取消交易
+message C2G_CancelExchange // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+// 返回 取消交易
+message G2C_CancelExchange // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//========================= 服务端推送 ==============================
+
+//通知 交易邀请推送 done
+message G2C_InvitePlayerExchange_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	// 邀请自己交易的玩家
+	int64	PlayerGameUserId		= 1;
+	// 玩家实体昵称
+	string	PlayerName		= 2;
+}
+
+//通知 交易邀请被拒绝或同意后推送  同意则打开交易窗口   done
+message G2C_InvitePlayerExchangeResult_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	// 被邀请交易的玩家
+	int64	PlayerGameUserId		= 1;
+	string	PlayerName		= 2;
+	string  PlayerWarAllianceName = 3;//玩家战盟名字
+	int32  PlayerLevel     = 4;	//玩家等级
+	// 回复结果
+	// true.同意交易
+	// false.拒绝交易
+	bool	IsAgree			= 5;
+}
+
+//通知 有物品进入交易栏内  done
+message G2C_AddExchangeItem_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64	PlayerGameUserId	= 1;
+	int64	ItemUUID			= 2;
+	int32	PosInBackpackX		= 3;
+	int32	PosInBackpackY		= 4;
+	int32	ItemConfigID 		= 5;
+	int32	ItemLevel			= 6;
+	int32	ItemQuantity		= 7;
+}
+
+//通知 有物品在交易栏移动  done
+message G2C_MoveExchangeItem_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64	PlayerGameUserId	= 1;
+	int64	ItemUUID			= 2;
+	int32	PosInBackpackX		= 3;
+	int32	PosInBackpackY		= 4;
+}
+
+//通知 有物品在交易栏离开  done
+message G2C_ReMoveExchange_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64 PlayerGameUserId		= 1;	
+	int64 ItemUUID		= 2;	
+}
+
+//通知 玩家锁定交易物品
+message G2C_LockExchangeItem_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64 GameUserId		= 1;	// 实体玩家
+	// 锁定状态
+	// true.锁定交易物品
+	// false.取消锁定
+	bool LockState		= 2;
+}
+
+//通知 交易结果 交易被终止时也推送此通知，交易结果为false
+message G2C_ExchangeResult_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+
+	// 交易结果
+	// true.交易成功
+	// false.交易失败
+	bool State		= 1;
+	string ErrorMessage = 2;	//若为失败则推送失败原因
+}
+
+//通知 对方交易金币变动
+message G2C_TargetSetExchangeGold_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+
+	int32 Gold = 1;
+}
+
+//---------------------------------血脉觉醒-----------------------------------
+message RingInfo
+{
+	//环Id
+	int32 RingId = 1;
+	//当前环激活了的节点
+	repeated int32 ActivatedNode = 2;
+}
+message BloodVesselInfo
+{
+	//血脉ID
+	int32 BloodId = 1;
+	//下一环开启时间
+	int64 NextStage = 2;
+	//使用状态
+	int32 IsUse = 3;
+	//环信息
+	repeated RingInfo NodeList = 4;
+}
+//打开血脉觉醒界面
+message C2G_BloodVesselInterface // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+message G2C_BloodVesselInterface // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	//拥有的所有血脉
+	repeated int32 BloodIdList = 1;
+}
+//激活血脉
+message C2G_ActivateBloodVessels // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 BloodId = 1;
+}
+message G2C_ActivateBloodVessels // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	BloodVesselInfo BloodInfo = 1;
+}
+//净化血脉
+message C2G_PurifyBloodVessels // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 BloodId = 1;
+	int32 RingId = 2;
+}
+message G2C_PurifyBloodVessels // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	BloodVesselInfo BloodInfo = 1;
+}
+//净化提速
+message C2G_CleanUpSpeedVessels // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 BloodId = 1;
+}
+message G2C_CleanUpSpeedVessels // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	BloodVesselInfo BloodInfo = 1;
+}
+//节点激活
+message C2G_NodeActivationVessels // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	//血脉Id
+	int32 BloodId = 1;
+	//环Id
+	int32 RingId = 2;
+	//节点ID
+	int32 Node = 3;
+}
+message G2C_NodeActivationVessels // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	BloodVesselInfo BloodInfo = 1;
+}
+//使用血脉
+message C2G_UseBloodLineVessels // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	//血脉Id
+	int32 BloodId = 1;
+}
+message G2C_UseBloodLineVessels // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	BloodVesselInfo BloodInfo = 1;
+}
+//获取当前血脉信息
+message C2G_GetCurrentBloodInfoVessels // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	//血脉Id
+	int32 BloodId = 1;
+}
+message G2C_GetCurrentBloodInfoVessels // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	BloodVesselInfo BloodInfo = 1;
+}

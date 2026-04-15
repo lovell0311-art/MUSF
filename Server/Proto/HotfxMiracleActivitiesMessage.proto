@@ -1,0 +1,190 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 39000
+//获取相应活动的数据
+message C2G_OpenMiracleActivitiesRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	//活动ID
+	int32		MiracleActivitiesID		= 1;
+}
+//获取相应活动的数据 返回
+message G2C_OpenMiracleActivitiesResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	struct_MiracleActivities Info = 1;//活动数据
+}
+//冲级活动领奖
+message C2G_RushGradeActivityReceiveRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	//活动ID
+	int32		MiracleActivitiesID		= 1;
+	//奖励ID
+	repeated int32		RewardID =2;
+}
+//冲级活动领奖 返回
+message G2C_RushGradeActivityReceiveResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	struct_MiracleActivities Info = 1;//活动数据
+}
+//攻城战通知	
+message G2C_SendPointOutMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+    int32 pointout =1;
+	int64 Time=2;
+	int32 TitleName =3;//称号ID
+	string PlayerName =4;
+	string WarName = 5;
+	int32 Status =6;
+	int64 PlayerId =7;
+}
+//座上城主位
+message C2G_TakeAThroneRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+//座上城主位 返回
+message G2C_TakeAThroneResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//离开座位
+message C2G_LeaveYourSeatRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+//离开座位 返回
+message G2C_LeaveYourSeatResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//怪物数量
+message C2G_NewYearMobCntRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+//怪物数量 返回
+message G2C_NewYearMobCntResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated Struct_MobCnt MobCnt =1;
+}
+message struct_MiracleActivities
+{
+	int32 ID = 1;//活动ID
+	int32 Status =2;//领奖状态
+	int32 Value32A =3;
+	int32 Value32B =4;
+	int64 Value64A =5;
+	int64 Value64B =6;
+}
+
+message Struct_MobCnt
+{
+	int32 MapID =1;
+	int32 MobCnt =2;
+}
+//签到
+message C2G_NationalDaySignin // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+
+message G2C_NationalDaySignin // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//打开推广界面
+message C2G_OpenInvitationInterface // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+
+message G2C_OpenInvitationInterface // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	InvitationInfo Info = 1;
+}
+
+message C2G_PromotionAward  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int32 Type = 1;//1:领取人数2:领取等级120级3:领取等级220级
+}
+
+message G2C_PromotionAward  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message InvitationInfo
+{
+	string InvitationCode =1;
+	int32 NumberCntI = 2;//邀请的人数
+	int32 AwardStatusI = 3;//邀请的人数领奖状态
+	int32 NumberCntII = 4;//到达120级的人数
+	int32 AwardStatusII = 5;//到达120级的人数领奖状态
+	int32 NumberCntIII = 6;//到达220级的人数
+	int32 AwardStatusIII = 7;//到达220级的人数数领奖状态
+}
+
+//五一抽奖
+message C2G_MayDayLuckyDraw  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+
+}
+
+message G2C_MayDayLuckyDraw  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 config = 1;
+}

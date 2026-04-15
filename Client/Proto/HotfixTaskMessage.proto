@@ -1,0 +1,203 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 36000
+
+// 任务
+message Struct_TaskInfo
+{
+	// 任务配置id  
+	// 任务类型: id / 100000 
+	int32 Id = 1;	
+	// 状态
+	// 0.无状态  还没领取的任务，当玩家满足条件时，自动领取
+	// 1.进行中
+	// 2.已完成
+	// 3.已领取
+	int32 State = 2;
+	// 任务进度
+	repeated int32 Progress = 3;
+	// 0.不是第一次推送
+	// 1.任务刚开始。第一次推给玩家
+	int32 StartTask = 4;
+}
+
+
+
+// ==================== 任务接口 ================
+// Opcode = 36100
+
+// 请求 领取任务
+// 领取成功，会推送 G2C_UpdateGameTaskNotice
+message C2G_ReceiveTask // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+
+	int32 TaskId = 1;
+}
+
+// 返回 领取任务
+message G2C_ReceiveTask // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 放弃任务
+// 放弃成功后，不会推送 任务变动的通知
+message C2G_AbandonTask // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+
+	int32 TaskId = 1;
+}
+
+// 返回 放弃任务
+message G2C_AbandonTask // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+// 请求 领取任务奖励
+// 领取任务奖励成功后，会推送 G2C_UpdateGameTaskNotice
+message C2G_ReceiveTaskReward // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+
+	int32 TaskId = 1;
+}
+
+// 返回 领取任务奖励
+message G2C_ReceiveTaskReward // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 更新任务进度
+message C2G_UpdateTaskProgress // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+
+	int32 TaskId = 1;
+	int32 ProgressId = 2;
+	int32 Value = 3;
+}
+
+// 返回 更新任务进度
+message G2C_UpdateTaskProgress // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+// ================== 通知 =========================
+// Opcode = 36500
+// 通知 更新任务
+// 领取任务、任务进度变动、任务完成、领取奖励 都会推送
+message G2C_UpdateGameTaskNotice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+
+	Struct_TaskInfo TaskInfo = 1;
+}
+
+// 通知 更新全部任务
+// 进入游戏时通知
+message G2C_AllUpdateGameTaskNotice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+
+	repeated Struct_TaskInfo MainTasks = 1;		// 主线任务
+	repeated Struct_TaskInfo HuntingTasks = 2;	// 狩猎任务
+	repeated Struct_TaskInfo ActivityTasks = 3;	// 活动任务
+	repeated Struct_TaskInfo EntrustTasks = 4;	// 委托任务
+	repeated Struct_TaskInfo CareerChangeTasks = 5;	// 转职任务
+	repeated Struct_TaskInfo PassTasks = 6;		// 通行证任务
+}
+
+// ================== 新手引导 =========================
+// Opcode = 36600
+
+// 请求 获取新手引导状态
+message C2G_GetBeginnerGuideStatus // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+message G2C_GetBeginnerGuideStatus // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	// 状态
+	int64 Value = 1;
+}
+
+// 请求 设置新手引导状态
+message C2G_SetBeginnerGuideStatus // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 状态
+	int64 Value = 1;
+}
+
+message G2C_SetBeginnerGuideStatus // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+message C2G_PurchaseOfTradeCard // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 PassId = 1;
+}
+
+message G2C_PurchaseOfTradeCard // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message C2G_ReincarnateRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+message G2C_ReincarnateResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 ReincarnateCnt = 1;
+}

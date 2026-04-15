@@ -1,0 +1,1372 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 10000
+// 根据GameUserId获取角色信息 通常在其他角色进入视野时请求  成功会推送一系列信息通知
+message C2G_GetPlayerInfoByGameUserIdRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 GameUserId		= 1;
+}
+
+// 根据GameUserId获取角色信息  返回
+message G2C_GetPlayerInfoByGameUserIdResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//--------属性结构-------------
+message Struct_Property
+{ 
+	int32	PropID = 1;			// 属性ID
+	int32	Value = 2;				// 属性值
+}
+
+//--------物品属性词条结构---------
+message Struct_AttrEntry
+{
+	int32	PropId = 1;		// 配置表中的属性id
+	int32	Level = 2;		// 属性等级
+}
+
+// 根据昵称获取角色GameUserId 角色不存在或者不在线时会返回对应错误码
+message C2G_GetPlayerInfoByNickName // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	string NickName		= 1;
+}
+
+// 根据昵称获取角色GameUserId  返回
+message G2C_GetPlayerInfoByNickName // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 GameUserId		= 1;
+}
+
+
+//=========================背包============================
+// Opcode = 11100
+//---------背包中的物品状态-------------
+message Struct_ItemInBackpack_Status
+{
+	// 背包所属玩家ID
+	int64 GameUserId		= 1;
+	// 物品唯一标识
+	int64 ItemUID		= 2;
+	// 物品配置表ID
+	int32 ConfigID		= 3;
+	// 物品类型ID
+	int32 Type		= 4;
+	// 物品在背包中的位置
+	int32 PosInBackpackX	= 5;
+	int32 PosInBackpackY	= 6;
+	// 物品占用的格子
+	int32 Width	= 7;
+	int32 Height = 8;
+	// 物品数量
+	int32 Quantity	= 9;
+	// 物品等级
+	int32 ItemLevel	= 10;
+}
+
+// 物品所有的属性
+message Struct_ItemAllProperty
+{
+	int64 ItemUUID = 1;
+	repeated Struct_Property PropList = 2;
+	repeated Struct_AttrEntry ExecllentEntry = 3;	// 卓越词条
+	repeated Struct_AttrEntry ExtraEntry = 4;	// 额外属性词条。套装附带
+	repeated Struct_AttrEntry SpecialEntry = 5;	// 特殊属性词条。翅膀
+	int64 ConfigId = 6;
+}
+
+// 移动背包物品的位置 推送G2C_ItemsLocationChangeBackpack_notice
+message C2G_MoveBackpackItemRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ItemUUID		= 2;
+	int32 PosInBackpackX	= 3;
+	int32 PosInBackpackY	= 4;
+}
+
+// 移动背包物品的位置  返回
+message G2C_MoveBackpackItemResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+// 背包添加新的物品(测试用)  推送G2C_ItemsIntoBackpack_notice
+message C2G_AddBackpackItemRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 ItemConfigID		= 2;
+	int32 PosInBackpackX	= 3;
+	int32 PosInBackpackY	= 4;
+
+	int32 Level = 5;	// 物品强化等级
+	int32 Quantity = 6;	// 物品数量
+	int32 OptListId = 7;// 使用配置表中的第几条追加属性 0 开始
+	int32 OptLevel = 8;	// 追加等级
+	int32 HasSkill = 9;	// 有技能
+	int32 SetId = 10;	// 套装id 0/1
+	repeated int32 OptionExcellent = 11;	// 卓越属性
+	// 自定义属性方法
+	// ItemRandomlyAddExcAttr_3		随机添加3条卓越属性
+	repeated string CustomAttrMethod = 12;
+	int32 FluoreAttr = 13;	// 荧光宝石属性 id:value/100  level:value%100
+	int32 FluoreSlotCount = 14;	// 镶嵌孔数 0 - 5
+	repeated int32 FluoreSlot = 15; // 每个镶嵌孔洞的属性 id:value/100  level:value%100
+}
+
+// 背包添加新的物品(测试用)  返回
+message G2C_AddBackpackItemResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 丢弃背包物品  推送G2C_ItemsLeaveBackpack_notice
+message C2G_DelBackpackItemRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ItemUUID		= 1;
+	// 丢弃到指定位置 距离小于 10
+	int32 PosInSceneX	= 2;
+	int32 PosInSceneY	= 3;
+}
+
+// 丢弃背包物品  返回
+message G2C_DelBackpackItemResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//推送客户端背包中有物品进入 选择角色进入游戏场景时会推送玩家背包里现有物品
+message G2C_ItemsIntoBackpack_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	repeated Struct_ItemInBackpack_Status allItems = 1;
+}
+
+//推送客户端背包中有物品离开
+message G2C_ItemsLeaveBackpack_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64 GameUserId			= 1;	// 实体玩家的背包
+	int64 LeaveItemUUID		= 2;	// 离开背包的物品UUID
+}
+
+//推送客户端背包中有物品位置变动
+message G2C_ItemsLocationChangeBackpack_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64 GameUserId		= 1;
+	int64 ItemUUID			= 2;
+	int32 PosInBackpackX	= 3;
+	int32 PosInBackpackY	= 4;
+}
+
+//玩家使用背包中的物品
+message C2G_PlayerUseItemInTheBackpack  // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ItemUUID		= 1;	// 使用的物品
+}
+
+//返回 玩家使用背包中的物品
+message G2C_PlayerUseItemInTheBackpack  // IActorResponse
+{	
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64	GameUserId			= 1;	// 使用物品的实体uuid
+	int64	ItemUUID		    = 2;	// 使用的物品uuid
+	int32	ConfigId			= 3;	// 物品配置表id
+}
+
+//广播物品属性变动  
+message G2C_ItemsPropChange_notice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64	ItemUUID  = 1;
+	repeated Struct_Property PropList = 2;
+	int64 GameUserId = 3;
+	int32 Scene = 4;//应用场景 0:默认 2:仓库 3:交易 4:摆摊
+}
+
+
+// 广播物品属性词条变动
+message G2C_ItemsAttrEntryChange_notice	// IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64	ItemUUID  = 1;
+	repeated Struct_AttrEntry ExecllentEntry = 2;	// 卓越属性
+	int64	GameUserId = 3;
+	int32 Scene = 4;//应用场景 0:默认 2:仓库 3:交易 4:摆摊
+	repeated Struct_AttrEntry ExtraEntry = 5;	// 额外属性词条。套装附带
+	repeated Struct_AttrEntry SpecialEntry = 6;	// 特殊属性词条。翅膀
+}
+
+//广播玩家背包金币数值变动  
+message G2C_BackpackGoldChange_notice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64 GameUserId		= 1;
+	int64 Gold  = 2;
+}
+
+message ItemPositionInBackpack 
+{
+	int64 ItemUID = 1;
+	int32 PosInBackpackX = 2;
+	int32 PosInBackpackY = 3;
+}
+
+// 整理背包
+message C2G_OrganizeBackpack  // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	repeated ItemPositionInBackpack ItemsNewPosition = 1;	// 物品在背包中的新位置
+}
+
+message G2C_OrganizeBackpack  // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//=========================NPC商店=========================
+// Opcode = 11150
+//获取商店NPC的全部物品
+message C2G_GetShopNPCItems // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 NPCUUID			= 1;	// NPC的实体ID
+}
+
+//获取商店NPC的全部物品  返回
+message G2C_GetShopNPCItems // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated Struct_ItemInBackpack_Status allItems = 2;
+	repeated Struct_ItemAllProperty allProperty = 3;
+}
+
+//玩家购买NPC商店的物品到背包 购买成功会推送物品进入背包
+message C2G_BuyItemFromNPCShop // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 NPCUUID		= 1;	// NPC的实体ID
+	int64 ItemUUID		= 2;	// 要购买的物品UUID
+	int32 PosInBackpackX	= 3;	// 放入背包中的坐标
+	int32 PosInBackpackY	= 4;
+	int32 RemoteBuy			= 5;//是否远程购买
+}
+
+//玩家购买NPC商店的物品到背包  返回
+message G2C_BuyItemFromNPCShop // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//将背包中的物品卖给商店
+message C2G_SellingItemToNPCShop // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 NPCShopID		= 1;		// 商店UUID
+	int64 ItemUUID	= 2;		// 卖出物品UUID
+}
+
+//将背包中的物品卖给商店  返回
+message G2C_SellingItemToNPCShop // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//=========================装备============================
+// Opcode = 11200
+// 穿戴装备物品  成功会推送G2C_ItemsLeaveBackpack_notice更新背包物品
+message C2G_EquipItemRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ItemUUID		= 1;
+	int32 EquipPosition = 2;	// 穿戴部位
+}
+
+// 穿戴装备物品  返回
+message G2C_EquipItemResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 卸下装备物品  成功会推送G2C_ItemsIntoBackpack_notice更新背包物品
+message C2G_UnloadEquipItemRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 EquipPosition	= 1;
+	int32 PosInBackpackX = 2;
+	int32 PosInBackpackY = 3;
+}
+
+// 卸下装备物品  返回
+message G2C_UnloadEquipItemResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//推送实体穿戴装备(周边一定范围玩家也广播)
+message G2C_UnitEquipLoad_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+    repeated Struct_ItemInSlot_Status allEquipStatus = 1;	//广播实体改动的装备
+}
+
+//推送实体卸下装备(周边一定范围玩家也广播)
+message G2C_UnitEquipUnload_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64 GameUserId = 1;		// 实体玩家的ID
+	int64 EquipItemUUID	= 2;	// 卸下物品UUID 
+	int32 EquipPosition = 3;	// 卸下部位
+}
+
+//---------卡槽中的物品状态-------------
+message Struct_ItemInSlot_Status
+{
+	int64 GameUserId 	= 1;	// 实体玩家的ID
+	int64 ItemUID		= 2;	// 物品唯一标识
+	int64 ConfigID		= 3;	// 物品配置ID
+	int32 SlotID		= 4;	// 实体卡槽 0 - 14
+	int32 ItemLevel		= 5;	// 物品等级
+}
+
+// 维修装备 请求
+message C2G_RepairEquipItemRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 维修价格 > 0 的装备
+	repeated int32 EquipPosition	= 1;	// 指定装备栏id
+	// 在npc处维修需要传下面的参数，检查距离 10 格内的npc,且配置表中 NpcType 为 3
+	int64 NpcUID = 2;	// 在哪个npc维修的 距离不超过10格
+	int32 NpcPosX = 3;	// npc坐标
+	int32 NpcPosY = 4;
+}
+
+// 维修装备 返回
+message G2C_RepairEquipItemResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 替换装备物品  返回
+message C2G_ReplaceEquipItemRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ItemUUID		= 1;
+	int32 EquipPosition = 2;	// 穿戴部位
+}
+
+// 替换装备物品  返回
+message G2C_ReplaceEquipItemResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 获取 装备栏物品属性
+message C2G_GetEquipItemAllPropRequest	// IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 GameUserId = 1;
+	int32 EquipPosition = 2;
+}
+
+message C2G_GetEquipItemAllPropResponse	// IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	Struct_ItemAllProperty AllProperty = 1;
+}
+
+// 玩家关闭了装备界面
+// 只有左手装备武器时，会将武器移到右手
+message C2G_CloseEquipUIRequest	// IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+message G2C_CloseEquipUIResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//=======================合成====================
+// Opcode = 11300
+// -----------合并、升级背包中单个物品-------------
+// 如两个 药水 数量未到上限，可以进行合并(暂未实现)
+// 武器、防具等升级+1~+9
+// 武器、防具追加属性
+// 武器、防具等再生属性添加、进化
+message C2G_MergeSingleItems // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ItemUUID		= 1;	// 拖拽的物品 如宝石、需要合并的物品
+	int64 TargetItemUUID = 2;	// 目标物品 如防具、需要合并的物品
+}
+
+// 合并、升级背包中单个物品  返回
+message G2C_MergeSingleItems // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 拆分、分堆物品功能   成功会推送拆分物品进入背包和物品数量变化
+message C2G_SplitItems // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ItemUUID		= 1;	// 要拆分、分堆的目标物品
+	int32 Count = 2;	// 目标物品要拆出的数量
+}
+
+// 拆分、分堆物品功能  返回
+message G2C_SplitItems // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 利用合成公式合成物品
+message C2G_ItemsSynthesis // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	repeated int64 AllItemUUID = 1;	// 合成原材料
+	int32 MethodConfigID = 2;				// 合成方法ConfigID(从合成配置表查询)
+	int32 ClientFinalR = 3;//客户端最终成功率
+}
+
+// 利用合成公式合成物品  返回
+message G2C_ItemsSynthesis // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	// 合成结果
+	// true.合成成功
+	// false.合成失败(合成异常请看Error错误码，这里只表示正常情况下的合成失败)
+	bool	Result			= 1;
+	repeated Struct_ItemInBackpack_Status AddedItem	= 2;
+}
+
+//背包物品到临时空间
+message C2G_MoveBackpackItemToCacheSpace // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 需要移到缓存中的物品
+	int64	MovedItemUUID		= 1;
+}
+
+//背包物品到临时空间 返回
+message G2C_MoveBackpackItemToCacheSpace // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//临时空间到背包物品
+message C2G_MoveCacheSpaceItemToBackpack // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 需要移到背包中的物品
+	int64	MovedItemUUID		= 1;
+	// 将物品移到背包中的坐标
+	int32	PosInBackpackX	= 2;
+	int32	PosInBackpackY	= 3;
+}
+
+//临时空间到背包物品 返回
+message G2C_MoveCacheSpaceItemToBackpack // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//=============================技能===========================
+// Opcode = 11500
+// 获取已经学习的技能列表
+message C2G_OpenSkillGroupRequest  // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+// 获取已经学习的技能列表 返回
+message G2C_OpenSkillGroupResponse  // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated int32 SkillIds = 1;//已经学习的技能列表
+}
+// 获取已经学习的技能列表 通知
+message G2C_OpenSkillGroup_notice  // IActorMessage
+{
+	int64 ActorId = 90;
+	
+	repeated int32 SkillIds = 1;//已经学习的技能列表
+}
+// 学习的技能 通知
+message G2C_StudySkillSingle_notice  // IActorMessage
+{
+	int64 ActorId = 90;
+	
+    int32 SkillId = 1;//学习的技能
+}
+
+// 禁用技能 通知
+message G2C_DisabledSkillSingle_notice // IActorMessage
+{
+	int64 ActorId = 90;
+
+	int32 SkillId = 1;// 禁止使用的技能
+}
+
+//=============================大师===========================
+// Opcode = 11600
+// 属性种类
+message G2C_HotfixKVData // IMessage
+{
+    int32 Key = 1;//
+	int64 Value = 2;//
+}
+
+// 大师
+message C2G_OpenBattleMasterRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+}
+// 大师 返回
+message G2C_OpenBattleMasterResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 PropertyPoint = 1;//属性点
+	repeated G2C_HotfixKVData Info = 2;//大师技能集合
+}
+
+
+// 大师加点
+message C2G_BattleMasterUpdateLevelRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 BattleMasterId = 1;//大师技能Id
+}
+// 大师加点 返回
+message G2C_BattleMasterUpdateLevelResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 PropertyPoint = 1;//属性点
+	repeated G2C_HotfixKVData Info = 2;//属性集
+}
+
+//===========================镶嵌==================================
+// Opcode = 11700
+// 荧之石合成
+message C2G_FluoreStoneCompose // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 Add4SetEquipItemUID		= 1;//+4以上套装装备UID
+	int64 Add4ExcEquipItemUID		= 2;//+4以上卓越装备UID
+	int64 RecycledGemsItemUID 		= 3;//再生宝石
+	int64 CreateGemsItemUID 		= 4;//创造宝石
+	int64 MayaGemsItemUID 			= 5;//玛雅宝石
+}
+
+// 荧之石合成  返回  成功后返回荧之石进入背包
+message G2C_FluoreStoneCompose // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 荧光宝石合成
+message C2G_FluoreGemsCompose // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 FluoreStoneItemUID		= 1;//荧之石(属性)
+	int64 LightGemsItemUID 			= 2;//光之石
+	int64 CreateGemsItemUID 		= 3;//创造宝石
+	int64 MayaGemsItemUID 			= 4;//玛雅宝石
+}
+
+// 荧光宝石合成  返回  成功后返回荧光宝石进入背包
+message G2C_FluoreGemsCompose // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 荧光宝石镶嵌
+message C2G_FluoreGemsSet // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 EquipItemUID				= 1;//有插槽的装备
+	int64 FluoreGemsItemUID 		= 2;//荧光宝石(属性)
+	int64 CreateGemsItemUID 		= 3;//创造宝石
+	int64 MayaGemsItemUID 			= 4;//玛雅宝石
+}
+
+// 荧光宝石镶嵌  返回  成功后返回装备属性改动消息
+message G2C_FluoreGemsSet // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 荧光宝石提取
+message C2G_FluoreGemsRecover // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 EquipItemUID				= 1;//有镶宝属性的装备
+	int32 MountID 					= 2;//第几个插槽
+	int64 GuardianGemsItemUID 		= 3;//守护宝石
+	int64 RecycledGemsItemUID 		= 4;//再生宝石
+	int64 MayaGemsItemUID 			= 5;//玛雅宝石x5
+}
+
+// 荧光宝石提取  返回  成功后返回装备属性改动消息和荧光宝石进入背包
+message G2C_FluoreGemsRecover // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 荧光宝石强化
+message C2G_FluoreGemsStrengthen // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 MainFluoreGemsItemUID 	= 1;//强化主荧光宝石(属性)
+	int64 FluoreGemsItemUID 		= 2;//同级材料荧光宝石(属性)
+	int64 LightGemsRuneItemUID 		= 3;//光之石强化符文
+}
+
+// 荧光宝石提取  返回  成功后返回荧光宝石属性改动消息
+message G2C_FluoreGemsStrengthen // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+
+//===========================摆摊==================================
+
+// 摆摊物品结构体
+message C2G_BaiTanItemMessage // IMessage
+{
+	int64 ConfigId = 1;
+	int64 ItemUUID		= 2;	// 要购买的物品UUID
+	int32 PosInBackpackX	= 3;	// 放入背包中的坐标
+	int32 PosInBackpackY	= 4;
+	
+	int32 Price = 5;//价格
+	int32 Price2 = 6;//价格2 元宝
+}
+
+// 摆摊结构体
+message C2G_BaiTanInfoMessage // IMessage
+{
+	int64 BaiTanInstanceId = 1;	// 摆摊的实体ID
+	string BaiTanName = 2;// 摆摊的名字
+}
+
+// 摆摊
+message C2G_BaiTanRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+// 摆摊 返回
+message G2C_BaiTanResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 BaiTanInstanceId = 1;
+}
+
+// 摆摊设置名字
+message C2G_BaiTanSetNameRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	string BaiTanName = 1;
+}
+// 摆摊设置名字 返回
+message G2C_BaiTanSetNameResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+// 摆摊添加物品
+message C2G_BaiTanAddItemRequest // IActorRequest
+{	
+    int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	C2G_BaiTanItemMessage Prop = 2;//
+}
+// 摆摊添加物品 返回
+message G2C_BaiTanAddItemResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+// 摆摊移除物品
+message C2G_BaiTanRemoveItemRequest // IActorRequest
+{	
+    int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	C2G_BaiTanItemMessage Prop = 2;//
+}
+// 摆摊移除物品 返回
+message G2C_BaiTanRemoveItemResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+// 摆摊结果 通知 同时发送邮件
+message G2C_BaiTanResult_notice  // IActorMessage
+{
+	int64 ActorId = 90;
+	
+    C2G_BaiTanItemMessage Prop = 2;//
+}
+
+
+
+// 附近摆摊数据
+message G2C_BaiTanInstance_notice  // IActorMessage
+{
+	int64 ActorId = 90;
+	
+    repeated C2G_BaiTanInfoMessage Prop = 2;//
+}
+
+//修改价格 位置
+message C2G_BaiTanChangeDataRequest // IActorRequest
+{	
+    int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	C2G_BaiTanItemMessage Prop = 2;//
+}
+// 修改价格 位置 返回
+message G2C_BaiTanChangeDataResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+// 看一看
+message C2G_BaiTanLookLookRequest // IActorRequest
+{	
+    int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 BaiTanInstanceId = 1;//
+}
+// 看一看 返回
+message G2C_BaiTanLookLookResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated C2G_BaiTanItemMessage Prop = 2;//
+}
+
+// 购买摊位物品
+message C2G_BaiTanBuyItemRequest // IActorRequest
+{	
+    int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 BaiTanInstanceId = 1;// 摊位id
+	int64 ItemUUID		= 2;	// 实体ID
+	int32 PosInBackpackX	= 3;	// 放入背包中的坐标
+	int32 PosInBackpackY	= 4;
+}
+// 购买摊位物品 返回
+message G2C_BaiTanBuyItemResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+// 取消摊位
+message C2G_BaiTanCloseRequest // IActorRequest
+{	
+    int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 BaiTanInstanceId = 1;// 摊位id
+}
+// 取消摊位 返回
+message G2C_BaiTanCloseResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+// 取消摊位 通知
+message G2C_BaiTanClose_notice  // IActorMessage
+{
+	int64 ActorId = 90;
+	
+    repeated int64 BaiTanInstanceId = 2;//
+}
+
+// 开始摊位
+message C2G_BaiTanOpenRequest // IActorRequest
+{	
+    int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+// 开始摊位 返回
+message G2C_BaiTanOpenResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//===========================摆摊==================================
+
+
+
+// 玩家退出通知 通知
+message G2C_PlayerSessionDisconnect_notice  // IActorMessage
+{
+	int64 ActorId = 90;
+	
+    int64 InstanceId = 2;//
+	int64 PetsID =3;
+}
+
+
+// Opcode = 11800
+// 加载完成
+message G2C_LoadingComplete  // IActorMessage
+{
+	int64 ActorId = 90;
+}
+
+message C2G_TaskTransferRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 MapId =1;
+	int32 X=2;
+	int32 Y=3;
+}
+
+message G2C_TaskTransferResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;	
+}
+
+message C2G_OpenTheSpecialTreasureChestRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ChestkeyId =1;
+	int64 TreasureChestId =2;
+}
+
+message G2C_OpenTheSpecialTreasureChestResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//使用兑换码
+message C2G_UseRedemptionCodeRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	string RedemptionCode = 1;//兑换码
+}
+//使用兑换码 返回
+message G2C_UseRedemptionCodeResponse // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 Count = 1;//次数
+	int64 TimeTick = 2;//禁止时间
+}
+
+
+message G2C_BagSharenotice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int64	SendGameUserId		= 1;		// 发送消息的实体GameUserId
+	string  SendUserName		= 2;		// 发送消息的实体昵称
+	int64	SendTime			= 3;
+	string  MessageInfo			= 4;
+	int32   Color               = 5;     // 颜色级别
+	int32	LineId				= 6;
+		
+	Struct_ItemAllProperty AllProperty = 7;
+	int64 ShareItemId = 8;
+}
+message C2G_BagShareGetInfoRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ShareItemId = 1;
+}
+message G2C_BagShareGetInfoResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	Struct_ItemAllProperty AllProperty = 1;
+}
+
+message G2C_SendTreasureHouseItemInfo //IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	Struct_ItemAllProperty AllProperty = 1;
+}
+
+
+//改名卡
+message C2G_BagChangeNameCardRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	string Name = 1;
+	int64 ItemUUID = 2;//物品id
+}
+//改名卡
+message G2C_BagChangeNameCardResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message C2G_NewSynthesis // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 SynthesisId = 1;//合成ID
+	repeated NewSynthesisItemInfo AItemList = 3;//必要道具，需要的武器防具也存在这个里面
+	repeated NewSynthesisItemInfo SItemList = 4;//可选道具
+	repeated NewSynthesisItemInfo FItemList = 5;//辅助道具
+	repeated NewSynthesisItemInfo EItemList = 6;//武器防具 消耗
+	repeated NewSynthesisItemInfo EItemList2 = 7;//武器防具 不会被消耗
+	int32 ClientFinalR = 8;//客户端最终成功率
+}
+message G2C_NewSynthesis // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 ItemConfigID = 1;//前端需要显示的物品没有是0
+}
+message NewSynthesisItemInfo
+{
+	int32 ItemConfigID = 1;//道具配置Id
+	int64 ItemUId = 2;//道具唯一ID
+	int32 ItemCnt = 3;//消耗数量
+}
+
+
+message C2G_OpenFashion // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+message G2C_OpenFashion // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated Fashion_Status FashionList = 1;
+	
+}
+
+message C2G_UseFashion // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 FashionId = 1;//ID = 0 是卸载时装
+}
+
+message G2C_UseFashion // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message C2G_FashionEnhanceOrAdd // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int32 Type = 1;//0:强化1:追加
+	int32 FashionId = 2;
+}
+message G2C_FashionEnhanceOrAdd // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message Fashion_Status
+{
+	int32 FashionID = 1;
+    int64 BingTime  = 2;
+    int64 EndTime  = 3;
+    int32 IsUse = 4;
+	int32 Level = 5;
+	int32 AddLevel = 6;
+}
+
+
+message C2G_RenewItemRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 ItemUUID = 1;//物品id
+}
+
+message G2C_RenewItemRequest // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//坐骑协议 打开面板
+message C2G_OpenTheMountPanelRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+message G2C_OpenTheMountPanelResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	// Dictionary<MountID, ConfigId> 
+	string MountInfo = 1;
+}
+//获取坐骑信息 内容在G2C_MountInfo通知
+message C2G_GetMountInfoRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 MountID = 1;
+}
+message G2C_GetMountInfoResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int64 MountID = 1;
+	int32 ConfigId = 2;
+	int32 Fortifiedlevel = 3;
+	int32 AdvancedLevel = 4;
+	int32 IsUsing = 5;//=0为使用,1使用中
+}
+//坐骑强化
+message C2G_FortifiedMountRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 MountID = 1;
+}
+message G2C_FortifiedMountResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	int32 AdvancedLevel = 1;
+}
+//坐骑进阶
+message C2G_AdvancedMountRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 MountID = 1;
+}
+message G2C_AdvancedMountResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//坐骑乘骑
+message C2G_UseMountRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 MountID = 1;
+}
+message G2C_UseMountResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//坐骑召回
+message C2G_RecallMountRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 MountID = 1;
+}
+message G2C_RecallMountResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//坐骑召回背包
+message C2G_RecallMountBackpackRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	int64 MountID = 1;
+}
+message G2C_RecallMountBackpackResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}

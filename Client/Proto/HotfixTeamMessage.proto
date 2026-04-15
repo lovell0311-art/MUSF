@@ -1,0 +1,482 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 24000
+//组队玩家属性
+message PlayerInTeamProperty  // IMessage
+{
+	int32	HPMax		= 1;
+	int32	HP			= 2;
+	int32	MPMax		= 3;
+	int32	MP			= 4;
+	int32	Level		= 5;
+}
+
+//玩家在队伍中的状态
+message PlayerInTeamStatus  // IMessage
+{
+	int64	GameUserId		= 1;
+	string	UserName		= 2;
+	// 是队长
+	bool	IsCaptain		= 4;
+	PlayerInTeamProperty	Status	= 5;
+}
+
+//队伍列表数据
+message TeamData  // IMessage
+{
+	int64	LeaderGameUserId		= 1;
+	string	LeaderUserName			= 2;
+	int32   TeamMemberCount 		= 3;
+}
+
+// 玩家数据
+message Team_PlayerData	// IMessage
+{
+	int64 GameUserId = 1;
+	string Name = 2;	// 玩家昵称
+	int32 Level = 3;	// 等级
+	int32 PlayerTypeId = 4;	// 职业类型
+	int32 OccupationLevel = 5;	// 转职等级
+	string WarAllianceName = 6;	// 战盟名 没有战盟，名字为空
+	int64 TeamId = 7;	// 加入的队伍id 0.未加入队伍 0+.队伍id
+}
+
+
+// Opcode = 24100
+// 请求 创建队伍 成功会推送G2C_MySelfEnterTeam_notice
+message C2G_CreateTeam // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+// 返回 创建队伍
+message G2C_CreateTeam // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 获取附近队伍列表
+message C2G_GetNearbyTeamList // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+// 返回 获取附近队伍列表
+message G2C_GetNearbyTeamList // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated TeamData TeamList	= 1;
+}
+
+// 请求 邀请其他玩家进入队伍  邀请结果推送至G2C_InvitePlayerEnterTeam_notice
+message C2G_InvitePlayerEnterTeam // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 邀请进入队伍的玩家
+	int64	PlayerGameUserId		= 1;
+}
+
+// 返回 邀请其他玩家进入队伍
+message G2C_InvitePlayerEnterTeam // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 同意或拒绝玩家邀请
+message C2G_ReplyPlayerInvitation // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 邀请进入队伍的玩家
+	int64	PlayerGameUserId		= 1;
+	// false.拒绝  true.同意
+	bool    IsAgree 				= 2;
+	// false.手动回应  true.自动回应 对方将不会收到返回消息
+	bool 	IsAuto					= 3;
+}
+
+// 返回 同意或拒绝玩家邀请
+message G2C_ReplyPlayerInvitation // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 将玩家踢出队伍
+message C2G_KcikThePlayerOutOfTheTeam // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 要踢出的玩家
+	int64	PlayerGameUserId		= 1;
+}
+
+// 返回 将玩家踢出队伍
+message G2C_KcikThePlayerOutOfTheTeam // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 申请加入队伍  结果推送至G2C_ApplyToJoinTheTeam_notice
+message C2G_ApplyToJoinTheTeam // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 要进入的队伍玩家ID
+	int64	PlayerGameUserId		= 1;
+}
+
+// 返回 申请加入队伍
+message G2C_ApplyToJoinTheTeam // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 同意或拒绝玩家申请
+message C2G_ReplyPlayerApply // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 邀请进入队伍的玩家
+	int64	PlayerGameUserId		= 1;
+	// false.拒绝  true.同意
+	bool    IsAgree 				= 2;
+	// false.手动回应  true.自动回应 对方将不会收到返回消息
+	bool 	IsAuto					= 3;
+}
+
+// 返回 同意或拒绝玩家申请
+message G2C_ReplyPlayerApply // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 离开队伍
+message C2G_LeaveTheTeam // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+// 返回 离开队伍
+message G2C_LeaveTheTeam // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 请求 让位队长
+message C2G_HandTheCaptain // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+	
+	// 让位目标玩家
+	int64	PlayerGameUserId		= 1;
+}
+
+// 返回 让位队长
+message G2C_HandTheCaptain // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+// 请求 获取附近队伍列表
+message C2G_GetNearbyPlayerList // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	int64 AppendData = 92;
+}
+
+// 返回 获取附近队伍列表
+message G2C_GetNearbyPlayerList // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated Team_PlayerData PlayerList	= 1;	// 列表中包含自己
+}
+
+//========================= 服务端推送 ==============================
+// Opcode = 24500
+//通知 其他玩家邀请加入团队
+message G2C_PlayerInviteJoinTheTeam_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	// 邀请自己加入队伍的玩家
+
+	int64	PlayerGameUserId		= 1;
+	// 玩家实体昵称
+	string	PlayerName		= 2;
+}
+
+//通知 其他玩家申请加入团队
+message G2C_PlayerApplyJoinTheTeam_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	// 申请加入队伍的玩家
+	Team_PlayerData	PlayerData		= 1;
+}
+
+// 通知 自身进入队伍
+// 如需队伍聊天时，HotfixChatMessage.proto->C2G_EnterChatRoom 通过此消息订阅 ChatRoomID 传递的房间。
+// 房间id 需客户端进行记录,用于离开队伍时退订
+message G2C_MySelfEnterTeam_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	// 聊天房间id
+	int64	ChatRoomID						= 1;
+	// 自己的状态
+	PlayerInTeamStatus	SelfStatus		= 2;
+	// 其他玩家状态
+	repeated PlayerInTeamStatus OtherPlayerStatus	= 3;
+}
+
+//通知 自身离开队伍 收到消息后，记得退订聊天房间
+message G2C_MySelfLeaveTeam_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+}
+
+//通知 自己所在的队伍中，有其他玩家加入或状态改变时推送
+message G2C_OtherPlayerEnterMyTeam_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	// 进入的玩家或玩家状态改变(状态改变包括自己,比如改变队长)
+	repeated PlayerInTeamStatus	EnteredPlayerStatus	= 1;
+}
+
+//通知 自己所在的队伍中，有其他玩家离开
+message G2C_OtherPlayerLeaveMyTeam_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	// 离开的玩家
+	repeated int64	 LeavedPlayerGameUserIds		= 1;
+}
+
+//通知 队伍中实体的属性变动  （暂未实现，等待属性监听接口）
+message G2C_PlayerPropChangeInTheTeam_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	// 变动的玩家
+	int64			ChangedPlayerGameUserId		= 1;
+	// 变动的玩家状态
+	PlayerInTeamProperty	ChangedPlayerStatus		= 2;
+}
+
+//通知 广播其他玩家进入队伍
+// 可视范围内，有玩家进入队伍时，此消息会到达
+// 刚进入视野的玩家主角，如在队伍中。此消息会到达
+// 用于区分，玩家是否在队伍中。
+message G2C_PlayerEnterOtherTeam_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	// 进入其他队伍的玩家
+	repeated int64	EnteredPlayersGameUserIds	= 1;
+}
+//通知 广播其他玩家离开队伍
+message G2C_PlayerLeaveOtherTeam_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	// 离开其他队伍的玩家
+	repeated int64	 LeavedPlayerGameUserIds		= 1;
+}
+
+//通知 邀请被拒绝或同意后推送
+message G2C_InvitePlayerEnterTeam_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	// 被邀请的玩家
+	int64	PlayerGameUserId		= 1;
+	string	PlayerName		= 2;
+	// 邀请状态
+	// true.玩家同意邀请
+	// false.玩家拒绝邀请
+	bool	IsAgree			= 3;
+}
+
+//通知 申请被拒绝或同意后推送
+message G2C_ApplyToJoinTheTeam_notice  // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	// 申请加入队伍中的队长
+	int64	PlayerGameUserId		= 1;
+	string	PlayerName		= 2;
+	// 申请状态
+	// true.队长同意申请
+	// false.队长拒绝申请
+	bool	IsAgree			= 3;
+}
+
+//队伍传送
+message C2G_TeamDeliveryRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	//ID
+	int64 	GameUserId	= 1;
+}
+//好友传送 返回
+message G2C_TeamDeliveryResponse // IActorResponse
+{
+	int32 	RpcId 		= 90;
+	int32 	Error 		= 91;
+	string 	Message 	= 92;
+}
+
+message C2G_OpenNewEnhanceItem  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	//ID
+	int64 	ItemUId	= 1;
+}
+
+message G2C_OpenNewEnhanceItem // IActorResponse
+{
+	int32 	RpcId 		= 90;
+	int32 	Error 		= 91;
+	string 	Message 	= 92;
+	
+	repeated NewEnhanceItemInfo NeedItemList = 1;//必须道具
+	repeated NewEnhanceItemInfo SelectItemList = 2;//可选道具
+	repeated NewEnhanceItemInfo AssistItemList = 3;//辅助道具
+	
+	int32 NeedItemCnt = 4;//必须道具数量
+	int32 SelectItemCnt = 5;//可选道具数量
+	int32 NeedGoldCoin = 6;//金币
+	int32 GoldCoin = 7;//拥有金币
+	string Prompt = 8;//提示语
+}
+message C2G_NewEnhanceItem // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int64 	ItemUId	= 1;//选择强化的道具
+	repeated ExpendItemInfo ExpendItemList = 2;//选择消耗的道具Config
+}
+message G2C_NewEnhanceItem // IActorResponse
+{
+	int32 	RpcId 		= 90;
+	int32 	Error 		= 91;
+	string 	Message 	= 92;
+}
+message NewEnhanceItemInfo
+{
+	int32 ItemConfigId = 1;//物品配置Id
+	int32 NeedItemCnt = 2;//需求的数量
+	int32 ItemCnt = 3;//现有数量
+	int32 ItemP = 4;//单个成功率
+}
+message ExpendItemInfo
+{
+	int32 ItemConfigId = 1;//物品配置Id
+	int32 ExpendCnt = 2;//消耗数量
+}
+
+message C2G_OpenItemCrafting  // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	//ID
+	int64 	ItemUId	= 1;
+}
+
+message G2C_OpenItemCrafting // IActorResponse
+{
+	int32 	RpcId 		= 90;
+	int32 	Error 		= 91;
+	string 	Message 	= 92;
+	
+	repeated NewEnhanceItemInfo NeedItemList = 1;//必须道具
+	repeated NewEnhanceItemInfo SelectItemList = 2;//可选道具
+	repeated NewEnhanceItemInfo AssistItemList = 3;//辅助道具
+	
+	int32 NeedItemCnt = 4;//必须道具数量
+	int32 SelectItemCnt = 5;//可选道具数量
+	int32 NeedGoldCoin = 6;//金币
+	int32 GoldCoin = 7;//拥有金币
+	string Prompt = 8;//提示语
+}
+message C2G_ItemCrafting // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int64 	ItemUId	= 1;//选择强化的道具
+	repeated ExpendItemInfo ExpendItemList = 2;//选择消耗的道具Config
+}
+message G2C_ItemCrafting  // IActorResponse
+{
+	int32 	RpcId 		= 90;
+	int32 	Error 		= 91;
+	string 	Message 	= 92;
+}

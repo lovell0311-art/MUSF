@@ -1,0 +1,555 @@
+syntax = "proto3";
+package ETModel;
+
+
+message DBSaveRequest // IRequest
+{
+    int32 RpcId = 90;
+
+    string CollectionName = 1;
+    ComponentWithId Component = 2;
+}
+
+
+message DBSaveBatchResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+message DBSaveBatchRequest // IRequest
+{
+    int32 RpcId = 90;
+
+    string CollectionName = 1;
+    repeated ComponentWithId Components = 2;
+}
+
+message DBSaveResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+message DBQueryRequest // IRequest
+{
+    int32 RpcId = 90;
+    int64 Id = 1;
+    string CollectionName = 2;
+}
+
+message DBQueryResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    ComponentWithId Component = 1;
+}
+
+message DBQueryBatchRequest // IRequest
+{
+    int32 RpcId = 90;
+    string CollectionName = 1;
+    repeated int64 IdList = 2;
+}
+
+message DBQueryBatchResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    repeated ComponentWithId Components = 1;
+}
+
+message DBQueryJsonRequest // IRequest
+{
+    int32 RpcId = 90;
+    string CollectionName = 1;
+    string Json = 2;
+	int32 Count = 3;
+}
+
+message DBQueryJsonResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    repeated ComponentWithId Components = 1;
+}
+
+message DBUpdateOneRequest // IRequest
+{
+	int32 RpcId = 90;
+
+	string CollectionName = 1;
+	BsonDocument Filter = 2;
+    BsonDocument Updates = 3;
+}
+
+message DBUpdateOneResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+
+message DBAggregateRequest // IRequest
+{
+	int32 RpcId = 90;
+	
+	string CollectionName = 1;
+	repeated BsonDocument PipeLine = 2;
+}
+
+message DBAggregateResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+	
+	repeated BsonDocument Result = 1;
+}
+
+message ObjectAddRequest // IRequest
+{
+    int32 RpcId = 90;
+    int64 Key = 1;
+    int64 InstanceId = 2;
+}
+
+message ObjectAddResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+message ObjectRemoveRequest // IRequest
+{
+    int32 RpcId = 90;
+    int64 Key = 1;
+}
+
+message ObjectRemoveResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+message ObjectLockRequest // IRequest
+{
+    int32 RpcId = 90;
+    int64 Key = 1;
+    int64 InstanceId = 2;
+    int32 Time = 3;
+}
+
+message ObjectLockResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+message ObjectUnLockRequest // IRequest
+{
+    int32 RpcId = 90;
+    int64 Key = 1;
+    int64 OldInstanceId = 2;
+    int64 InstanceId = 3;
+}
+
+message ObjectUnLockResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+message ObjectGetRequest // IRequest
+{
+    int32 RpcId = 90;
+    int64 Key = 1;
+}
+
+message ObjectGetResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    int64 InstanceId = 1;
+}
+
+message R2G_GetLoginKey // IRequest
+{
+    int32 RpcId = 90;
+    string Account = 1;
+}
+
+message G2R_GetLoginKey // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    int64 Key = 1;
+}
+
+message G2M_CreateUnit // IRequest
+{
+    int32 RpcId = 90;
+    int64 PlayerId = 1;
+    int64 GateSessionId = 2;
+}
+
+message M2G_CreateUnit // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    // 自己的unit id
+    int64 UnitId = 1;
+    // 所有的unit
+    repeated UnitInfo Units = 2;
+}
+
+message G2M_SessionDisconnect // IActorMessage
+{
+    int32 RpcId = 90;
+    int64 ActorId = 94;
+}
+
+message DBGetCountRequest // IRequest
+{
+    int32 RpcId = 90;
+    string CollectionName = 1;
+    string Json = 2;
+}
+
+message DBGetCountResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    int64 RowCount = 1;
+}
+
+message DBIncRequest // IRequest
+{
+    int32 RpcId = 90;
+    string CollectionName = 1;
+    string Json = 2;
+}
+
+message DBIncResponse // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    ComponentWithId Component = 1;
+}
+
+//网关服通知匹配服 请求游戏区服信息
+message G2M_GetGameAreaInfoMessage // IRequest
+{
+    int32 RpcId = 90;
+	
+	int32 GetGameAreaPage = 1;// 0 获取上次 1获取最近20 2 20-40
+	int64 UserId = 2;// 玩家id
+}
+
+//网关服通知匹配服 请求游戏区服信息  返回
+message M2G_GetGameAreaInfoMessage // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    repeated G2C_GameAreaInfoMessage2 GameAreaInfos = 1;//游戏区服信息
+}
+
+// 游戏区服信息
+message G2C_GameAreaInfoMessage2 // IMessage
+{
+    int32 GameAreaId = 1;//游戏区服ID 
+	string GameAreaNickName = 2;//游戏区服昵称
+	int32 GameAreaType = 3;//游戏区服状态  0正常 1爆满 2新服
+	int32 IsGameAreaState = 4;//状态 1开启 0关闭
+}
+
+//网关服通知匹配服 请求游戏区服线路信息
+message G2M_GetGameAreaLineInfoMessage // IRequest
+{
+    int32 RpcId = 90;
+	
+	int32 GetGameAreaPage = 1;// 0 获取上次 1获取最近20 2 20-40
+	int64 UserId = 2;// 玩家id
+	int32 AreaId = 3;//目标区服
+}
+
+//网关服通知匹配服 请求游戏区服线路信息  返回
+message M2G_GetGameAreaLineInfoMessage // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    repeated G2C_GameAreaInfoMessage2 GameAreaInfos = 1;//游戏区服信息
+}
+
+//网关服通知匹配服 请求匹配游戏区服线路信息
+message G2M_EnterGameGetAreaLineInfoMessage // IRequest
+{
+    int32 RpcId = 90;
+	
+	int64 UserId = 2;// 玩家id
+	int32 AreaId = 3;//目标区服
+	int32 AreaLineId = 4;//目标区服线路
+}
+
+//网关服通知匹配服 请求匹配游戏区服线路信息  返回
+message M2G_EnterGameGetAreaLineInfoMessage // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+	int32 GameServerId = 1;//匹配到的服务器id
+}
+
+//网关服通知匹配服 进区区服
+message G2Game_EnterGameAreaMessage // IRequest
+{
+    int32 RpcId = 90;
+	
+	int64 UserId = 2;// 玩家id
+	int32 AreaId = 3;//目标区服
+	int32 AreaLineId = 4;//目标区服线路
+	int32 GateServerID = 5;//服务器id
+	string ChannelId = 6;//运营商Id
+	string ConnectIp = 7;//ip
+}
+//网关服通知匹配服 进区区服  返回
+message Game2G_EnterGameAreaMessage // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+	
+	int64 ResActorId = 1;// 玩家id
+	repeated int64 GameUserIds = 3;//游戏角色id
+	repeated int64 GameOccupation = 4;//游戏角色id
+}
+
+// 断开GateUser
+message S2Gate_DisconnectGateUser // IRequest
+{
+    int32 RpcId = 90;
+
+    int64 UserId = 1;
+	int32 DisconnectType = 2;	// 断开类型 0.顶号 1.关闭服务器 2.GM踢下线 3.封号
+	int64 BanTillTime = 3;	// 封禁到什么时候
+	string Reason = 4;		// 原因
+}
+
+message Gate2S_DisconnectGateUser // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+// 下线玩家
+message S2Game_RequestExitGame // IRequest
+{
+    int32 RpcId = 90;
+
+    int64 UserId = 1;
+}
+
+message Game2S_RequestExitGame // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+// ================== 登录中心服 ==================
+// 登录账号 游戏登录服
+message Realm2LoginCenter_LoginAccount // IRequest
+{
+    int32 RpcId = 90;
+
+    int64 UserId = 1;
+}
+
+message LoginCenter2Realm_LoginAccount // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    int32 GateServerId = 1;  // 所在的Gate服id
+}
+
+// 添加记录 并 登录
+message Gate2LoginCenter_AddRecordAndLogin // IRequest
+{
+    int32 RpcId = 90;
+
+    int64 UserId = 1;
+    int32 GateServerId = 2;
+	string ConnectIp = 3;//登录ip
+}
+
+message LoginCenter2Gate_AddRecordAndLogin // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    int32 GateServerId = 1;  // 所在的Gate服id
+}
+
+
+// 设置登录信息
+message Gate2LoginCenter_SetLoginRecord // IRequest
+{
+    int32 RpcId = 90;
+
+    int64 UserId = 1;
+    int32 GateServerId = 2;
+    int64 GameUserId = 3;
+    int32 GameServerId = 4;
+}
+
+message LoginCenter2Gate_SetLoginRecord // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+// 移除登录信息
+message LoginCenter2Gate_RemoveLoginRecord  // IRequest
+{
+    int32 RpcId = 90;
+
+    int64 UserId = 1;
+    int32 GateServerId = 2;
+}
+
+message Gate2LoginCenter_RemoveLoginRecord // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+// 获取登录记录
+message S2LoginCenter_GetLoginRecord // IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 UserId = 1;
+}
+
+message LoginCenter2S_GetLoginRecord // IResponse
+{
+	int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+	
+    int64 UserId = 1;
+    int32 GateServerId = 2;
+    int64 GameUserId = 3;
+    int32 GameServerId = 4;
+}
+
+
+
+
+
+
+
+// ==========================================
+// GM
+// ==========================================
+// 发送邮件
+message GM2Game_SendMail // IRequest
+{
+	int32 RpcId = 90;
+	
+	int32 ZoneId = 1;
+	int64 UserId = 2;
+	int64 GameUserId = 3;
+	string Name = 4;
+	string Content = 5;
+	string MailItemsBson = 6;
+}
+
+message Game2GM_SendMail // IResponse
+{
+	int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+// 获取游戏服状态
+message GM2Game_GetGameServerStatus // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message Game2GM_GetGameServerStatus // IResponse
+{
+	int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+	
+	int32 OnlineCount = 1;			// 在线人数
+	int32 EnterGameCount = 2;	// 游戏中的人数
+}
+
+// 运行代码
+message GM2S_RunCode	// IRequest
+{
+	int32 RpcId = 90;
+	
+	string Code = 1;
+}
+
+message S2GM_RunCode	// IResponse
+{
+	int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+	
+	string Return = 1;
+}
+
+// 更新账号Identity
+message GM2Game_UpdateAccountIdentity	// IRequest
+{
+	int32 RpcId = 90;
+	
+	int64 GameUserId = 1;
+}
+
+message Game2GM_UpdateAccountIdentity	// IResponse
+{
+	int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}

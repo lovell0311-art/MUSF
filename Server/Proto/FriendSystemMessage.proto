@@ -1,0 +1,250 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 31000
+//申请好友列表
+message C2G_OpenFriendsinterfaceRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int32		ListType		= 1;
+}
+//申请好友列表	返回
+message G2C_OpenFriendsinterfaceResponse  // IActorResponse
+{
+    int32 		RpcId 			= 90;
+	int32 		Error 			= 91;
+	string 		Message 		= 92;
+	
+	repeated	Struct_Friends FList	= 1;	
+}
+
+//搜索好友
+message C2G_SearchForFriendsRequest	// IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	string		CharName		= 1;
+}
+
+//搜索好友	返回
+message G2C_SearchForFriendsResponse	// IActorResponse
+{
+	int32 	RpcId 		= 90;
+	int32 	Error 		= 91;
+	string 	Message 	= 92;
+	
+	int64 	GameUserId	= 1;
+	string	CharName	= 2;
+	//是否在线 0:在线	1:离线
+	int32	iState		= 3;
+	int32	iLV			= 4;
+}
+//添加好友
+message C2G_AddFriendsRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int64 	GameUserId	= 1;
+	string	CharName	= 2;
+}
+//添加好友 返回
+message G2C_AddFriendsResponse // IActorResponse
+{
+	int32 	RpcId 		= 90;
+	int32 	Error 		= 91;
+	string 	Message 	= 92;
+}
+//添加好友通知对方
+message G2C_AddFriendsnotice_notice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	Struct_Friends FriendInfo =1;
+}
+//同意或者拒绝 添加好友
+message C2G_AgreeToAddFriendRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	//Type=0 拒绝	Type=1 同意
+	int32		Type			= 1;
+	int64 		GameUserId		= 2;
+	string		CharName 		= 3;
+}
+//同意或者拒绝 添加好友返回
+message G2C_AgreeToAddFriendResponse // IActorResponse
+{
+	int32 	RpcId 		= 90;
+	int32 	Error 		= 91;
+	string 	Message 	= 92;
+}
+//同意或者拒绝 通知好友
+message G2C_AgreeToAddFriend_notice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	string	CharName	= 1;
+}
+
+message Struct_Friends
+{
+	//ID
+	int64 	GameUserId	= 1;
+	//类型(0:默认 1:拉黑 2:仇人 3:申请 4:好友)
+	int32 	ListType	= 2;
+	//角色名
+	string	CharName 	= 3;
+	//是否在线 0:在线	1:离线
+	int32	iState		= 4;
+	int32	iLV			= 5;
+	//拉黑或者被击杀时间
+	int64	TimeDate	= 6;
+	//职业类型
+	int32 	ClassType =7;
+	
+	//战盟职务
+	int32   WarAlliancePost =8;
+	string	WarAllianceName = 9;
+	//专职次数
+	int32	OccupationLevel =10;
+}
+
+//删除或者拉黑好友
+message C2G_DeleteOrBlockFriendRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	//ID
+	int64 	GameUserId	= 1;
+	//好友列表类型
+	int32 	ListType	= 2;
+	//操作类型 0：删除好友  1；拉黑好友
+	int32	Type		=3;
+}
+
+//删除或者拉黑好友	返回
+message G2C_DeleteOrBlockFriendResponse // IActorResponse
+{
+	int32 	RpcId 		= 90;
+	int32 	Error 		= 91;
+	string 	Message 	= 92;
+}
+
+//好友聊天
+message C2G_FriendChatRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	//ID
+	int64 	GameUserId	= 1;
+	//信息内容长度MAX50
+	string iMessage		= 2;
+}
+//好友聊天 返回
+message G2C_FriendChatResponse // IActorResponse
+{
+	int32 	RpcId 		= 90;
+	int32 	Error 		= 91;
+	string 	Message 	= 92;
+}
+
+//好友聊天 通知
+message G2C_FriendChat_notice // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	//信息内容长度MAX50
+	string iMessage		= 1;
+	//角色ID
+	int64	GameUserId	= 2;
+	//发送时间
+	int64 DateTiem =3;
+	string CharName =4;
+}
+
+//好友传送
+message C2G_FriendDeliveryRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	//ID
+	int64 	GameUserId	= 1;
+}
+//好友传送 返回
+message G2C_FriendDeliveryResponse // IActorResponse
+{
+	int32 	RpcId 		= 90;
+	int32 	Error 		= 91;
+	string 	Message 	= 92;
+}
+
+//好友推荐
+message C2G_FriendRecommendRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+}
+
+//好友推荐 返回
+message G2C_FriendRecommendResponse // IActorResponse
+{
+	int32 		RpcId 			= 90;
+	int32 		Error 			= 91;
+	string 		Message 		= 92;
+	
+	//返回长度十个
+	repeated	Struct_Friends FList	= 1;	
+}
+
+//获取位置信息
+message C2G_FriendPositionRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int64		GameUserId		= 1;
+}
+
+//获取位置信息 返回
+message G2C_FriendPositionResponse // IActorResponse
+{
+	int32 		RpcId 			= 90;
+	int32 		Error 			= 91;
+	string 		Message 		= 92;
+}
+
+//获取位置信息 通知
+message G2C_FriendPositionMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	//坐标
+	int32	X			= 1;
+	int32	Y			= 2;
+	//地图ID
+	int32	MapID 		= 3;
+	//发送者ID
+	int64		GameUserId		= 4;
+	int64		DateTime		=5;
+	string		CharName       =6;
+}

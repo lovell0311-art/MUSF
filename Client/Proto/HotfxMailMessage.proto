@@ -1,0 +1,108 @@
+syntax = "proto3";
+package ETHotfix;
+
+// Opcode = 37000
+//新邮件通知
+message G2C_ServerSendMailMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	//Mailinfo Mail =1;
+}
+//点击确认以读取
+message C2G_ReadMailRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	int64		MailId		= 1;
+}
+message G2C_ReadMailResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//领取道具
+message C2G_MailReceiveItemRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	repeated int64	MailId		= 1;
+}
+message G2C_MailReceiveItemResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//删除邮件
+message C2G_MailDeleteItemRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+	repeated int64	MailId		= 1;
+}
+message G2C_MailDeleteItemResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//打开邮件
+message C2G_OpenMailRequest // IActorRequest
+{
+	int32		RpcId 			= 90;
+	int64 		ActorId 		= 91;
+	int64 		AppendData		= 92;
+	
+}
+message G2C_OpenMailResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;	
+	
+	repeated Mailinfo	MailList		= 1;
+}
+message G2G_SendFullServiceMailMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	
+	int32 ZoneId =1;
+    string Name  =2;
+    string Content  =3;
+    string MailItems =4;
+	
+}
+
+message G2C_LoadMaillUnreadMessage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+}
+
+message Mailinfo
+{
+	int64 MailId =1;//邮件ID
+	string MailName =2;//邮件名称
+	int64 MailAcceptanceTime =3;//接收时间秒
+	int64 MailValidTime =4;//有效时长 = 接收时间 + 15天
+	string MailContent =5;//邮件内容
+	int32 MailState =6;//邮件状态 0未读 1已读
+	int32 ReceiveOrNot =7;//附件是否领取
+	repeated Iteminfo MailEnclosure =8;//附件
+}
+message Iteminfo
+{
+	int32 ItemConfigID =1;//道具配置ID
+	int64 ItemID=2;//道具唯一ID，没有是0
+	int32 ItemCnt=3;//道具数量
+}
