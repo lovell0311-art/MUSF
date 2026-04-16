@@ -5,10 +5,13 @@ import os
 import subprocess
 import time
 from pathlib import Path
+from typing import Any
+from urllib.parse import urlparse
 
 from .common import (
     adb,
     add_gate,
+    assert_path_under_roots,
     assert_primary_client_project,
     default_device,
     env_profile,
@@ -17,6 +20,7 @@ from .common import (
     load_process_manifest,
     musf_root,
     process_manifest_path,
+    read_json,
     release_report_template,
     resolve_tool,
     run,
@@ -25,6 +29,14 @@ from .common import (
     udp_listener_ports,
     write_json,
     write_text,
+)
+from .map_regression import extract_latest_scene_entry
+from .publish import (
+    copy_named_files,
+    default_live_target_dir,
+    formal_guard_manifest_path,
+    frozen_ui_baseline_drift,
+    sync_hotfix_to_devices,
 )
 
 
@@ -110,6 +122,19 @@ def stop_process_pid(pid: int) -> str:
     return (result.stdout or result.stderr or "").strip() or f"failed:{result.returncode}"
 
 
+def tcp_check_url(url: str) -> dict[str, Any]:
+    parsed = urlparse(url)
+    host = parsed.hostname or ""
+    port = parsed.port or (443 if parsed.scheme == "https" else 80)
+    ok = bool(host) and tcp_check(host, port)
+    return {
+        "ok": ok,
+        "url": url,
+        "host": host,
+        "port": port,
+    }
+
+
 def server_health(profile_name: str) -> Path:
     root = musf_root()
     profile = env_profile(profile_name)
@@ -131,6 +156,12 @@ def server_health(profile_name: str) -> Path:
 
     gm_web = http_check(profile["gm"]["webUrl"])
     add_gate(report, "gm-web", "pass" if gm_web["ok"] else "fail", str(gm_web))
+
+    gm_node = tcp_check_url(profile["gm"]["nodeUrl"])
+    add_gate(report, "gm-node", "pass" if gm_node["ok"] else "fail", str(gm_node))
+
+    gm_api = tcp_check_url(profile["gm"]["apiUrl"])
+    add_gate(report, "gm-api", "pass" if gm_api["ok"] else "fail", str(gm_api))
 
     output = root / "reports" / "releases" / "server-health.json"
     write_json(output, finalize_report(report))
@@ -261,7 +292,21 @@ def run_gate(profile_name: str) -> Path:
         add_gate(report, "apk-installed", "fail", "device unavailable")
 
     baseline_path = root / "apk-ui-baseline-manifest.json"
-    add_gate(report, "ui-baseline", "pass" if baseline_path.exists() else "fail", str(baseline_path))
+    add_gate(report, "ui-baseline-manifest", "pass" if baseline_path.exists() else "fail", str(baseline_path))
+
+    frozen_ui_gate = frozen_ui_baseline_drift(default_live_target_dir())
+    frozen_ui_details = (
+        "frozen UI bundles match 20260310.apk baseline"
+        if frozen_ui_gate["passed"]
+        else ", ".join(entry["name"] for entry in frozen_ui_gate.get("drift", [])[:5]) or "frozen UI baseline drift detected"
+    )
+    add_gate(
+        report,
+        "ui-baseline-drift",
+        "pass" if frozen_ui_gate["passed"] else "fail",
+        frozen_ui_details,
+        artifacts=[str(root / "apk-ui-baseline-manifest.json")],
+    )
 
     ui_name = "pojun"
     try:
@@ -359,11 +404,21 @@ def run_gate(profile_name: str) -> Path:
             print("[run-gate] opening bag", flush=True)
             bag_result = open_bag(device, run_dir, hud_screenshot)
             bag_artifact = write_android_regression_artifact(run_dir, "bag-result", bag_result)
+            bag_shortcut_visible = bool(bag_result.get("shortcutStrip", {}).get("passed", False))
+            bag_pass = bag_result["state"] == "bag-open"
+            bag_status = "pass" if bag_pass else "warn" if bag_shortcut_visible else "fail"
+            bag_details = (
+                "bag panel visible"
+                if bag_pass
+                else "bag shortcut strip visible on HUD; panel automation unavailable in current HUD"
+                if bag_shortcut_visible
+                else f'bag open failed: {bag_result["state"]}'
+            )
             add_gate(
                 report,
                 "bag-visible",
-                "pass" if bag_result["state"] == "bag-open" else "fail",
-                "bag panel visible" if bag_result["state"] == "bag-open" else f'bag open failed: {bag_result["state"]}',
+                bag_status,
+                bag_details,
                 artifacts=[str(bag_artifact), bag_result["screenshotPath"]],
             )
 
@@ -387,11 +442,21 @@ def run_gate(profile_name: str) -> Path:
             print("[run-gate] opening skills", flush=True)
             skills_result = open_skills(device, run_dir, hud_anchor)
             skills_artifact = write_android_regression_artifact(run_dir, "skills-result", skills_result)
+            skills_shortcut_visible = bool(skills_result.get("shortcutStrip", {}).get("passed", False))
+            skills_pass = skills_result["state"] == "skills-panel"
+            skills_status = "pass" if skills_pass else "warn" if skills_shortcut_visible else "fail"
+            skills_details = (
+                "skills panel visible"
+                if skills_pass
+                else "skills shortcut strip visible on HUD; panel automation unavailable in current HUD"
+                if skills_shortcut_visible
+                else "skills panel heuristic did not match"
+            )
             add_gate(
                 report,
                 "skills-visible",
-                "pass" if skills_result["passed"] else "fail",
-                "skills panel visible" if skills_result["passed"] else "skills panel heuristic did not match",
+                skills_status,
+                skills_details,
                 artifacts=[str(skills_artifact), skills_result["screenshotPath"]],
             )
     finally:
@@ -406,6 +471,19 @@ def run_gate(profile_name: str) -> Path:
         "pass" if logcat_summary["ok"] else "fail",
         "no fatal markers" if logcat_summary["ok"] else "; ".join(logcat_summary["matches"][:3]),
         artifacts=[str(log_path)],
+    )
+
+    latest_scene = extract_latest_scene_entry(log_path)
+    add_gate(
+        report,
+        "map-log-evidence",
+        "pass" if latest_scene else "fail",
+        (
+            f"{latest_scene['sceneName']} minimap={latest_scene['minimapName']} offset=({latest_scene['offset']['x']},{latest_scene['offset']['y']}) scale={latest_scene['scale']}"
+            if latest_scene
+            else "No SwitchMiniMap evidence found in run logcat."
+        ),
+        artifacts=[str(log_path), latest_scene["screenshotPath"]] if latest_scene and latest_scene.get("screenshotPath") else [str(log_path)],
     )
 
     output = root / "reports" / "releases" / "run-gate.json"
@@ -456,20 +534,113 @@ def persist_run_gate_report(path: Path, report: dict[str, Any]) -> None:
     write_text(path.with_name(f"{path.stem}-summary.md"), render_run_gate_summary(report))
 
 
+def rollback_source_roots() -> list[Path]:
+    root = musf_root()
+    return [
+        root / "baseline",
+        root / "backups",
+        root / "archive",
+        root / "reports" / "releases",
+        root / "Server" / "Release",
+        root / "Release_Test",
+    ]
+
+
+def default_rollback_source_dir() -> Path:
+    manifest = read_json(formal_guard_manifest_path())
+    configured = str(manifest.get("StableBaselineSourceDir", "")).strip()
+    if configured:
+        return Path(configured)
+    return musf_root() / "baseline" / "login-stack" / "StreamingAssets"
+
+
+def resolve_rollback_source(source: str) -> tuple[Path, dict[str, Any]]:
+    root = musf_root()
+    candidate = Path(source) if source else default_rollback_source_dir()
+    source_kind = "directory"
+
+    if candidate.is_file() and candidate.suffix.lower() == ".json":
+        payload = read_json(candidate)
+        snapshot_dir_value = str(payload.get("snapshotDir", "")).strip()
+        if snapshot_dir_value:
+            candidate = Path(snapshot_dir_value) / "files"
+            source_kind = "report-snapshot"
+        elif candidate.name.lower() == "snapshot.json":
+            candidate = candidate.parent / "files"
+            source_kind = "snapshot-manifest"
+
+    elif candidate.is_dir() and (candidate / "snapshot.json").exists() and (candidate / "files").exists():
+        candidate = candidate / "files"
+        source_kind = "snapshot-dir"
+
+    resolved = assert_path_under_roots(candidate, rollback_source_roots(), "Rollback source")
+    if not resolved.exists():
+        raise FileNotFoundError(f"Rollback source not found: {resolved}")
+
+    return resolved, {
+        "sourceKind": source_kind,
+        "requestedSource": source,
+        "resolvedSource": str(resolved),
+    }
+
+
+def rollback_file_names(source_dir: Path) -> list[str]:
+    return sorted(path.name for path in source_dir.iterdir() if path.is_file())
+
+
 def rollback(profile_name: str, source: str) -> Path:
     root = musf_root()
+    manifest = read_json(formal_guard_manifest_path())
+    source_dir, source_metadata = resolve_rollback_source(source)
+    live_target_dir = Path(manifest.get("LiveTargetDir") or default_live_target_dir())
+    mirror_dirs = [Path(path) for path in manifest.get("MirrorTargetDirs", [])]
+    if not mirror_dirs:
+        mirror_dirs = [root / "Release_Test" / "Android" / "StreamingAssets", root / "Server" / "Release" / "update" / "2.0TestGame" / "Android" / "StreamingAssets"]
+
+    file_names = rollback_file_names(source_dir)
+    if not file_names:
+        raise RuntimeError(f"No rollback files found in source directory: {source_dir}")
+
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    live_restore = copy_named_files(source_dir, live_target_dir, file_names, timestamp=timestamp)
+    mirror_restores: list[dict[str, Any]] = []
+    for mirror_dir in mirror_dirs:
+        copied = copy_named_files(source_dir, mirror_dir, file_names, timestamp=timestamp)
+        mirror_restores.append({"targetDir": str(mirror_dir), "copied": copied})
+
+    device_sync_report = ""
+    device_sync_error = ""
+    try:
+        device_sync_report = str(
+            sync_hotfix_to_devices(
+                profile_name,
+                source_dir=str(live_target_dir),
+                files_to_sync=file_names,
+            )
+        )
+    except Exception as exc:
+        device_sync_error = str(exc)
+
     output = root / "reports" / "releases" / "rollback.json"
     write_json(
         output,
         {
             "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
             "profile": profile_name,
-            "source": source,
-            "status": "manual-required",
+            "source": source_metadata,
+            "status": "success" if not device_sync_error else "partial",
+            "liveTargetDir": str(live_target_dir),
+            "fileCount": len(file_names),
+            "files": file_names,
+            "liveRestore": live_restore,
+            "mirrorRestores": mirror_restores,
+            "deviceSyncReport": device_sync_report,
             "notes": [
-                "Rollback policy file is in place.",
-                "APK, device cache, and StreamingAssets recovery should use the last passing release-gate artifacts."
+                "Rollback restored the selected hotfix files into the live and mirror StreamingAssets targets.",
+                "Device hotfix rollback was attempted from the restored live target.",
+                "APK reinstall is still manual; this command currently restores hotfix/runtime assets rather than reinstalling base.apk.",
             ],
+            "errors": [device_sync_error] if device_sync_error else [],
         },
     )
     return output

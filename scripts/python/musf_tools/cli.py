@@ -4,6 +4,7 @@ import json
 
 from .common import parse_args
 from .choose_role_calibration import choose_role_calibrate
+from .map_regression import map_regression
 from .phase0 import classify_legacy_scripts, generate_baseline_manifest, sync_network_config, verify_toolchain
 from .phase1 import build_android, rollback, run_gate, server_health, server_start, server_stop
 from .publish import (
@@ -84,8 +85,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "run-gate":
         print(run_gate(args.profile))
         return 0
+    if args.command == "map-regression":
+        print(map_regression(args.profile, run_dirs=args.run_dir or None, log_paths=args.log_path or None))
+        return 0
     if args.command == "rollback":
-        print(rollback(args.profile, args.source))
+        print(rollback(args.profile, args.source, dry_run=args.dry_run, skip_device_sync=args.skip_device_sync))
         return 0
     if args.command == "generate-version":
         print(generate_version(args.profile, target_dir=args.target_dir or None))

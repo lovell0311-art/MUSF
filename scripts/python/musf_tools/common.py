@@ -219,6 +219,8 @@ def run(
         check=check,
         capture_output=capture,
         text=text,
+        encoding="utf-8" if text else None,
+        errors="replace" if text else None,
     )
 
 
@@ -389,8 +391,13 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     server_stop.add_argument("--all-managed", action="store_true")
     sub.add_parser("build-android")
     sub.add_parser("run-gate")
+    map_regression = sub.add_parser("map-regression")
+    map_regression.add_argument("--run-dir", action="append", default=[])
+    map_regression.add_argument("--log-path", action="append", default=[])
     rollback = sub.add_parser("rollback")
     rollback.add_argument("--source", default="")
+    rollback.add_argument("--dry-run", action="store_true")
+    rollback.add_argument("--skip-device-sync", action="store_true")
 
     generate_version = sub.add_parser("generate-version")
     generate_version.add_argument("--target-dir", default="")

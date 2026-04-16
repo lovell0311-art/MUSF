@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import math
+import re
 import subprocess
 import sys
 import time
@@ -26,7 +28,7 @@ HOTFIX_FOLDER_NAME = EXPECTED_UI_NAME
 DISALLOWED_UI_MARKERS = ("命运王座", "mingyun", "mingyunwangzuo")
 REFERENCE_WIDTH = 1920
 REFERENCE_HEIGHT = 1080
-START_BUTTON_POINTS = ((1768, 930), (1768, 962), (1768, 995))
+START_BUTTON_POINTS = ((1790, 980), (1790, 1008), (1820, 1008))
 SHIP_ENTER_GAME_POINT = (960, 980)
 AGE_PROMPT_CLOSE_POINT = (1588, 119)
 ACCOUNT_FIELD_POINT = (1208, 296)
@@ -37,9 +39,23 @@ SERVER_GROUP_POINT = (365, 172)
 SERVER_LINE_POINTS = ((676, 141), (706, 142), (676, 200))
 SERVER_ENTER_POINTS = ((960, 1000), (960, 1032), (960, 1060))
 ROLE_CHARACTER_POINTS = ((960, 500), (925, 520), (995, 520))
-BAG_BUTTON_POINT = (1698, 953)
-SKILLS_BUTTON_POINT = (1709, 806)
+BAG_BUTTON_POINT = (438, 1000)
+SKILLS_BUTTON_POINT = (532, 1000)
 CLOSE_PANEL_POINT = (1873, 41)
+HUD_BAG_SHORTCUT_RECT = (398, 940, 86, 96)
+HUD_SKILLS_SHORTCUT_RECT = (490, 940, 86, 96)
+HUD_FRIENDS_SHORTCUT_RECT = (580, 940, 86, 96)
+KNOWN_LAUNCHER_PACKAGES = (
+    "app.lawnchair",
+    "com.android.launcher3",
+    "com.google.android.apps.nexuslauncher",
+    "com.miui.home",
+    "com.huawei.android.launcher",
+)
+FOREGROUND_COMPONENT_RE = re.compile(r"([A-Za-z0-9._]+/[A-Za-z0-9._$]+)")
+DEFAULT_ENTRY_TIMEOUT_SECONDS = 300
+
+
 def canary_state_dir() -> Path:
     return musf_root() / "canary-state" / "login-stack"
 
@@ -238,6 +254,8 @@ def start_logcat_capture(serial: str, output_path: Path) -> tuple[subprocess.Pop
         stdout=handle,
         stderr=subprocess.STDOUT,
         text=True,
+        encoding="utf-8",
+        errors="replace",
     )
     return proc, handle
 
@@ -312,8 +330,48 @@ def capture_transition_state_once(serial: str, output_dir: Path, name: str, *, d
         time.sleep(delay_seconds)
     screenshot = capture_named_screenshot(serial, output_dir, name)
     detection = detect_transition_state(screenshot)
+    if detection["state"] == "unknown":
+        detection = detect_screen_state(screenshot)
     detection["screenshotPath"] = str(screenshot)
     return detection
+
+
+def foreground_app(serial: str) -> dict[str, Any]:
+    commands = (
+        ["-s", serial, "shell", "dumpsys", "window", "windows"],
+        ["-s", serial, "shell", "dumpsys", "activity", "activities"],
+    )
+    focus_markers = ("mCurrentFocus", "mFocusedApp", "mResumedActivity", "topResumedActivity")
+
+    for command in commands:
+        result = adb(command, check=False)
+        output = "\n".join(part for part in ((result.stdout or ""), (result.stderr or "")) if part)
+        for raw_line in output.splitlines():
+            line = raw_line.strip()
+            if not any(marker in line for marker in focus_markers):
+                continue
+            match = FOREGROUND_COMPONENT_RE.search(line)
+            if not match:
+                continue
+            component = match.group(1)
+            package_name, _, activity_name = component.partition("/")
+            lowered_activity = activity_name.lower()
+            is_launcher = package_name in KNOWN_LAUNCHER_PACKAGES or "launcher" in lowered_activity
+            return {
+                "packageName": package_name,
+                "activityName": activity_name,
+                "component": component,
+                "isLauncher": is_launcher,
+                "rawLine": line,
+            }
+
+    return {
+        "packageName": "",
+        "activityName": "",
+        "component": "",
+        "isLauncher": False,
+        "rawLine": "",
+    }
 
 
 def compare_region_with_reference(
@@ -498,20 +556,51 @@ def looks_like_main_hud_variant(candidate_path: Path) -> dict[str, Any]:
     top_left_hud = image_region_metrics(candidate_path, 0, 0, 420, 140)
     minimap = image_region_metrics(candidate_path, 1520, 0, 400, 290)
     bottom_menu = image_region_metrics(candidate_path, 580, 980, 760, 100)
-    passed = (
+    standard_pass = (
         top_left_hud["GoldRatio"] >= 0.03
         and top_left_hud["BrightRatio"] >= 0.03
         and minimap["DarkRatio"] >= 0.45
         and bottom_menu["GoldRatio"] >= 0.02
         and bottom_menu["DarkRatio"] <= 0.45
     )
+    dark_spawn_pass = (
+        top_left_hud["DarkRatio"] >= 0.80
+        and top_left_hud["GreenRatio"] >= 0.004
+        and minimap["DarkRatio"] >= 0.90
+        and minimap["GreenRatio"] >= 0.004
+        and bottom_menu["GoldRatio"] >= 0.15
+        and bottom_menu["GreenRatio"] >= 0.08
+    )
     return {
         "state": "main-hud",
-        "passed": passed,
+        "passed": standard_pass or dark_spawn_pass,
         "heuristic": "layout-variant",
+        "standardPass": standard_pass,
+        "darkSpawnPass": dark_spawn_pass,
         "topLeftHud": top_left_hud,
         "minimap": minimap,
         "bottomMenu": bottom_menu,
+    }
+
+
+def looks_like_hud_shortcut_strip(candidate_path: Path) -> dict[str, Any]:
+    bag = image_region_metrics(candidate_path, *HUD_BAG_SHORTCUT_RECT)
+    skills = image_region_metrics(candidate_path, *HUD_SKILLS_SHORTCUT_RECT)
+    friends = image_region_metrics(candidate_path, *HUD_FRIENDS_SHORTCUT_RECT)
+    passed = (
+        bag["DarkRatio"] >= 0.65
+        and bag["BrightRatio"] >= 0.008
+        and skills["DarkRatio"] <= 0.35
+        and skills["BrightRatio"] >= 0.02
+        and friends["GoldRatio"] >= 0.08
+        and friends["BrightRatio"] >= 0.03
+    )
+    return {
+        "state": "hud-shortcuts",
+        "passed": passed,
+        "bag": bag,
+        "skills": skills,
+        "friends": friends,
     }
 
 
@@ -544,14 +633,26 @@ def looks_like_role_select_variant(candidate_path: Path) -> dict[str, Any]:
         and center_characters["GoldRatio"] >= 0.03
         and center_characters["BrightRatio"] >= 0.25
     )
-    passed = normal_pass or magenta_pass or snowy_pass
+    forest_pass = (
+        start_button["GoldRatio"] >= 0.008
+        and start_button["BrightRatio"] >= 0.45
+        and spotlight["GoldRatio"] >= 0.02
+        and spotlight["BrightRatio"] >= 0.04
+        and bottom_label["GoldRatio"] >= 0.04
+        and left_create["GoldRatio"] >= 0.015
+        and left_create["BrightRatio"] >= 0.45
+        and center_characters["GoldRatio"] >= 0.04
+        and center_characters["BrightRatio"] >= 0.05
+    )
+    passed = normal_pass or magenta_pass or snowy_pass or forest_pass
     return {
         "state": "role-select",
         "passed": passed,
-        "heuristic": "snowy-variant",
+        "heuristic": "role-select-variant",
         "normalPass": normal_pass,
         "magentaPass": magenta_pass,
         "snowyPass": snowy_pass,
+        "forestPass": forest_pass,
         "startButton": start_button,
         "spotlight": spotlight,
         "bottomLabel": bottom_label,
@@ -606,7 +707,7 @@ def looks_like_server_select(candidate_path: Path) -> dict[str, Any]:
     passed = (
         panel["DarkRatio"] >= 0.92
         and left_group["DarkRatio"] >= 0.88
-        and top_lines["DarkRatio"] >= 0.90
+        and top_lines["DarkRatio"] >= 0.84
         and top_lines["GoldRatio"] >= 0.008
         and top_lines["GreenRatio"] >= 0.002
         and bottom_enter["DarkRatio"] >= 0.65
@@ -686,6 +787,11 @@ def detect_screen_state(candidate_path: Path) -> dict[str, Any]:
             evaluation["screenshotPath"] = str(candidate_path)
             return evaluation
 
+    main_hud_variant = looks_like_main_hud_variant(candidate_path)
+    if main_hud_variant["passed"]:
+        main_hud_variant["screenshotPath"] = str(candidate_path)
+        return main_hud_variant
+
     skills = looks_like_skills_panel(candidate_path)
     if skills["passed"]:
         skills["screenshotPath"] = str(candidate_path)
@@ -695,11 +801,6 @@ def detect_screen_state(candidate_path: Path) -> dict[str, Any]:
     if role_select_variant["passed"]:
         role_select_variant["screenshotPath"] = str(candidate_path)
         return role_select_variant
-
-    main_hud_variant = looks_like_main_hud_variant(candidate_path)
-    if main_hud_variant["passed"]:
-        main_hud_variant["screenshotPath"] = str(candidate_path)
-        return main_hud_variant
 
     bag = evaluate_state(candidate_path, "bag-open")
     if bag["passed"]:
@@ -717,8 +818,27 @@ def wait_for_state(
     timeout_seconds: int,
     poll_seconds: int = 5,
     prefix: str,
+    expected_package_name: str | None = None,
+    deadline_monotonic: float | None = None,
 ) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
+    if deadline_monotonic is not None:
+        remaining_seconds = max(0, math.ceil(deadline_monotonic - time.monotonic()))
+        if remaining_seconds <= 0:
+            screenshot = capture_named_screenshot(serial, output_dir, f"{prefix}-deadline.png")
+            detection = detect_screen_state(screenshot)
+            detection["screenshotPath"] = str(screenshot)
+            detection["underlyingState"] = detection["state"]
+            detection["state"] = "entry-timeout"
+            detection["passed"] = False
+            detection["expectedStates"] = sorted(target_states)
+            detection["timeoutSeconds"] = timeout_seconds
+            detection["reason"] = "entry deadline exhausted before waiting for state"
+            if expected_package_name:
+                detection["foreground"] = foreground_app(serial)
+            return detection
+        timeout_seconds = min(timeout_seconds, remaining_seconds)
+
     max_attempts = max(1, (timeout_seconds + poll_seconds - 1) // poll_seconds)
     last_detection: dict[str, Any] = {"state": "unknown", "passed": False}
 
@@ -726,6 +846,13 @@ def wait_for_state(
         screenshot = capture_named_screenshot(serial, output_dir, f"{prefix}-{attempt}.png")
         detection = detect_screen_state(screenshot)
         detection["attempt"] = attempt
+        if expected_package_name:
+            detection["foreground"] = foreground_app(serial)
+            if detection["foreground"]["isLauncher"] and detection["foreground"]["packageName"] != expected_package_name:
+                detection["state"] = "launcher-foreground"
+                detection["passed"] = False
+                last_detection = detection
+                return detection
         last_detection = detection
         if detection["state"] == "unity-init-error":
             return detection
@@ -747,11 +874,20 @@ def clear_focused_text(serial: str, repeats: int = 12) -> None:
         time.sleep(0.12)
 
 
-def submit_login(serial: str, run_dir: Path, anchor_screenshot: Path, account: str = DEFAULT_ACCOUNT, password: str = DEFAULT_PASSWORD) -> dict[str, Any]:
+def submit_login(
+    serial: str,
+    run_dir: Path,
+    anchor_screenshot: Path,
+    account: str = DEFAULT_ACCOUNT,
+    password: str = DEFAULT_PASSWORD,
+    *,
+    package_name: str | None = None,
+    deadline_monotonic: float | None = None,
+) -> dict[str, Any]:
     screens_dir = run_dir / "screens"
     log_progress("checking whether saved credentials can be reused")
     quick_login_tap = tap_point(serial, LOGIN_BUTTON_POINT, anchor_screenshot)
-    quick_detection = capture_state_once(serial, screens_dir, "login-fast-path.png", delay_seconds=2)
+    quick_detection = capture_transition_state_once(serial, screens_dir, "login-fast-path.png", delay_seconds=2)
     quick_detection["loginTap"] = {"x": quick_login_tap[0], "y": quick_login_tap[1]}
     if quick_detection["state"] != "login-screen":
         quick_detection["loginMethod"] = "saved-credentials"
@@ -775,18 +911,24 @@ def submit_login(serial: str, run_dir: Path, anchor_screenshot: Path, account: s
     time.sleep(0.35)
     login_tap = tap_point(serial, LOGIN_BUTTON_POINT, anchor_screenshot)
     time.sleep(1.5)
-    screenshot = capture_named_screenshot(serial, screens_dir, "login-submit.png")
-    log_progress(f"login submitted, captured {screenshot.name}")
-    return {
-        "state": "login-submitted",
-        "loginMethod": "typed-credentials",
-        "accountTap": {"x": account_tap[0], "y": account_tap[1]},
-        "accountConfirmTap": {"x": account_confirm_tap[0], "y": account_confirm_tap[1]},
-        "passwordTap": {"x": password_tap[0], "y": password_tap[1]},
-        "passwordConfirmTap": {"x": password_confirm_tap[0], "y": password_confirm_tap[1]},
-        "loginTap": {"x": login_tap[0], "y": login_tap[1]},
-        "screenshotPath": str(screenshot),
-    }
+    detection = wait_for_state(
+        serial,
+        screens_dir,
+        {"login-screen", "server-select", "role-select", "main-hud", "unity-init-error"},
+        timeout_seconds=18,
+        poll_seconds=3,
+        prefix="login-submit",
+        expected_package_name=package_name,
+        deadline_monotonic=deadline_monotonic,
+    )
+    detection["loginMethod"] = "typed-credentials"
+    detection["accountTap"] = {"x": account_tap[0], "y": account_tap[1]}
+    detection["accountConfirmTap"] = {"x": account_confirm_tap[0], "y": account_confirm_tap[1]}
+    detection["passwordTap"] = {"x": password_tap[0], "y": password_tap[1]}
+    detection["passwordConfirmTap"] = {"x": password_confirm_tap[0], "y": password_confirm_tap[1]}
+    detection["loginTap"] = {"x": login_tap[0], "y": login_tap[1]}
+    log_progress(f"login submitted => {detection['state']}")
+    return detection
 
 
 def advance_from_launch(serial: str, run_dir: Path, anchor_screenshot: Path) -> Path:
@@ -810,7 +952,15 @@ def advance_from_launch(serial: str, run_dir: Path, anchor_screenshot: Path) -> 
     return current
 
 
-def submit_server_select(serial: str, run_dir: Path, anchor_screenshot: Path, step_index: int) -> dict[str, Any]:
+def submit_server_select(
+    serial: str,
+    run_dir: Path,
+    anchor_screenshot: Path,
+    step_index: int,
+    *,
+    package_name: str | None = None,
+    deadline_monotonic: float | None = None,
+) -> dict[str, Any]:
     screens_dir = run_dir / "screens"
     log_progress(f"selecting 永久区1线 and entering game, attempt {step_index}")
     group_tap = tap_point(serial, SERVER_GROUP_POINT, anchor_screenshot)
@@ -820,12 +970,23 @@ def submit_server_select(serial: str, run_dir: Path, anchor_screenshot: Path, st
     enter_taps = tap_points(serial, SERVER_ENTER_POINTS, anchor_screenshot, interval_seconds=0.35)
     time.sleep(1.2)
     confirm_taps = tap_points(serial, SERVER_ENTER_POINTS, anchor_screenshot, interval_seconds=0.25)
-    detection = capture_transition_state_once(
+    initial_detection = capture_transition_state_once(
         serial,
         screens_dir,
         f"server-enter-{step_index}.png",
         delay_seconds=4 if step_index == 1 else 5,
     )
+    detection = wait_for_state(
+        serial,
+        screens_dir,
+        {"main-hud", "role-select", "server-select", "login-screen", "unity-init-error"},
+        timeout_seconds=16 if step_index == 1 else 20,
+        poll_seconds=3,
+        prefix=f"server-enter-settle-{step_index}",
+        expected_package_name=package_name,
+        deadline_monotonic=deadline_monotonic,
+    )
+    detection["initialDetection"] = initial_detection
     detection["stepIndex"] = step_index
     detection["groupTap"] = {"x": group_tap[0], "y": group_tap[1]}
     detection["serverLineTaps"] = [{"x": tap[0], "y": tap[1]} for tap in server_line_taps]
@@ -853,11 +1014,20 @@ def advance_from_server_select(
     anchor_screenshot: Path,
     *,
     login_submit: dict[str, Any] | None = None,
+    package_name: str | None = None,
+    deadline_monotonic: float | None = None,
 ) -> dict[str, Any]:
     server_attempts: list[dict[str, Any]] = []
     anchor = anchor_screenshot
     for step_index in (1, 2):
-        server_result = submit_server_select(serial, run_dir, anchor, step_index)
+        server_result = submit_server_select(
+            serial,
+            run_dir,
+            anchor,
+            step_index,
+            package_name=package_name,
+            deadline_monotonic=deadline_monotonic,
+        )
         server_attempts.append(server_result)
         if server_result["state"] in {"main-hud", "role-select", "unity-init-error"}:
             result = dict(server_result)
@@ -866,7 +1036,7 @@ def advance_from_server_select(
                 result["loginSubmit"] = login_submit
             return result
 
-        anchor = Path(server_result["screenshotPath"])
+        anchor = Path(server_result.get("screenshotPath") or str(anchor))
 
     result = dict(server_attempts[-1])
     result["serverAttempts"] = summarize_server_attempts(server_attempts)
@@ -875,18 +1045,38 @@ def advance_from_server_select(
     return result
 
 
-def submit_role_select(serial: str, run_dir: Path, anchor_screenshot: Path, step_index: int) -> dict[str, Any]:
+def submit_role_select(
+    serial: str,
+    run_dir: Path,
+    anchor_screenshot: Path,
+    step_index: int,
+    *,
+    package_name: str | None = None,
+    deadline_monotonic: float | None = None,
+) -> dict[str, Any]:
     screens_dir = run_dir / "screens"
     log_progress(f"selecting role and tapping 开始, attempt {step_index}")
-    role_taps = tap_points(serial, ROLE_CHARACTER_POINTS, anchor_screenshot, interval_seconds=0.35)
-    time.sleep(0.4)
+    # The current choose-role flow restores the selected role; re-tapping character
+    # positions is less stable than pressing Start on the existing selection.
+    role_taps: list[tuple[int, int]] = []
     start_taps = tap_points(serial, START_BUTTON_POINTS, anchor_screenshot, interval_seconds=0.35)
-    detection = capture_transition_state_once(
+    initial_detection = capture_transition_state_once(
         serial,
         screens_dir,
         f"role-enter-{step_index}.png",
-        delay_seconds=4 if step_index == 1 else 5,
+        delay_seconds=8 if step_index == 1 else 10,
     )
+    detection = wait_for_state(
+        serial,
+        screens_dir,
+        {"main-hud", "role-select", "unity-init-error"},
+        timeout_seconds=16 if step_index == 1 else 20,
+        poll_seconds=4,
+        prefix=f"role-enter-settle-{step_index}",
+        expected_package_name=package_name,
+        deadline_monotonic=deadline_monotonic,
+    )
+    detection["initialDetection"] = initial_detection
     detection["stepIndex"] = step_index
     detection["roleTaps"] = [{"x": tap[0], "y": tap[1]} for tap in role_taps]
     detection["startTaps"] = [{"x": tap[0], "y": tap[1]} for tap in start_taps]
@@ -894,8 +1084,15 @@ def submit_role_select(serial: str, run_dir: Path, anchor_screenshot: Path, step
     return detection
 
 
-def drive_to_main_hud(serial: str, package_name: str, run_dir: Path) -> dict[str, Any]:
+def drive_to_main_hud(
+    serial: str,
+    package_name: str,
+    run_dir: Path,
+    *,
+    timeout_seconds: int = DEFAULT_ENTRY_TIMEOUT_SECONDS,
+) -> dict[str, Any]:
     log_progress(f"launching {package_name}")
+    deadline_monotonic = time.monotonic() + timeout_seconds
     adb_lines(["-s", serial, "shell", "am", "force-stop", package_name], check=False)
     adb_lines(["-s", serial, "shell", "monkey", "-p", package_name, "-c", "android.intent.category.LAUNCHER", "1"])
 
@@ -904,18 +1101,42 @@ def drive_to_main_hud(serial: str, package_name: str, run_dir: Path) -> dict[str
     anchor = capture_named_screenshot(serial, screens_dir, "launch-anchor.png")
     anchor = advance_from_launch(serial, run_dir, anchor)
 
-    login_submit = submit_login(serial, run_dir, anchor)
-    if login_submit["state"] not in {"main-hud", "role-select", "unity-init-error"}:
+    login_submit = submit_login(
+        serial,
+        run_dir,
+        anchor,
+        package_name=package_name,
+        deadline_monotonic=deadline_monotonic,
+    )
+    if login_submit["state"] not in {"main-hud", "role-select", "unity-init-error", "bag-open"}:
         entry = advance_from_server_select(
             serial,
             run_dir,
             screens_dir,
             Path(login_submit["screenshotPath"]),
             login_submit=login_submit,
+            package_name=package_name,
+            deadline_monotonic=deadline_monotonic,
         )
     else:
         entry = login_submit
     log_progress(f"pre-role => {entry['state']}")
+    if entry["state"] == "bag-open":
+        close_panel(serial, Path(entry["screenshotPath"]))
+        restored = wait_for_state(
+            serial,
+            screens_dir,
+            {"main-hud"},
+            timeout_seconds=20,
+            poll_seconds=3,
+            prefix="bag-return-hud",
+            expected_package_name=package_name,
+            deadline_monotonic=deadline_monotonic,
+        )
+        restored["bagOpenEntry"] = entry
+        if restored["state"] == "main-hud":
+            return restored
+        return entry
     if entry["state"] in {"main-hud", "unity-init-error"}:
         return entry
     if entry["state"] != "role-select":
@@ -923,10 +1144,52 @@ def drive_to_main_hud(serial: str, package_name: str, run_dir: Path) -> dict[str
         final_check["loginSubmit"] = login_submit
         return final_check
 
-    result = submit_role_select(serial, run_dir, Path(entry["screenshotPath"]), 1)
-    if result["state"] != "role-select":
+    result = submit_role_select(
+        serial,
+        run_dir,
+        Path(entry["screenshotPath"]),
+        1,
+        package_name=package_name,
+        deadline_monotonic=deadline_monotonic,
+    )
+    if result["state"] in {"main-hud", "unity-init-error"}:
         return result
-    final_check = capture_transition_state_once(serial, screens_dir, "post-start-final.png", delay_seconds=4)
+
+    if result["state"] == "role-select":
+        retry_result = submit_role_select(
+            serial,
+            run_dir,
+            Path(result.get("screenshotPath") or entry["screenshotPath"]),
+            2,
+            package_name=package_name,
+            deadline_monotonic=deadline_monotonic,
+        )
+        retry_result["previousAttempt"] = result
+        if retry_result["state"] in {"main-hud", "unity-init-error"}:
+            return retry_result
+        final_check = wait_for_state(
+            serial,
+            screens_dir,
+            {"main-hud", "role-select", "unity-init-error"},
+            timeout_seconds=16,
+            poll_seconds=4,
+            prefix="post-start-final",
+            expected_package_name=package_name,
+            deadline_monotonic=deadline_monotonic,
+        )
+        final_check["roleSelectAttempt"] = retry_result
+        return final_check
+
+    final_check = wait_for_state(
+        serial,
+        screens_dir,
+        {"main-hud", "role-select", "unity-init-error"},
+        timeout_seconds=16,
+        poll_seconds=4,
+        prefix="post-start-final",
+        expected_package_name=package_name,
+        deadline_monotonic=deadline_monotonic,
+    )
     final_check["roleSelectAttempt"] = result
     return final_check
 
@@ -937,12 +1200,13 @@ def open_bag(serial: str, run_dir: Path, anchor_screenshot: Path) -> dict[str, A
     time.sleep(2)
     screenshot = capture_named_screenshot(serial, screens_dir, "bag-open.png")
     detection = detect_screen_state(screenshot)
+    detection["shortcutStrip"] = looks_like_hud_shortcut_strip(screenshot)
     detection["screenshotPath"] = str(screenshot)
     return detection
 
 
 def close_panel(serial: str, anchor_screenshot: Path) -> None:
-    tap_point(serial, CLOSE_PANEL_POINT, anchor_screenshot)
+    adb_lines(["-s", serial, "shell", "input", "keyevent", "4"], check=False)
     time.sleep(1)
 
 
@@ -951,7 +1215,8 @@ def open_skills(serial: str, run_dir: Path, anchor_screenshot: Path) -> dict[str
     tap_point(serial, SKILLS_BUTTON_POINT, anchor_screenshot)
     time.sleep(2)
     screenshot = capture_named_screenshot(serial, screens_dir, "skills-open.png")
-    detection = looks_like_skills_panel(screenshot)
+    detection = detect_screen_state(screenshot)
+    detection["shortcutStrip"] = looks_like_hud_shortcut_strip(screenshot)
     detection["screenshotPath"] = str(screenshot)
     return detection
 

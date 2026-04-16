@@ -56,6 +56,17 @@ FROZEN_UI_BUNDLE_NAMES = {
     "ui_skills.unity3d",
     "minmap.unity3d",
 }
+SYNC_BUNDLE_GROUP_EVIDENCE_TYPES = {
+    "runtime-log",
+    "sync-report",
+    "probe-report",
+}
+SYNC_BUNDLE_GROUP_OWNERS = {
+    "choose-role",
+    "login-stack",
+    "main-ui",
+    "map-runtime",
+}
 
 
 def default_source_dir() -> Path:
@@ -80,6 +91,154 @@ def ui_baseline_manifest_path() -> Path:
 
 def formal_guard_manifest_path() -> Path:
     return musf_root() / "configs" / "login-stack-manifest.json"
+
+
+def sync_bundle_group_registry_path() -> Path:
+    return musf_root() / "configs" / "sync-bundle-groups.json"
+
+
+def load_sync_bundle_group_registry() -> dict[str, Any]:
+    path = sync_bundle_group_registry_path()
+    assert_exists(path, "Sync bundle group registry")
+    return read_json(path)
+
+
+def load_sync_bundle_groups() -> dict[str, list[str]]:
+    payload = load_sync_bundle_group_registry()
+    groups = payload.get("BundleGroups", {})
+    result: dict[str, list[str]] = {}
+    for bundle_name, raw_entry in groups.items():
+        normalized_name = str(bundle_name).strip()
+        if not normalized_name:
+            continue
+        members = raw_entry.get("Members", []) if isinstance(raw_entry, dict) else raw_entry
+        result[normalized_name] = dedupe(str(item).strip() for item in members)
+    return result
+
+
+def validate_sync_bundle_group_registry(source_dir: Path | None = None) -> dict[str, Any]:
+    registry_path = sync_bundle_group_registry_path()
+    payload = load_sync_bundle_group_registry()
+    groups = payload.get("BundleGroups", {})
+    resolved_source_dir = source_dir or default_live_target_dir()
+    notes: list[str] = []
+    invalid_groups: list[dict[str, Any]] = []
+
+    for bundle_name, raw_entry in groups.items():
+        normalized_name = str(bundle_name).strip()
+        entry = raw_entry if isinstance(raw_entry, dict) else {"Members": raw_entry}
+        owner = str(entry.get("Owner", "")).strip()
+        why_needed = str(entry.get("WhyNeeded", "")).strip()
+        failure_if_missing = str(entry.get("FailureIfMissing", "")).strip()
+        members = dedupe(str(item).strip() for item in entry.get("Members", []))
+        evidences = entry.get("Evidence", [])
+        missing_evidence_paths: list[str] = []
+        missing_member_paths: list[str] = []
+        invalid_evidence_types: list[str] = []
+
+        if not normalized_name:
+            invalid_groups.append({"bundle": bundle_name, "reason": "EmptyBundleName"})
+            continue
+        if not members:
+            invalid_groups.append({"bundle": normalized_name, "reason": "MissingMembers"})
+            continue
+        if members[0] != normalized_name:
+            invalid_groups.append(
+                {
+                    "bundle": normalized_name,
+                    "reason": "PrimaryMemberMismatch",
+                    "primaryMember": members[0],
+                    "expectedPrimaryMember": normalized_name,
+                }
+            )
+            continue
+        if not owner:
+            invalid_groups.append({"bundle": normalized_name, "reason": "MissingOwner"})
+            continue
+        if owner not in SYNC_BUNDLE_GROUP_OWNERS:
+            invalid_groups.append(
+                {
+                    "bundle": normalized_name,
+                    "reason": "InvalidOwner",
+                    "owner": owner,
+                    "allowedOwners": sorted(SYNC_BUNDLE_GROUP_OWNERS),
+                }
+            )
+            continue
+        if not why_needed:
+            invalid_groups.append({"bundle": normalized_name, "reason": "MissingWhyNeeded"})
+            continue
+        if not failure_if_missing:
+            invalid_groups.append({"bundle": normalized_name, "reason": "MissingFailureIfMissing"})
+            continue
+        if not evidences:
+            invalid_groups.append({"bundle": normalized_name, "reason": "MissingEvidence"})
+            continue
+
+        for member_name in members:
+            member_path = resolved_source_dir / member_name
+            if not member_path.exists():
+                missing_member_paths.append(str(member_path))
+
+        if missing_member_paths:
+            invalid_groups.append(
+                {
+                    "bundle": normalized_name,
+                    "reason": "MissingMemberFile",
+                    "sourceDir": str(resolved_source_dir),
+                    "paths": missing_member_paths,
+                }
+            )
+            continue
+
+        for evidence in evidences:
+            evidence_type = str((evidence or {}).get("Type", "")).strip()
+            if evidence_type not in SYNC_BUNDLE_GROUP_EVIDENCE_TYPES:
+                invalid_evidence_types.append(evidence_type)
+            evidence_path_value = str((evidence or {}).get("Path", "")).strip()
+            if not evidence_path_value:
+                missing_evidence_paths.append("")
+                continue
+            evidence_path = Path(evidence_path_value)
+            if not evidence_path.exists():
+                missing_evidence_paths.append(str(evidence_path))
+
+        if invalid_evidence_types:
+            invalid_groups.append(
+                {
+                    "bundle": normalized_name,
+                    "reason": "InvalidEvidenceType",
+                    "types": dedupe(invalid_evidence_types),
+                    "allowedTypes": sorted(SYNC_BUNDLE_GROUP_EVIDENCE_TYPES),
+                }
+            )
+
+        if missing_evidence_paths:
+            invalid_groups.append(
+                {
+                    "bundle": normalized_name,
+                    "reason": "MissingEvidencePath",
+                    "paths": missing_evidence_paths,
+                }
+            )
+
+    passed = not invalid_groups
+    if passed:
+        notes.append("Sync bundle group registry has evidence for every configured bundle group.")
+        notes.append(f"Allowed evidence types: {', '.join(sorted(SYNC_BUNDLE_GROUP_EVIDENCE_TYPES))}.")
+        notes.append(f"Allowed owners: {', '.join(sorted(SYNC_BUNDLE_GROUP_OWNERS))}.")
+        notes.append("Every configured bundle group starts with its own bundle key as the primary member.")
+        notes.append(f"Every configured bundle group member exists under source dir: {resolved_source_dir}.")
+        notes.append("Every configured bundle group declares Owner, WhyNeeded, and FailureIfMissing metadata.")
+
+    return {
+        "registryPath": str(registry_path),
+        "sourceDir": str(resolved_source_dir),
+        "passed": passed,
+        "blockReason": "" if passed else "SyncBundleGroupRegistryInvalid",
+        "invalidGroups": invalid_groups,
+        "notes": notes,
+    }
 
 
 def frozen_ui_baseline_drift(source_dir: Path) -> dict[str, Any]:
@@ -195,6 +354,10 @@ def render_guarded_publish_summary(report: dict[str, Any]) -> str:
         f"- SourceDir: {report.get('sourceDir', '')}",
         f"- TargetDir: {report.get('targetDir', '')}",
     ]
+    if report.get("canaryDevice"):
+        lines.append(f"- CanaryDevice: {report['canaryDevice']}")
+    if report.get("canaryDeviceStatus"):
+        lines.append(f"- CanaryDeviceStatus: {report['canaryDeviceStatus']}")
     if report.get("blockReason"):
         lines.append(f"- BlockReason: {report['blockReason']}")
     if report.get("error"):
@@ -204,15 +367,25 @@ def render_guarded_publish_summary(report: dict[str, Any]) -> str:
     publish_differences = report.get("publishDifferences") or []
     frozen_ui_gate = report.get("frozenUiBaselineGate") or {}
     chooserole_gate = report.get("chooseroleVariantGate") or {}
+    sync_group_gate = report.get("syncBundleGroupGate") or {}
+    protected_pending = [entry for entry in protected_changes if entry.get("classification") == "PendingProtectedPublish"]
+    protected_pending_blocking = [entry for entry in protected_pending if entry.get("guardMode") == "BlockRoutine"]
+    protected_pending_metadata = [entry for entry in protected_pending if entry.get("guardMode") != "BlockRoutine"]
+    protected_live_only = [entry for entry in protected_changes if entry.get("classification") == "ManifestStaleLive"]
 
     lines.extend(
         [
             "",
             "## Snapshot",
             f"- ProtectedDifferences: {len(protected_changes)}",
+            f"- ProtectedPendingPublish: {len(protected_pending)}",
+            f"- ProtectedPendingBlockRoutine: {len(protected_pending_blocking)}",
+            f"- ProtectedPendingMetadataOnly: {len(protected_pending_metadata)}",
+            f"- ProtectedManifestStaleLive: {len(protected_live_only)}",
             f"- PublishDifferences: {len(publish_differences)}",
             f"- FrozenUiBaselinePassed: {frozen_ui_gate.get('passed', 'n/a')}",
             f"- ChooseroleGatePassed: {chooserole_gate.get('passed', 'n/a')}",
+            f"- SyncBundleGroupGatePassed: {sync_group_gate.get('passed', 'n/a')}",
         ]
     )
 
@@ -227,6 +400,26 @@ def render_guarded_publish_summary(report: dict[str, Any]) -> str:
         lines.extend(["", "## Chooserole Notes"])
         for note in chooserole_gate["notes"]:
             lines.append(f"- {note}")
+
+    if sync_group_gate.get("notes") or sync_group_gate.get("invalidGroups"):
+        lines.extend(["", "## Sync Bundle Group Gate"])
+        for note in sync_group_gate.get("notes", []):
+            lines.append(f"- {note}")
+        for entry in sync_group_gate.get("invalidGroups", []):
+            reason = entry.get("reason", "")
+            bundle = entry.get("bundle", "")
+            paths = ", ".join(entry.get("paths", []))
+            suffix = f" paths={paths}" if paths else ""
+            lines.append(f"- {bundle}: {reason}{suffix}")
+
+    if protected_pending or protected_live_only:
+        lines.extend(["", "## Protected File Classification"])
+        for entry in protected_pending_blocking:
+            lines.append(f"- PendingProtectedPublish: {entry['name']}")
+        for entry in protected_pending_metadata:
+            lines.append(f"- PendingMetadataOnly: {entry['name']}")
+        for entry in protected_live_only:
+            lines.append(f"- ManifestStaleLive: {entry['name']}")
 
     if report.get("canarySmoke"):
         lines.extend(["", "## Canary"])
@@ -268,6 +461,123 @@ def dedupe(values: Iterable[str]) -> list[str]:
 def assert_exists(path: Path, description: str) -> None:
     if not path.exists():
         raise FileNotFoundError(f"{description} not found: {path}")
+
+
+def parse_bundle_manifest_dependencies(manifest_path: Path) -> list[str]:
+    dependencies: list[str] = []
+    in_dependencies = False
+    for raw_line in manifest_path.read_text(encoding="utf-8", errors="ignore").splitlines():
+        stripped = raw_line.strip()
+        if stripped.startswith("Dependencies:"):
+            if stripped.endswith("[]"):
+                return []
+            in_dependencies = True
+            continue
+        if not in_dependencies:
+            continue
+        if stripped.startswith("- "):
+            dependency_value = stripped[2:].strip()
+            if dependency_value:
+                dependencies.append(Path(dependency_value.replace("\\", "/")).name)
+            continue
+        if stripped and not raw_line.startswith((" ", "\t")):
+            break
+    return dedupe(dependencies)
+
+
+def parse_streaming_assets_dependency_map(manifest_path: Path) -> dict[str, list[str]]:
+    if not manifest_path.exists():
+        return {}
+
+    dependency_map: dict[str, list[str]] = {}
+    current_bundle = ""
+    in_dependencies = False
+    for raw_line in manifest_path.read_text(encoding="utf-8", errors="ignore").splitlines():
+        stripped = raw_line.strip()
+        if stripped.startswith("Name: "):
+            current_bundle = stripped.split(":", 1)[1].strip()
+            dependency_map.setdefault(current_bundle, [])
+            in_dependencies = False
+            continue
+        if not current_bundle:
+            continue
+        if stripped.startswith("Dependencies:"):
+            in_dependencies = not stripped.endswith("{}")
+            continue
+        if in_dependencies and stripped.startswith("Dependency_"):
+            _, dependency_value = stripped.split(":", 1)
+            dependency = dependency_value.strip()
+            if dependency:
+                dependency_map[current_bundle].append(dependency)
+            continue
+        if stripped.startswith("Info_"):
+            in_dependencies = False
+    return {name: dedupe(values) for name, values in dependency_map.items()}
+
+
+def expand_sync_file_selection(source_dir: Path, requested_files: Iterable[str]) -> tuple[list[str], dict[str, list[str]], dict[str, Any]]:
+    requested = dedupe(requested_files)
+    selection_reasons: dict[str, list[str]] = {}
+    selected_files: list[str] = []
+    seen_files: set[str] = set()
+    expanded_bundles: set[str] = set()
+    streaming_manifest_path = source_dir / "StreamingAssets.manifest"
+    streaming_dependency_map = parse_streaming_assets_dependency_map(streaming_manifest_path)
+    sync_bundle_groups = load_sync_bundle_groups()
+    bundle_groups_used: dict[str, list[str]] = {}
+
+    def record(name: str, reason: str) -> None:
+        if name not in seen_files:
+            seen_files.add(name)
+            selected_files.append(name)
+        reasons = selection_reasons.setdefault(name, [])
+        if reason not in reasons:
+            reasons.append(reason)
+
+    def visit_bundle(bundle_name: str, reason: str) -> None:
+        record(bundle_name, reason)
+
+        manifest_name = f"{bundle_name}.manifest"
+        manifest_path = source_dir / manifest_name
+        if manifest_path.exists():
+            record(manifest_name, f"manifest:{bundle_name}")
+
+        if bundle_name in expanded_bundles:
+            return
+        expanded_bundles.add(bundle_name)
+
+        for dependency_name in sync_bundle_groups.get(bundle_name, []):
+            if dependency_name == bundle_name:
+                continue
+            bundle_groups_used.setdefault(bundle_name, []).append(dependency_name)
+            visit_bundle(dependency_name, f"bundle-group:{bundle_name}")
+
+        for dependency_name in streaming_dependency_map.get(bundle_name, []):
+            if dependency_name == bundle_name:
+                continue
+            visit_bundle(dependency_name, f"streaming-manifest:{bundle_name}")
+
+        if manifest_path.exists():
+            for dependency_name in parse_bundle_manifest_dependencies(manifest_path):
+                if dependency_name == bundle_name:
+                    continue
+                visit_bundle(dependency_name, f"bundle-manifest:{bundle_name}")
+
+    for name in requested:
+        if name.endswith(".unity3d"):
+            visit_bundle(name, "requested")
+            continue
+        record(name, "requested")
+
+    expansion_trace = {
+        "groupRegistryPath": str(sync_bundle_group_registry_path()),
+        "streamingManifestPath": str(streaming_manifest_path),
+        "bundleGroupsUsed": [
+            {"bundle": bundle_name, "members": dedupe(members)}
+            for bundle_name, members in sorted(bundle_groups_used.items())
+        ],
+    }
+    return selected_files, selection_reasons, expansion_trace
 
 
 def publishable_files(directory: Path) -> list[Path]:
@@ -533,6 +843,28 @@ def protected_differences(manifest: dict[str, Any], source_dir: Path) -> list[di
     return differences
 
 
+def classify_protected_differences(differences: list[dict[str, Any]], target_dir: Path) -> list[dict[str, Any]]:
+    classified: list[dict[str, Any]] = []
+    for entry in differences:
+        target_path = target_dir / entry["name"]
+        target_state = file_state(target_path) if target_path.exists() else None
+        source_matches_target = bool(target_state and target_state["md5"] == entry["sourceMD5"] and target_state["size"] == entry["sourceSize"])
+        target_matches_baseline = bool(
+            target_state and target_state["md5"] == entry["baselineMD5"] and target_state["size"] == entry["baselineSize"]
+        )
+        classified.append(
+            {
+                **entry,
+                "targetSize": target_state["size"] if target_state else None,
+                "targetMD5": target_state["md5"] if target_state else None,
+                "sourceMatchesTarget": source_matches_target,
+                "targetMatchesBaseline": target_matches_baseline,
+                "classification": "ManifestStaleLive" if source_matches_target else "PendingProtectedPublish",
+            }
+        )
+    return classified
+
+
 def copy_named_files(source_dir: Path, target_dir: Path, file_names: Iterable[str], *, timestamp: str | None = None) -> list[dict[str, Any]]:
     target_dir.mkdir(parents=True, exist_ok=True)
     copied: list[dict[str, Any]] = []
@@ -542,9 +874,24 @@ def copy_named_files(source_dir: Path, target_dir: Path, file_names: Iterable[st
         assert_exists(source_path, "Source file")
         backup_path = None
         if timestamp and target_path.exists():
+            try:
+                target_path.chmod(0o666)
+            except OSError:
+                pass
             backup_path = target_path.with_name(f"{target_path.name}.bak-{timestamp}")
             shutil.copy2(target_path, backup_path)
+        elif target_path.exists():
+            try:
+                target_path.chmod(0o666)
+            except OSError:
+                pass
         shutil.copy2(source_path, target_path)
+        # `copy2` preserves the source file attributes on Windows, including readonly.
+        # Force mirror targets back to writable so the next guarded publish can overwrite them.
+        try:
+            target_path.chmod(0o666)
+        except OSError:
+            pass
         copied.append(
             {
                 "name": name,
@@ -601,8 +948,17 @@ def restore_publish_snapshot(snapshot: dict[str, Any]) -> None:
     for entry in snapshot.get("trackedFiles", []):
         target_path = target_dir / entry["name"]
         if entry["existedBefore"]:
+            if target_path.exists():
+                try:
+                    target_path.chmod(0o666)
+                except OSError:
+                    pass
             shutil.copy2(Path(entry["snapshotPath"]), target_path)
         elif target_path.exists():
+            try:
+                target_path.chmod(0o666)
+            except OSError:
+                pass
             target_path.unlink()
 
 
@@ -649,6 +1005,11 @@ def push_file_to_remote(serial: str, local_path: Path, remote_path: str, temp_ro
     stage_dir = musf_root() / "Temp" / "adb-stage"
     stage_dir.mkdir(parents=True, exist_ok=True)
     staged_path = stage_dir / local_path.name
+    if staged_path.exists():
+        try:
+            staged_path.chmod(0o666)
+        except OSError:
+            pass
     shutil.copy2(local_path, staged_path)
     adb_lines(["-s", serial, "push", str(staged_path), temp_root])
     uploaded_temp_path = f"{temp_root}/{local_path.name}"
@@ -659,15 +1020,19 @@ def push_file_to_remote(serial: str, local_path: Path, remote_path: str, temp_ro
 
 def capture_device_screenshot(serial: str, output_path: Path) -> Path:
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    exec_out = subprocess.run(
-        [str(adb_path()), "-s", serial, "exec-out", "screencap", "-p"],
-        check=False,
-        capture_output=True,
-    )
-    if exec_out.returncode == 0 and exec_out.stdout:
-        output_path.write_bytes(exec_out.stdout)
-        if output_path.exists() and output_path.stat().st_size > 1024:
-            return output_path
+    try:
+        exec_out = subprocess.run(
+            [str(adb_path()), "-s", serial, "exec-out", "screencap", "-p"],
+            check=False,
+            capture_output=True,
+            timeout=12,
+        )
+        if exec_out.returncode == 0 and exec_out.stdout:
+            output_path.write_bytes(exec_out.stdout)
+            if output_path.exists() and output_path.stat().st_size > 1024:
+                return output_path
+    except subprocess.TimeoutExpired:
+        pass
 
     stage_dir = musf_root() / "Temp" / "adb-stage"
     stage_dir.mkdir(parents=True, exist_ok=True)
@@ -1011,6 +1376,46 @@ def update_manifest_baseline(manifest_path: Path, manifest: dict[str, Any], sour
     write_json(manifest_path, manifest)
 
 
+def refresh_manifest_stale_live_entries(
+    manifest_path: Path,
+    manifest: dict[str, Any],
+    protected_changes: list[dict[str, Any]],
+    *,
+    target_dir: Path,
+) -> dict[str, Any]:
+    stale_by_name = {
+        entry["name"]: entry
+        for entry in protected_changes
+        if entry.get("classification") == "ManifestStaleLive"
+    }
+    updates: list[dict[str, Any]] = []
+    if not stale_by_name:
+        return {"updated": updates, "stableBaselineDir": manifest.get("StableBaselineSourceDir", "")}
+
+    stable_baseline_dir = Path(manifest.get("StableBaselineSourceDir", "")).expanduser() if manifest.get("StableBaselineSourceDir") else None
+    if stable_baseline_dir:
+        stable_baseline_dir.mkdir(parents=True, exist_ok=True)
+
+    for protected in manifest.get("ProtectedFiles", []):
+        name = protected["Name"]
+        if name not in stale_by_name:
+            continue
+        path = target_dir / name
+        assert_exists(path, "Stale-live protected baseline refresh file")
+        state = file_state(path)
+        protected["Size"] = state["size"]
+        protected["MD5"] = state["md5"]
+        if stable_baseline_dir:
+            shutil.copy2(path, stable_baseline_dir / name)
+        updates.append({"name": name, "size": state["size"], "md5": state["md5"]})
+
+    write_json(manifest_path, manifest)
+    return {
+        "updated": updates,
+        "stableBaselineDir": str(stable_baseline_dir) if stable_baseline_dir else "",
+    }
+
+
 def resolve_sync_source(source_dir: str | None) -> Path:
     return Path(source_dir) if source_dir else default_live_target_dir()
 
@@ -1031,9 +1436,10 @@ def sync_hotfix_to_devices(
     assert_publish_source_dir(resolved_source, "Sync source directory")
     assert_exists(resolved_source, "Sync source directory")
     resolved_package = package_name or profile["client"].get("packageName") or DEFAULT_PACKAGE_NAME
-    selected_files = dedupe(files_to_sync or DEFAULT_SYNC_FILES)
-    if not selected_files:
+    requested_files = dedupe(files_to_sync or DEFAULT_SYNC_FILES)
+    if not requested_files:
         raise RuntimeError("No files selected for device sync")
+    selected_files, selection_reasons, expansion_trace = expand_sync_file_selection(resolved_source, requested_files)
 
     normalized_version = False
     version_path = resolved_source / "Version.txt"
@@ -1055,7 +1461,10 @@ def sync_hotfix_to_devices(
         "packageName": resolved_package,
         "remoteHotfixDir": remote_hotfix_dir(resolved_package, remote_dir),
         "devices": resolved_devices,
+        "requestedFiles": requested_files,
         "files": selected_files,
+        "selectionReasons": selection_reasons,
+        "expansionTrace": expansion_trace,
         "launchAfterSync": launch_after_sync,
         "dryRun": dry_run,
         "normalizedVersionNoBom": normalized_version,
@@ -1227,11 +1636,15 @@ def publish_hotfix_guarded(
     report_path = run_dir / "guarded_publish_report.json"
     resolved_canary_device = canary_device or manifest.get("Canary", {}).get("Device", "")
     current_devices = connected_devices()
+    canary_device_status = (
+        "missing" if not resolved_canary_device else "connected" if resolved_canary_device in current_devices else "disconnected"
+    )
     report: dict[str, Any] = {
         "startedAt": timestamp_iso(),
         "mode": mode,
         "profile": profile_name,
         "canaryDevice": resolved_canary_device,
+        "canaryDeviceStatus": canary_device_status,
         "sourceDir": str(resolved_source),
         "targetDir": str(target_dir),
         "mirrorTargetDirs": [str(path) for path in mirror_dirs],
@@ -1243,19 +1656,6 @@ def publish_hotfix_guarded(
         "skipCanarySmoke": skip_canary_smoke,
     }
     persist_guarded_publish_report(report_path, report)
-    if not resolved_canary_device:
-        report["status"] = "Blocked"
-        report["blockReason"] = "MissingCanaryDevice"
-        report["error"] = "No canary device specified and manifest Canary.Device is empty"
-        persist_guarded_publish_report(report_path, report)
-        return report_path
-
-    if resolved_canary_device not in current_devices:
-        report["status"] = "Blocked"
-        report["blockReason"] = "CanaryDeviceNotConnected"
-        report["error"] = f"Canary device not connected: {resolved_canary_device}"
-        persist_guarded_publish_report(report_path, report)
-        return report_path
 
     marker_scan = test_hotfix_markers(manifest, resolved_source / "code.unity3d", run_dir)
     report["markerScan"] = marker_scan
@@ -1266,23 +1666,16 @@ def publish_hotfix_guarded(
         persist_guarded_publish_report(report_path, report)
         return report_path
 
-    protected_changes = protected_differences(manifest, resolved_source)
+    protected_changes = classify_protected_differences(protected_differences(manifest, resolved_source), target_dir)
     report["protectedDifferences"] = protected_changes
     persist_guarded_publish_report(report_path, report)
 
-    frozen_ui_gate = frozen_ui_baseline_drift(resolved_source)
-    report["frozenUiBaselineGate"] = frozen_ui_gate
+    sync_group_gate = validate_sync_bundle_group_registry(resolved_source)
+    report["syncBundleGroupGate"] = sync_group_gate
     persist_guarded_publish_report(report_path, report)
-    if not frozen_ui_gate["passed"]:
+    if not sync_group_gate["passed"]:
         report["status"] = "Blocked"
-        report["blockReason"] = "FrozenUiBaselineDrift"
-        persist_guarded_publish_report(report_path, report)
-        return report_path
-
-    routine_blocking = [entry for entry in protected_changes if entry["guardMode"] == "BlockRoutine"]
-    if mode == "Routine" and routine_blocking:
-        report["status"] = "Blocked"
-        report["blockReason"] = "ProtectedFilesChangedInRoutineMode"
+        report["blockReason"] = sync_group_gate["blockReason"]
         persist_guarded_publish_report(report_path, report)
         return report_path
 
@@ -1298,6 +1691,27 @@ def publish_hotfix_guarded(
     )
     report["chooseroleVariantGate"] = chooserole_gate
     persist_guarded_publish_report(report_path, report)
+
+    frozen_ui_gate = frozen_ui_baseline_drift(resolved_source)
+    report["frozenUiBaselineGate"] = frozen_ui_gate
+    persist_guarded_publish_report(report_path, report)
+    if not frozen_ui_gate["passed"]:
+        report["status"] = "Blocked"
+        report["blockReason"] = "FrozenUiBaselineDrift"
+        persist_guarded_publish_report(report_path, report)
+        return report_path
+
+    routine_blocking = [
+        entry
+        for entry in protected_changes
+        if entry["guardMode"] == "BlockRoutine" and entry.get("classification") != "ManifestStaleLive"
+    ]
+    if mode == "Routine" and routine_blocking:
+        report["status"] = "Blocked"
+        report["blockReason"] = "ProtectedFilesChangedInRoutineMode"
+        persist_guarded_publish_report(report_path, report)
+        return report_path
+
     if not chooserole_gate["passed"]:
         report["status"] = "Blocked"
         report["blockReason"] = chooserole_gate["blockReason"]
@@ -1316,6 +1730,22 @@ def publish_hotfix_guarded(
         report["status"] = "DryRun"
         report["plannedCanaryFiles"] = dedupe([*protected_names, *difference_names, "Version.txt"])
         report["plannedRolloutFiles"] = dedupe([*(protected_names if mode == "LoginStack" else []), *difference_names, "Version.txt"])
+        if canary_device_status != "connected":
+            report["canaryEnforcementDeferred"] = True
+        persist_guarded_publish_report(report_path, report)
+        return report_path
+
+    if not resolved_canary_device:
+        report["status"] = "Blocked"
+        report["blockReason"] = "MissingCanaryDevice"
+        report["error"] = "No canary device specified and manifest Canary.Device is empty"
+        persist_guarded_publish_report(report_path, report)
+        return report_path
+
+    if resolved_canary_device not in current_devices:
+        report["status"] = "Blocked"
+        report["blockReason"] = "CanaryDeviceNotConnected"
+        report["error"] = f"Canary device not connected: {resolved_canary_device}"
         persist_guarded_publish_report(report_path, report)
         return report_path
 
