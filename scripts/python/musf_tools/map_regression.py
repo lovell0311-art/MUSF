@@ -6,56 +6,46 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from .common import musf_root, timestamp_iso, write_json
+from .webgm_client import WebGMError, ensure_session, game_status, player_search, role_data
 
 
 DEFAULT_REQUIRED_SCENES = (
-    "勇者大陆",
-    "仙踪林",
-    "冰风谷",
-    "幽暗森林",
-    "古战场",
+    "\u52c7\u8005\u5927\u9646",
+    "\u4ed9\u8e2a\u6797",
+    "\u51b0\u98ce\u8c37",
+    "\u5e7d\u6697\u68ee\u6797",
+    "\u53e4\u6218\u573a",
 )
 
 SCENE_NAME_BY_ID = {
-    1: "勇者大陆",
-    2: "仙踪林",
-    4: "冰风谷",
-    9: "幽暗森林",
-    102: "古战场",
-    112: "古战场",
+    1: "\u52c7\u8005\u5927\u9646",
+    2: "\u4ed9\u8e2a\u6797",
+    4: "\u51b0\u98ce\u8c37",
+    9: "\u5e7d\u6697\u68ee\u6797",
+    102: "\u53e4\u6218\u573a",
+    112: "\u53e4\u6218\u573a",
 }
 
 SCENE_NAME_BY_MINIMAP = {
-    "YongZheDaLu": "勇者大陆",
-    "XianZongLin": "仙踪林",
-    "BingFengGu": "冰风谷",
-    "YouAnSenLin": "幽暗森林",
-    "GuZhanChang": "古战场",
-    "GuZhanChang2": "古战场",
+    "YongZheDaLu": "\u52c7\u8005\u5927\u9646",
+    "XianZongLin": "\u4ed9\u8e2a\u6797",
+    "BingFengGu": "\u51b0\u98ce\u8c37",
+    "YouAnSenLin": "\u5e7d\u6697\u68ee\u6797",
+    "GuZhanChang": "\u53e4\u6218\u573a",
+    "GuZhanChang2": "\u53e4\u6218\u573a",
 }
 
-SCENE_NAME_BY_RAW_NAME = {
-    "勇者大陆": "勇者大陆",
-    "仙踪林": "仙踪林",
-    "冰风谷": "冰风谷",
-    "幽暗森林": "幽暗森林",
-    "古战场": "古战场",
-    "古战场_1": "古战场",
-    "古战场2": "古战场",
-}
-
+MOVE_TO_ASYNC_RE = re.compile(
+    r"MoveToAsync\s+(?P<phase>start|complete).*?(?:mapId|sceneId)[:=](?P<sceneId>-?\d+).*?(?:x|X)[:=](?P<x>-?\d+(?:\.\d+)?).*?(?:y|Y)[:=](?P<y>-?\d+(?:\.\d+)?)",
+    re.IGNORECASE,
+)
 SWITCH_MINIMAP_RE = re.compile(
     r"SwitchMiniMap sceneId:(?P<sceneId>-?\d+)\s+sceneName:(?P<sceneName>\S+)\s+minimap:(?P<minimap>\S+)\s+offset:\((?P<offsetX>-?\d+),(?P<offsetY>-?\d+)\)\s+scale:(?P<scale>[0-9.]+)"
 )
 
 
 def normalize_scene_name(scene_id: int, raw_scene_name: str, minimap_name: str) -> str:
-    return (
-        SCENE_NAME_BY_ID.get(scene_id)
-        or SCENE_NAME_BY_MINIMAP.get(minimap_name)
-        or SCENE_NAME_BY_RAW_NAME.get(raw_scene_name)
-        or raw_scene_name
-    )
+    return SCENE_NAME_BY_ID.get(scene_id) or SCENE_NAME_BY_MINIMAP.get(minimap_name) or raw_scene_name
 
 
 def default_release_runs_root() -> Path:
@@ -117,6 +107,31 @@ def parse_switch_minimap_entries(log_path: Path) -> list[dict[str, Any]]:
     return entries
 
 
+def parse_move_entries(log_path: Path) -> list[dict[str, Any]]:
+    if not log_path.exists():
+        return []
+
+    entries: list[dict[str, Any]] = []
+    for line_number, raw_line in enumerate(log_path.read_text(encoding="utf-8", errors="ignore").splitlines(), start=1):
+        match = MOVE_TO_ASYNC_RE.search(raw_line)
+        if not match:
+            continue
+        scene_id = int(match.group("sceneId"))
+        entries.append(
+            {
+                "phase": match.group("phase").lower(),
+                "sceneId": scene_id,
+                "sceneName": SCENE_NAME_BY_ID.get(scene_id, str(scene_id)),
+                "x": float(match.group("x")),
+                "y": float(match.group("y")),
+                "logPath": str(log_path),
+                "lineNumber": line_number,
+                "rawLine": raw_line.strip(),
+            }
+        )
+    return entries
+
+
 def extract_latest_scene_entry(log_path: Path) -> dict[str, Any] | None:
     entries = parse_switch_minimap_entries(log_path)
     if not entries:
@@ -157,6 +172,49 @@ def collect_log_paths(run_dirs: Iterable[str] | None = None, log_paths: Iterable
     return resolved
 
 
+def collect_webgm_evidence(profile_name: str, *, character_name: str, zone_id: int, server_id: int) -> dict[str, Any]:
+    if not character_name.strip():
+        return {"enabled": False, "success": False, "notes": ["No character name provided; WebGM role lookup skipped."]}
+
+    evidence: dict[str, Any] = {
+        "enabled": True,
+        "success": False,
+        "characterName": character_name,
+        "zoneId": zone_id,
+        "serverId": server_id,
+    }
+    try:
+        token = ensure_session(profile_name)
+        server_state = game_status(profile_name, token, server_id=server_id)
+        roles = player_search(profile_name, token, zone_id=zone_id, role_name=character_name, limit=1)
+        if not roles:
+            evidence["notes"] = [f"No role matched character name '{character_name}'."]
+            return evidence
+        role_summary = roles[0]
+        detailed = role_data(profile_name, token, zone_id=zone_id, game_user_id=str(role_summary["GameUserId"]))
+        unit_data = dict(detailed.get("UnitData") or {})
+        live_scene_name = SCENE_NAME_BY_ID.get(int(unit_data.get("MapId", 0)), str(unit_data.get("MapId", "")))
+        evidence.update(
+            {
+                "success": True,
+                "serverStatus": server_state,
+                "roleSummary": role_summary,
+                "roleData": detailed,
+                "liveSceneName": live_scene_name,
+            }
+        )
+        return evidence
+    except WebGMError as exc:
+        evidence["notes"] = [str(exc)]
+        return evidence
+
+
+def recent_movement(entries: list[dict[str, Any]], *, limit: int = 12) -> list[dict[str, Any]]:
+    if len(entries) <= limit:
+        return entries
+    return entries[-limit:]
+
+
 def map_regression(
     profile_name: str,
     *,
@@ -170,13 +228,17 @@ def map_regression(
     required = [str(scene) for scene in (required_scenes or DEFAULT_REQUIRED_SCENES)]
     selected_logs = collect_log_paths(run_dirs=run_dirs, log_paths=log_paths)
 
-    all_entries: list[dict[str, Any]] = []
+    minimap_entries: list[dict[str, Any]] = []
+    move_entries: list[dict[str, Any]] = []
     for log_path in selected_logs:
-        all_entries.extend(parse_switch_minimap_entries(log_path))
+        minimap_entries.extend(parse_switch_minimap_entries(log_path))
+        move_entries.extend(parse_move_entries(log_path))
 
     latest_by_scene: dict[str, dict[str, Any]] = {}
-    for entry in all_entries:
+    for entry in minimap_entries:
         latest_by_scene[entry["sceneName"]] = entry
+
+    webgm = collect_webgm_evidence(profile_name, character_name=character_name, zone_id=zone_id, server_id=server_id)
 
     coverage: list[dict[str, Any]] = []
     for scene_name in required:
@@ -200,6 +262,20 @@ def map_regression(
             }
         )
 
+    current_role_snapshot = None
+    if webgm.get("success"):
+        role_data_payload = dict(webgm.get("roleData") or {})
+        unit_data = dict(role_data_payload.get("UnitData") or {})
+        live_scene_name = str(webgm.get("liveSceneName") or "")
+        current_role_snapshot = {
+            "sceneName": live_scene_name,
+            "mapId": unit_data.get("MapId"),
+            "x": unit_data.get("X"),
+            "y": unit_data.get("Y"),
+            "angle": unit_data.get("Angle"),
+            "matchingLogEvidence": latest_by_scene.get(live_scene_name),
+        }
+
     overall = "pass" if coverage and all(item["status"] == "pass" for item in coverage) else "fail"
     report = {
         "generatedAt": timestamp_iso(),
@@ -210,12 +286,15 @@ def map_regression(
         "overall": overall,
         "requiredScenes": required,
         "selectedLogs": [str(path) for path in selected_logs],
-        "sceneCount": len({entry["sceneName"] for entry in all_entries}),
+        "sceneCount": len({entry["sceneName"] for entry in minimap_entries}),
         "coverage": coverage,
-        "latestEntry": all_entries[-1] if all_entries else None,
+        "latestEntry": minimap_entries[-1] if minimap_entries else None,
+        "recentMovement": recent_movement(move_entries),
+        "currentRoleSnapshot": current_role_snapshot,
+        "webgm": webgm,
         "notes": [
-            "This report currently validates map/minimap runtime evidence from logcat SwitchMiniMap lines.",
-            "Scene names are normalized through sceneId and minimap aliases before coverage evaluation.",
+            "This report validates map/minimap runtime evidence from logcat SwitchMiniMap lines.",
+            "When characterName is provided, it also pulls read-only WebGM game_status, search, and role_data evidence.",
             "Big-map screenshots, NPC markers, and transport marker assertions are not yet automated in this control plane.",
         ],
     }

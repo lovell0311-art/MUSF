@@ -635,7 +635,10 @@ def rollback(profile_name: str, source: str, *, dry_run: bool = False, skip_devi
 
     device_sync_report = ""
     device_sync_error = ""
+    device_sync_status = "skipped" if skip_device_sync else "pending"
+    device_sync_attempted = False
     if not skip_device_sync:
+        device_sync_attempted = True
         try:
             device_sync_report = str(
                 sync_hotfix_to_devices(
@@ -645,8 +648,29 @@ def rollback(profile_name: str, source: str, *, dry_run: bool = False, skip_devi
                     dry_run=dry_run,
                 )
             )
+            device_sync_status = "dry-run" if dry_run else "success"
         except Exception as exc:
             device_sync_error = str(exc)
+            device_sync_status = "error"
+
+    notes = [
+        (
+            "Rollback planned the selected hotfix files for the live and mirror StreamingAssets targets without copying them."
+            if dry_run
+            else "Rollback restored the selected hotfix files into the live and mirror StreamingAssets targets."
+        ),
+        "APK reinstall is still manual; this command currently restores hotfix/runtime assets rather than reinstalling base.apk.",
+    ]
+    if skip_device_sync:
+        notes.append("Device hotfix rollback was skipped by request.")
+    elif device_sync_error:
+        notes.append("Device hotfix rollback failed after the live restore step; see errors for details.")
+    elif dry_run:
+        notes.append("Device hotfix rollback was planned only; no device writes were performed.")
+    else:
+        notes.append("Device hotfix rollback was attempted from the restored live target.")
+
+    status = "partial" if device_sync_error else "dry-run" if dry_run else "success"
 
     output = root / "reports" / "releases" / "rollback.json"
     write_json(
@@ -655,7 +679,7 @@ def rollback(profile_name: str, source: str, *, dry_run: bool = False, skip_devi
             "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
             "profile": profile_name,
             "source": source_metadata,
-            "status": "dry-run" if dry_run and not device_sync_error else "partial" if device_sync_error else "success",
+            "status": status,
             "dryRun": dry_run,
             "skipDeviceSync": skip_device_sync,
             "liveTargetDir": str(live_target_dir),
@@ -664,11 +688,14 @@ def rollback(profile_name: str, source: str, *, dry_run: bool = False, skip_devi
             "liveRestore": live_restore,
             "mirrorRestores": mirror_restores,
             "deviceSyncReport": device_sync_report,
-            "notes": [
-                "Rollback restored the selected hotfix files into the live and mirror StreamingAssets targets.",
-                "Device hotfix rollback was attempted from the restored live target.",
-                "APK reinstall is still manual; this command currently restores hotfix/runtime assets rather than reinstalling base.apk.",
-            ],
+            "deviceSync": {
+                "attempted": device_sync_attempted,
+                "skipped": skip_device_sync,
+                "status": device_sync_status,
+                "report": device_sync_report,
+                "error": device_sync_error,
+            },
+            "notes": notes,
             "errors": [device_sync_error] if device_sync_error else [],
         },
     )
