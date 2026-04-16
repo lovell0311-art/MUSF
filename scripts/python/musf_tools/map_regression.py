@@ -35,8 +35,12 @@ SCENE_NAME_BY_MINIMAP = {
     "GuZhanChang2": "\u53e4\u6218\u573a",
 }
 
-MOVE_TO_ASYNC_RE = re.compile(
-    r"MoveToAsync\s+(?P<phase>start|complete).*?(?:mapId|sceneId)[:=](?P<sceneId>-?\d+).*?(?:x|X)[:=](?P<x>-?\d+(?:\.\d+)?).*?(?:y|Y)[:=](?P<y>-?\d+(?:\.\d+)?)",
+MOVE_START_RE = re.compile(
+    r"MoveToAsync\s+start\s+from=(?P<fromX>-?\d+(?:\.\d+)?),(?P<fromY>-?\d+(?:\.\d+)?),(?P<fromZ>-?\d+(?:\.\d+)?)\s+to=(?P<toX>-?\d+(?:\.\d+)?),(?P<toY>-?\d+(?:\.\d+)?),(?P<toZ>-?\d+(?:\.\d+)?)",
+    re.IGNORECASE,
+)
+MOVE_END_RE = re.compile(
+    r"MoveToAsync\s+(?P<phase>complete|stop)\s+at=(?P<x>-?\d+(?:\.\d+)?),(?P<y>-?\d+(?:\.\d+)?),(?P<z>-?\d+(?:\.\d+)?)",
     re.IGNORECASE,
 )
 SWITCH_MINIMAP_RE = re.compile(
@@ -112,19 +116,69 @@ def parse_move_entries(log_path: Path) -> list[dict[str, Any]]:
         return []
 
     entries: list[dict[str, Any]] = []
-    for line_number, raw_line in enumerate(log_path.read_text(encoding="utf-8", errors="ignore").splitlines(), start=1):
-        match = MOVE_TO_ASYNC_RE.search(raw_line)
-        if not match:
+    run_dir = log_path.parent
+    screenshot_path = latest_screenshot_for_run(run_dir)
+    scene_markers = parse_switch_minimap_entries(log_path)
+    marker_index = 0
+    active_marker: dict[str, Any] | None = None
+    lines = log_path.read_text(encoding="utf-8", errors="ignore").splitlines()
+    for line_number, raw_line in enumerate(lines, start=1):
+        while marker_index < len(scene_markers) and int(scene_markers[marker_index]["lineNumber"]) <= line_number:
+            active_marker = scene_markers[marker_index]
+            marker_index += 1
+
+        start_match = MOVE_START_RE.search(raw_line)
+        if start_match:
+            entries.append(
+                {
+                    "phase": "start",
+                    "sceneId": active_marker["sceneId"] if active_marker else None,
+                    "sceneName": active_marker["sceneName"] if active_marker else "",
+                    "minimapName": active_marker["minimapName"] if active_marker else "",
+                    "from": {
+                        "x": float(start_match.group("fromX")),
+                        "y": float(start_match.group("fromY")),
+                        "z": float(start_match.group("fromZ")),
+                    },
+                    "to": {
+                        "x": float(start_match.group("toX")),
+                        "y": float(start_match.group("toY")),
+                        "z": float(start_match.group("toZ")),
+                    },
+                    "mapPosition": {
+                        "x": float(start_match.group("toX")),
+                        "y": float(start_match.group("toZ")),
+                    },
+                    "logPath": str(log_path),
+                    "runDir": str(run_dir),
+                    "screenshotPath": screenshot_path,
+                    "lineNumber": line_number,
+                    "rawLine": raw_line.strip(),
+                }
+            )
             continue
-        scene_id = int(match.group("sceneId"))
+
+        end_match = MOVE_END_RE.search(raw_line)
+        if not end_match:
+            continue
         entries.append(
             {
-                "phase": match.group("phase").lower(),
-                "sceneId": scene_id,
-                "sceneName": SCENE_NAME_BY_ID.get(scene_id, str(scene_id)),
-                "x": float(match.group("x")),
-                "y": float(match.group("y")),
+                "phase": end_match.group("phase").lower(),
+                "sceneId": active_marker["sceneId"] if active_marker else None,
+                "sceneName": active_marker["sceneName"] if active_marker else "",
+                "minimapName": active_marker["minimapName"] if active_marker else "",
+                "at": {
+                    "x": float(end_match.group("x")),
+                    "y": float(end_match.group("y")),
+                    "z": float(end_match.group("z")),
+                },
+                "mapPosition": {
+                    "x": float(end_match.group("x")),
+                    "y": float(end_match.group("z")),
+                },
                 "logPath": str(log_path),
+                "runDir": str(run_dir),
+                "screenshotPath": screenshot_path,
                 "lineNumber": line_number,
                 "rawLine": raw_line.strip(),
             }
@@ -215,6 +269,13 @@ def recent_movement(entries: list[dict[str, Any]], *, limit: int = 12) -> list[d
     return entries[-limit:]
 
 
+def log_sort_key(path: Path) -> tuple[float, str]:
+    try:
+        return (path.stat().st_mtime, str(path).lower())
+    except OSError:
+        return (0.0, str(path).lower())
+
+
 def map_regression(
     profile_name: str,
     *,
@@ -226,7 +287,7 @@ def map_regression(
     server_id: int = 1,
 ) -> Path:
     required = [str(scene) for scene in (required_scenes or DEFAULT_REQUIRED_SCENES)]
-    selected_logs = collect_log_paths(run_dirs=run_dirs, log_paths=log_paths)
+    selected_logs = sorted(collect_log_paths(run_dirs=run_dirs, log_paths=log_paths), key=log_sort_key)
 
     minimap_entries: list[dict[str, Any]] = []
     move_entries: list[dict[str, Any]] = []
