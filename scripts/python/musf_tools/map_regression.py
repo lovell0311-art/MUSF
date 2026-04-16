@@ -163,6 +163,9 @@ def map_regression(
     run_dirs: Iterable[str] | None = None,
     log_paths: Iterable[str] | None = None,
     required_scenes: Iterable[str] | None = None,
+    character_name: str = "",
+    zone_id: int = 1,
+    server_id: int = 1,
 ) -> Path:
     required = [str(scene) for scene in (required_scenes or DEFAULT_REQUIRED_SCENES)]
     selected_logs = collect_log_paths(run_dirs=run_dirs, log_paths=log_paths)
@@ -201,6 +204,9 @@ def map_regression(
     report = {
         "generatedAt": timestamp_iso(),
         "profile": profile_name,
+        "characterName": character_name,
+        "zoneId": zone_id,
+        "serverId": server_id,
         "overall": overall,
         "requiredScenes": required,
         "selectedLogs": [str(path) for path in selected_logs],

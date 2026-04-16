@@ -588,7 +588,7 @@ def rollback_file_names(source_dir: Path) -> list[str]:
     return sorted(path.name for path in source_dir.iterdir() if path.is_file())
 
 
-def rollback(profile_name: str, source: str) -> Path:
+def rollback(profile_name: str, source: str, *, dry_run: bool = False, skip_device_sync: bool = False) -> Path:
     root = musf_root()
     manifest = read_json(formal_guard_manifest_path())
     source_dir, source_metadata = resolve_rollback_source(source)
@@ -602,24 +602,51 @@ def rollback(profile_name: str, source: str) -> Path:
         raise RuntimeError(f"No rollback files found in source directory: {source_dir}")
 
     timestamp = time.strftime("%Y%m%d-%H%M%S")
-    live_restore = copy_named_files(source_dir, live_target_dir, file_names, timestamp=timestamp)
+    live_restore: list[dict[str, Any]] = []
     mirror_restores: list[dict[str, Any]] = []
-    for mirror_dir in mirror_dirs:
-        copied = copy_named_files(source_dir, mirror_dir, file_names, timestamp=timestamp)
-        mirror_restores.append({"targetDir": str(mirror_dir), "copied": copied})
+    if dry_run:
+        live_restore = [
+            {
+                "name": name,
+                "targetPath": str(live_target_dir / name),
+                "backupPath": str((live_target_dir / name).with_name(f"{name}.bak-{timestamp}")) if (live_target_dir / name).exists() else None,
+            }
+            for name in file_names
+        ]
+        for mirror_dir in mirror_dirs:
+            mirror_restores.append(
+                {
+                    "targetDir": str(mirror_dir),
+                    "copied": [
+                        {
+                            "name": name,
+                            "targetPath": str(mirror_dir / name),
+                            "backupPath": str((mirror_dir / name).with_name(f"{name}.bak-{timestamp}")) if (mirror_dir / name).exists() else None,
+                        }
+                        for name in file_names
+                    ],
+                }
+            )
+    else:
+        live_restore = copy_named_files(source_dir, live_target_dir, file_names, timestamp=timestamp)
+        for mirror_dir in mirror_dirs:
+            copied = copy_named_files(source_dir, mirror_dir, file_names, timestamp=timestamp)
+            mirror_restores.append({"targetDir": str(mirror_dir), "copied": copied})
 
     device_sync_report = ""
     device_sync_error = ""
-    try:
-        device_sync_report = str(
-            sync_hotfix_to_devices(
-                profile_name,
-                source_dir=str(live_target_dir),
-                files_to_sync=file_names,
+    if not skip_device_sync:
+        try:
+            device_sync_report = str(
+                sync_hotfix_to_devices(
+                    profile_name,
+                    source_dir=str(live_target_dir),
+                    files_to_sync=file_names,
+                    dry_run=dry_run,
+                )
             )
-        )
-    except Exception as exc:
-        device_sync_error = str(exc)
+        except Exception as exc:
+            device_sync_error = str(exc)
 
     output = root / "reports" / "releases" / "rollback.json"
     write_json(
@@ -628,7 +655,9 @@ def rollback(profile_name: str, source: str) -> Path:
             "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
             "profile": profile_name,
             "source": source_metadata,
-            "status": "success" if not device_sync_error else "partial",
+            "status": "dry-run" if dry_run and not device_sync_error else "partial" if device_sync_error else "success",
+            "dryRun": dry_run,
+            "skipDeviceSync": skip_device_sync,
             "liveTargetDir": str(live_target_dir),
             "fileCount": len(file_names),
             "files": file_names,

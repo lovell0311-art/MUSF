@@ -86,7 +86,16 @@ def main(argv: list[str] | None = None) -> int:
         print(run_gate(args.profile))
         return 0
     if args.command == "map-regression":
-        print(map_regression(args.profile, run_dirs=args.run_dir or None, log_paths=args.log_path or None))
+        print(
+            map_regression(
+                args.profile,
+                run_dirs=args.run_dir or None,
+                log_paths=args.log_path or None,
+                character_name=args.character_name or "",
+                zone_id=args.zone_id,
+                server_id=args.server_id,
+            )
+        )
         return 0
     if args.command == "rollback":
         print(rollback(args.profile, args.source, dry_run=args.dry_run, skip_device_sync=args.skip_device_sync))
